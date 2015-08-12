@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.function.BiFunction;
 import static java.lang.Integer.valueOf;
 
 @SuppressWarnings("unchecked")
@@ -24,6 +25,14 @@ public class Grid<T>
 		for (int x = 0; x < rows; x++)
 			Arrays.fill(this.grid[x], defaultValue);
 		this.defaultValue = defaultValue;
+	}
+	
+	public Grid(int rows, int cols, BiFunction<Integer, Integer, T> filler)
+	{
+		this(rows, cols);
+		for (int x = 0; x < rows; x++)
+			for (int y = 0; y < cols; y++)
+				this.grid[x][y] = filler.apply(x, y);
 	}
 	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
@@ -143,8 +152,19 @@ public class Grid<T>
 		return this.rows * this.cols;
 	}
 	
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		for (int x = 0; x < this.rows; x++)
+			sb.append(Arrays.toString(this.grid[x])).append('\n');
+		
+		return sb.toString();
+	}
+	
 	public static void main(String[] args)
 	{
-		Grid<Integer> g = new Grid<>(5, 6);
+		Grid<Integer> g = new Grid<>(5, 6, (Integer x, Integer y) -> x + y);
+		System.out.println(g.toString());
 	}
 }
