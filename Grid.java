@@ -31,7 +31,8 @@ public class Grid<T> implements Iterable<T>
 	{
 		this(rows, cols);
 		for (int x = 0; x < rows; x++)
-			Arrays.fill(this.grid[x], defaultValue);
+			for (int y = 0; y < cols; y++)
+				this.grid[x][y] = defaultValue);
 		this.defaultValue = defaultValue;
 	}
 	
@@ -44,11 +45,27 @@ public class Grid<T> implements Iterable<T>
 				this.grid[x][y] = filler.apply(x, y);
 	}
 	
-	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
-	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
-	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
-	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
-	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
+	public T get(int row, int col)
+	{
+		checkPos(row, col);
+		return this.grid[row][col];
+	}
+	
+	public void set(int row, int col, T value)
+	{
+		checkPos(row, col);
+		this.grid[row][col] = value;
+	}
+	
+	public int size()
+	{
+		return this.rows * this.cols;
+	}
+	
+	public boolean isEmpty()
+	{
+		return this.size() == 0;
+	}
 	
 	public void clear()
 	{
@@ -65,6 +82,54 @@ public class Grid<T> implements Iterable<T>
 				if (o == null ? this.grid[x][y] == null : o.equals(this.grid[x][y]))
 					return true;
 		return false;
+	}
+	
+	public boolean inRange(int row, int col)
+	{
+		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
+	}
+	
+	public boolean equals(Object o)
+	{
+		if (o == this) return true;
+		if (!(o instanceof Grid)) return false;
+		
+		Grid<?> g = (Grid<?>)o;
+		
+		if (this.rows != g.rows || this.cols != g.cols) return false;
+		
+		Iterator<T> thiserator = this.iterator();
+		Iterator<?> thaterator = g.iterator();
+		
+		while (thiserator.hasNext() && thaterator.hasNext())
+		{
+			T o1 = thiserator.next();
+			Object o2 = thaterator.next();
+			
+			if (!(o1 == null ? o2 == null : o1.equals(o2))) return false;
+		}
+		
+		return !(thiserator.hasNext() || thaterator.hasNext());
+	}
+	
+	public int hashCode()
+	{
+		int hash = 1;
+		
+		for (T thing : this)
+			hash = (31 * hash) + (thing == null ? 0 : thing.hashCode());
+		
+		return hash;
+	}
+	
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		
+		for (int x = 0; x < this.rows; x++)
+			sb.append(Arrays.toString(this.grid[x])).append('\n');
+		
+		return sb.toString();
 	}
 	
 	public void ensureCapacity(int rows, int cols)
@@ -91,29 +156,6 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
-	public boolean equals(Object o)
-	{
-		if (o == this) return true;
-		if (!(o instanceof Grid)) return false;
-		
-		Grid<?> g = (Grid<?>)o;
-		
-		if (this.rows != g.rows || this.cols != g.cols) return false;
-		
-		Iterator<T> thiserator = this.iterator();
-		Iterator<?> thaterator = g.iterator();
-		
-		while (thiserator.hasNext() && thaterator.hasNext())
-		{
-			T o1 = thiserator.next();
-			Object o2 = thaterator.next();
-			
-			if (!(o1 == null ? o2 == null : o1.equals(o2))) return false;
-		}
-		
-		return !(thiserator.hasNext() || thaterator.hasNext());
-	}
-	
 	@SuppressWarnings("unchecked")
 	public void forEach(Consumer<? super T> action)
 	{
@@ -129,32 +171,6 @@ public class Grid<T> implements Iterable<T>
 				action.accept(this.grid[x][y]);
 			}
 		}
-	}
-	
-	public T get(int row, int col)
-	{
-		checkPos(row, col);
-		return this.grid[row][col];
-	}
-	
-	public int hashCode()
-	{
-		int hash = 1;
-		
-		for (T thing : this)
-			hash = (31 * hash) + (thing == null ? 0 : thing.hashCode());
-		
-		return hash;
-	}
-	
-	public boolean inRange(int row, int col)
-	{
-		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
-	}
-	
-	public boolean isEmpty()
-	{
-		return this.size() == 0;
 	}
 	
 	public void removeCol(int col)
@@ -191,26 +207,11 @@ public class Grid<T> implements Iterable<T>
 		this.rows--;
 	}
 	
-	public void set(int row, int col, T value)
-	{
-		checkPos(row, col);
-		this.grid[row][col] = value;
-	}
-	
-	public int size()
-	{
-		return this.rows * this.cols;
-	}
-	
-	public String toString()
-	{
-		StringBuilder sb = new StringBuilder();
-		
-		for (int x = 0; x < this.rows; x++)
-			sb.append(Arrays.toString(this.grid[x])).append('\n');
-		
-		return sb.toString();
-	}
+	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
+	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
+	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
+	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
+	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
 	
 	public Iterator<T> iterator()
 	{
@@ -249,8 +250,7 @@ public class Grid<T> implements Iterable<T>
 		Grid<Number> g = new Grid(3, 6);
 		Grid<Integer> h = new Grid(6, 3);
 		g.set(1, 2, Integer.valueOf(5));
-		h.set(2, 1, Integer.valueOf(5));
-		System.out.println(g.hashCode());
-		System.out.println(h.hashCode());
+		h.set(2, 2, Integer.valueOf(5));
+		System.out.println(g.hashCode() == h.hashCode());
 	}
 }
