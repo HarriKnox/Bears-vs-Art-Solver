@@ -91,6 +91,29 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
+	public boolean equals(Object o)
+	{
+		if (o == this) return true;
+		if (!(o instanceof Grid)) return false;
+		
+		Grid<?> g = (Grid<?>)o;
+		
+		if (this.rows != g.rows || this.cols != g.cols) return false;
+		
+		Iterator<T> thiserator = this.iterator();
+		Iterator<?> thaterator = g.iterator();
+		
+		while (thiserator.hasNext() && thaterator.hasNext())
+		{
+			T o1 = thiserator.next();
+			Object o2 = thaterator.next();
+			
+			if (!(o1 == null ? o2 == null : o1.equals(o2))) return false;
+		}
+		
+		return !(thiserator.hasNext() || thaterator.hasNext());
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void forEach(Consumer<? super T> action)
 	{
@@ -98,7 +121,6 @@ public class Grid<T> implements Iterable<T>
 		final int expectedRows = this.rows;
 		final int expectedCols = this.cols;
 		
-		loop:
 		for (int x = 0; x < this.rows; x++)
 		{
 			for (int y = 0; y < this.cols; y++)
@@ -113,6 +135,16 @@ public class Grid<T> implements Iterable<T>
 	{
 		checkPos(row, col);
 		return this.grid[row][col];
+	}
+	
+	public int hashCode()
+	{
+		int hash = 1;
+		
+		for (T thing : this)
+			hash = (31 * hash) + (thing == null ? 0 : thing.hashCode());
+		
+		return hash;
 	}
 	
 	public boolean inRange(int row, int col)
@@ -215,8 +247,10 @@ public class Grid<T> implements Iterable<T>
 	public static void main(String[] args)
 	{
 		Grid<Number> g = new Grid(3, 6);
-		g.set(0, 0, Integer.valueOf(5));
-		g.set(2, 4, Double.valueOf(3.5));
-		System.out.println(g);
+		Grid<Integer> h = new Grid(6, 3);
+		g.set(1, 2, Integer.valueOf(5));
+		h.set(2, 1, Integer.valueOf(5));
+		System.out.println(g.hashCode());
+		System.out.println(h.hashCode());
 	}
 }
