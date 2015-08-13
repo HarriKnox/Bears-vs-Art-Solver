@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.BiFunction;
+import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 import static java.lang.Integer.valueOf;
 
@@ -46,6 +47,7 @@ public class Grid<T> implements Iterable<T>
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
 	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
 	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
+	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
 	
 	public void clear()
 	{
@@ -164,6 +166,9 @@ public class Grid<T> implements Iterable<T>
 		private int cursorRow = 0;
 		private int cursorCol = 0;
 		
+		private final int expectedRows = Grid.this.rows;
+		private final int expectedCols = Grid.this.cols;
+		
 		public boolean hasNext()
 		{
 			return this.cursorCol + ((this.cursorRow) * Grid.this.cols) < Grid.this.size();
@@ -171,6 +176,7 @@ public class Grid<T> implements Iterable<T>
 		
 		public T next()
 		{
+			Grid.this.checkConcurrentModification(this.expectedRows, this.expectedCols);
 			if (!this.hasNext()) throw new NoSuchElementException();
 			T element = (T)Grid.this.grid[this.cursorRow][this.cursorCol];
 			if (++this.cursorCol >= Grid.this.cols)
@@ -185,6 +191,7 @@ public class Grid<T> implements Iterable<T>
 	public static void main(String[] args)
 	{
 		Grid<Integer> g = new Grid<>(5, 6, Math::max);
-		System.out.println(g);
+		Iterator<Integer> griderator = g.iterator();
+		griderator.next();
 	}
 }
