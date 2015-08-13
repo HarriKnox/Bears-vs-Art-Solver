@@ -1,10 +1,12 @@
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.function.BiFunction;
+import java.util.NoSuchElementException;
 import static java.lang.Integer.valueOf;
 
 @SuppressWarnings("unchecked")
-public class Grid<T>
+public class Grid<T> implements Iterable<T>
 {
 	private Object[][] grid;
 	private int rows;
@@ -36,24 +38,9 @@ public class Grid<T>
 	}
 	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
-	
-	private void checkRow(int row)
-	{
-		if (row < 0 || row >= this.rows)
-			throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row);
-	}
-	
-	private void checkCol(int col)
-	{
-		if (col < 0 || col >= this.cols)
-			throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col);
-	}
-	
-	private void checkPos(int row, int col)
-	{
-		if (row < 0 || row >= this.rows || col < 0 || col >= this.cols)
-			throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col));
-	}
+	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
+	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
+	private void checkPos(int row, int col) { if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
 	
 	public void clear()
 	{
@@ -162,9 +149,40 @@ public class Grid<T>
 		return sb.toString();
 	}
 	
+	public Iterator<T> iterator()
+	{
+		return new Itr();
+	}
+	
+	private class Itr implements Iterator<T>
+	{
+		private int cursorRow = 0;
+		private int cursorCol = 0;
+		
+		public boolean hasNext()
+		{
+			return this.cursorCol + ((this.cursorRow) * Grid.this.cols) < Grid.this.size();
+		}
+		
+		public T next()
+		{
+			if (!this.hasNext()) throw new NoSuchElementException();
+			T element = (T)Grid.this.grid[this.cursorRow][this.cursorCol];
+			if (++this.cursorCol >= Grid.this.cols)
+			{
+				this.cursorCol = 0;
+				this.cursorRow++;
+			}
+			return element;
+		}
+	}
+	
 	public static void main(String[] args)
 	{
 		Grid<Integer> g = new Grid<>(5, 6, (Integer x, Integer y) -> x + y);
-		System.out.println(g.toString());
+		for (Integer i : g)
+		{
+			System.out.println(i);
+		}
 	}
 }
