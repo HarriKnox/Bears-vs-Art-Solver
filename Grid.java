@@ -37,10 +37,15 @@ public class Grid<T> implements Iterable<T>
 				this.grid[x][y] = filler.apply(x, y);
 	}
 	
+	public boolean inRange(int row, int col)
+	{
+		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
+	}
+	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
 	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
-	private void checkPos(int row, int col) { if (row < 0 || row >= this.rows || col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
+	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
 	
 	public void clear()
 	{
@@ -179,10 +184,7 @@ public class Grid<T> implements Iterable<T>
 	
 	public static void main(String[] args)
 	{
-		Grid<Integer> g = new Grid<>(5, 6, (Integer x, Integer y) -> x + y);
-		for (Integer i : g)
-		{
-			System.out.println(i);
-		}
+		Grid<Integer> g = new Grid<>(5, 6, Math::max);
+		System.out.println(g);
 	}
 }
