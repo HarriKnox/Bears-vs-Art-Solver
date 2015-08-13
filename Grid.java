@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Objects;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -10,18 +9,19 @@ import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
 import static java.lang.Integer.valueOf;
+import static java.util.Objects.requireNonNull;
 
 @SuppressWarnings("unchecked")
 public class Grid<T> implements Iterable<T>
 {
-	private Object[][] grid;
+	private T[][] grid;
 	private int rows;
 	private int cols;
 	private T defaultValue;
 	
 	public Grid(int rows, int cols)
 	{
-		this.grid = new Object[rows][cols];
+		this.grid = (T[][])(new Object[rows][cols]);
 		this.rows = rows;
 		this.cols = cols;
 		this.defaultValue = null;
@@ -38,7 +38,7 @@ public class Grid<T> implements Iterable<T>
 	public Grid(int rows, int cols, BiFunction<Integer, Integer, T> filler)
 	{
 		this(rows, cols);
-		Objects.requireNonNull(filler);
+		requireNonNull(filler);
 		for (int x = 0; x < rows; x++)
 			for (int y = 0; y < cols; y++)
 				this.grid[x][y] = filler.apply(x, y);
@@ -55,7 +55,7 @@ public class Grid<T> implements Iterable<T>
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
 				this.grid[x][y] = null;
-		this.grid = new Object[0][0];
+		this.grid = (T[][])(new Object[0][0]);
 	}
 	
 	public boolean contains(T o)
@@ -71,7 +71,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		if (rows > this.rows || cols > this.cols)
 		{
-			Object[][] replacement = new Object[Math.max(rows, this.rows)][Math.max(cols, this.cols)];
+			T[][] replacement = (T[][])(new Object[Math.max(rows, this.rows)][Math.max(cols, this.cols)]);
 			
 			for (int x = 0; x < this.rows; x++)
 				for (int y = 0; y < this.cols; y++)
@@ -91,10 +91,28 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
+	public void forEach(Consumer<? super T> action)
+	{
+		requireNonNull(action);
+		final int expectedRows = this.rows;
+		final int expectedCols = this.cols;
+		
+		loop:
+		for (int x = 0; x < this.rows; x++)
+		{
+			for (int y = 0; y < this.cols; y++)
+			{
+				this.checkConcurrentModification(expectedRows, expectedCols);
+				action.accept(this.grid[x][y]);
+			}
+		}
+	}
+	
 	public T get(int row, int col)
 	{
 		checkPos(row, col);
-		return (T)this.grid[row][col];
+		return this.grid[row][col];
 	}
 	
 	public boolean inRange(int row, int col)
@@ -111,7 +129,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		checkCol(col);
 		
-		Object[][] replacement = new Object[this.rows][this.cols - 1];
+		T[][] replacement = (T[][])(new Object[this.rows][this.cols - 1]);
 		
 		for (int x = 0; x < this.rows; x++)
 		{
@@ -130,7 +148,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		checkRow(row);
 		
-		Object[][] replacement = new Object[this.rows - 1][this.cols];
+		T[][] replacement = (T[][])(new Object[this.rows - 1][this.cols]);
 		for (int x = 0; x < row; x++)
 			replacement[x] = this.grid[x];
 		
@@ -184,7 +202,7 @@ public class Grid<T> implements Iterable<T>
 		{
 			Grid.this.checkConcurrentModification(this.expectedRows, this.expectedCols);
 			if (!this.hasNext()) throw new NoSuchElementException();
-			T element = (T)Grid.this.grid[this.cursorRow][this.cursorCol];
+			T element = Grid.this.grid[this.cursorRow][this.cursorCol];
 			if (++this.cursorCol >= Grid.this.cols)
 			{
 				this.cursorCol = 0;
@@ -196,6 +214,9 @@ public class Grid<T> implements Iterable<T>
 	
 	public static void main(String[] args)
 	{
-		Grid<Integer> g = new Grid<>(1, 1);
+		Grid<Number> g = new Grid(3, 6);
+		g.set(0, 0, Integer.valueOf(5));
+		g.set(2, 4, Double.valueOf(3.5));
+		System.out.println(g);
 	}
 }
