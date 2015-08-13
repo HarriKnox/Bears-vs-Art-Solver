@@ -1,9 +1,14 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
+
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
+
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
+
 import static java.lang.Integer.valueOf;
 
 @SuppressWarnings("unchecked")
@@ -33,14 +38,10 @@ public class Grid<T> implements Iterable<T>
 	public Grid(int rows, int cols, BiFunction<Integer, Integer, T> filler)
 	{
 		this(rows, cols);
+		Objects.requireNonNull(filler);
 		for (int x = 0; x < rows; x++)
 			for (int y = 0; y < cols; y++)
 				this.grid[x][y] = filler.apply(x, y);
-	}
-	
-	public boolean inRange(int row, int col)
-	{
-		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
 	}
 	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
@@ -94,6 +95,11 @@ public class Grid<T> implements Iterable<T>
 	{
 		checkPos(row, col);
 		return (T)this.grid[row][col];
+	}
+	
+	public boolean inRange(int row, int col)
+	{
+		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
 	}
 	
 	public boolean isEmpty()
@@ -190,8 +196,6 @@ public class Grid<T> implements Iterable<T>
 	
 	public static void main(String[] args)
 	{
-		Grid<Integer> g = new Grid<>(5, 6, Math::max);
-		Iterator<Integer> griderator = g.iterator();
-		griderator.next();
+		Grid<Integer> g = new Grid<>(1, 1);
 	}
 }
