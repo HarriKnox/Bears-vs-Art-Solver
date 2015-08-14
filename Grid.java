@@ -207,6 +207,38 @@ public class Grid<T> implements Iterable<T>
 		this.rows--;
 	}
 	
+	public void trim()
+	{
+		int lastRow = 0;
+		int lastCol = 0;
+		
+		for (int x = 0; x < this.rows; x++)
+		{
+			for (int y = 0; y < this.cols; y++)
+			{
+				if (this.grid[x][y] == null ? this.defaultValue == null : this.grid[x][y].equals(this.defaultValue))
+				{
+					if (x > lastRow) lastRow = x;
+					if (y > lastCol) lastCol = y;
+				}
+			}
+		}
+		
+		T[][] replacement = (T[][])new Object[lastRow][lastCol];
+		
+		for (int x = 0; x < lastRow; x++)
+		{
+			for (int y = 0; y < lastCol; y++)
+			{
+				replacement[x][y] = this.grid[x][y];
+			}
+		}
+		
+		this.grid = replacement;
+		this.rows = lastRow;
+		this.cols = lastCol;
+	}
+	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
 	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
