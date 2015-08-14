@@ -132,6 +132,11 @@ public class Grid<T> implements Iterable<T>
 		return sb.toString();
 	}
 	
+	public void changeDefault(T newDefault)
+	{
+		this.defaultValue = newDefault;
+	}
+	
 	public void ensureCapacity(int rows, int cols)
 	{
 		if (rows > this.rows || cols > this.cols)
