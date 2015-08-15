@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import static java.lang.Integer.valueOf;
 import static java.util.Objects.requireNonNull;
 
-@SuppressWarnings("unchecked")
 public class Grid<T> implements Iterable<T>
 {
 	private T[][] grid;
@@ -19,6 +18,7 @@ public class Grid<T> implements Iterable<T>
 	private int cols;
 	private T defaultValue;
 	
+	@SuppressWarnings("unchecked")
 	public Grid(int rows, int cols)
 	{
 		this.grid = (T[][])(new Object[rows][cols]);
@@ -32,7 +32,7 @@ public class Grid<T> implements Iterable<T>
 		this(rows, cols);
 		for (int x = 0; x < rows; x++)
 			for (int y = 0; y < cols; y++)
-				this.grid[x][y] = defaultValue);
+				this.grid[x][y] = defaultValue;
 		this.defaultValue = defaultValue;
 	}
 	
@@ -67,6 +67,7 @@ public class Grid<T> implements Iterable<T>
 		return this.size() == 0;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void clear()
 	{
 		for (int x = 0; x < this.rows; x++)
@@ -137,6 +138,7 @@ public class Grid<T> implements Iterable<T>
 		this.defaultValue = newDefault;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void ensureCapacity(int rows, int cols)
 	{
 		if (rows > this.rows || cols > this.cols)
@@ -161,7 +163,6 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void forEach(Consumer<? super T> action)
 	{
 		requireNonNull(action);
@@ -178,6 +179,7 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void removeCol(int col)
 	{
 		checkCol(col);
@@ -197,6 +199,7 @@ public class Grid<T> implements Iterable<T>
 		this.cols--;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void removeRow(int row)
 	{
 		checkRow(row);
@@ -212,6 +215,7 @@ public class Grid<T> implements Iterable<T>
 		this.rows--;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void trim()
 	{
 		int lastRow = 0;
@@ -284,8 +288,8 @@ public class Grid<T> implements Iterable<T>
 	
 	public static void main(String[] args)
 	{
-		Grid<Number> g = new Grid(3, 6);
-		Grid<Integer> h = new Grid(6, 3);
+		Grid<Number> g = new Grid<>(3, 6);
+		Grid<Integer> h = new Grid<>(6, 3);
 		g.set(1, 2, Integer.valueOf(5));
 		h.set(2, 2, Integer.valueOf(5));
 		System.out.println(g.hashCode() == h.hashCode());
