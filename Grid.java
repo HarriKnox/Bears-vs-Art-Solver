@@ -1,6 +1,6 @@
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -8,8 +8,11 @@ import java.util.function.Consumer;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
 
-import static java.lang.Integer.valueOf;
 import static java.util.Objects.requireNonNull;
+
+
+import java.util.ArrayList;
+import static java.lang.Integer.valueOf;
 
 public class Grid<T> implements Iterable<T>
 {
@@ -97,7 +100,9 @@ public class Grid<T> implements Iterable<T>
 		
 		Grid<?> g = (Grid<?>)o;
 		
-		if (this.rows != g.rows || this.cols != g.cols) return false;
+		return Arrays.deepEquals(this.grid, g.grid);
+		
+		/*if (this.rows != g.rows || this.cols != g.cols) return false;
 		
 		Iterator<T> thiserator = this.iterator();
 		Iterator<?> thaterator = g.iterator();
@@ -110,7 +115,7 @@ public class Grid<T> implements Iterable<T>
 			if (!(o1 == null ? o2 == null : o1.equals(o2))) return false;
 		}
 		
-		return !(thiserator.hasNext() || thaterator.hasNext());
+		return !(thiserator.hasNext() || thaterator.hasNext());*/
 	}
 	
 	public int hashCode()
@@ -118,7 +123,7 @@ public class Grid<T> implements Iterable<T>
 		int hash = 1;
 		
 		for (T thing : this)
-			hash = (31 * hash) + (thing == null ? 0 : thing.hashCode());
+			hash = (15 * hash) + Objects.hashCode(thing);
 		
 		return hash;
 	}
@@ -290,8 +295,11 @@ public class Grid<T> implements Iterable<T>
 	{
 		Grid<Number> g = new Grid<>(3, 6);
 		Grid<Integer> h = new Grid<>(6, 3);
-		g.set(1, 2, Integer.valueOf(5));
-		h.set(2, 2, Integer.valueOf(5));
-		System.out.println(g.hashCode() == h.hashCode());
+		g.set(1, 2, valueOf(5));
+		h.set(2, 2, valueOf(5));
+		System.out.println(g.equals(h));
+		Grid<Integer> i = new Grid<>(6, 3);
+		i.set(2, 2, valueOf(5));
+		System.out.println(h.equals(i));
 	}
 }
