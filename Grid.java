@@ -83,7 +83,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
-				if (o == null ? this.grid[x][y] == null : o.equals(this.grid[x][y]))
+				if Objects.equals(o, this.grid[x][y])
 					return true;
 		return false;
 	}
@@ -101,21 +101,6 @@ public class Grid<T> implements Iterable<T>
 		Grid<?> g = (Grid<?>)o;
 		
 		return Arrays.deepEquals(this.grid, g.grid);
-		
-		/*if (this.rows != g.rows || this.cols != g.cols) return false;
-		
-		Iterator<T> thiserator = this.iterator();
-		Iterator<?> thaterator = g.iterator();
-		
-		while (thiserator.hasNext() && thaterator.hasNext())
-		{
-			T o1 = thiserator.next();
-			Object o2 = thaterator.next();
-			
-			if (!(o1 == null ? o2 == null : o1.equals(o2))) return false;
-		}
-		
-		return !(thiserator.hasNext() || thaterator.hasNext());*/
 	}
 	
 	public int hashCode()
