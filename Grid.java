@@ -98,9 +98,7 @@ public class Grid<T> implements Iterable<T>
 		if (o == this) return true;
 		if (!(o instanceof Grid)) return false;
 		
-		Grid<?> g = (Grid<?>)o;
-		
-		return Arrays.deepEquals(this.grid, g.grid);
+		return Arrays.deepEquals(this.grid, ((Grid<?>)o).grid);
 	}
 	
 	public int hashCode()
