@@ -83,7 +83,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
-				if Objects.equals(o, this.grid[x][y])
+				if (Objects.equals(o, this.grid[x][y]))
 					return true;
 		return false;
 	}
