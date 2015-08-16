@@ -213,13 +213,16 @@ public class Grid<T> implements Iterable<T>
 		{
 			for (int y = 0; y < this.cols; y++)
 			{
-				if (this.grid[x][y] == null ? this.defaultValue == null : this.grid[x][y].equals(this.defaultValue))
+				if (!Objects.equals(this.grid[x][y], this.defaultValue))
 				{
 					if (x > lastRow) lastRow = x;
 					if (y > lastCol) lastCol = y;
 				}
 			}
 		}
+		
+		lastRow++;
+		lastCol++;
 		
 		T[][] replacement = (T[][])new Object[lastRow][lastCol];
 		
@@ -276,13 +279,17 @@ public class Grid<T> implements Iterable<T>
 	
 	public static void main(String[] args)
 	{
-		Grid<Number> g = new Grid<>(3, 6);
-		Grid<Integer> h = new Grid<>(6, 3);
-		g.set(1, 2, valueOf(5));
-		h.set(2, 2, valueOf(5));
-		System.out.println(g.equals(h));
-		Grid<Integer> i = new Grid<>(6, 3);
-		i.set(2, 2, valueOf(5));
-		System.out.println(h.equals(i));
-	}
+		Integer[] ints = {valueOf(0), valueOf(1), valueOf(2), valueOf(3), valueOf(4), valueOf(5), valueOf(6)};
+		int index = 6;
+		int size = ints.length;
+		int numMoved = size - index - 1;
+		
+		Integer[] otherInts = new Integer[size - 1];
+		System.arraycopy(ints, 0, otherInts, 0, index);
+		System.arraycopy(ints, index + 1, otherInts, index, numMoved);
+		
+		Grid<Integer> g = new Grid<>(3, 4, valueOf(6));
+		g.set(2, 1, valueOf(2));
+		System.out.println(g);
+	} 
 }
