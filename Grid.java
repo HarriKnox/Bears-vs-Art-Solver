@@ -200,22 +200,24 @@ public class Grid<T> implements Iterable<T>
 			}
 		}
 		
-		lastRow++;
-		lastCol++;
-		
-		T[][] replacement = (T[][])new Object[lastRow][lastCol];
-		
-		for (int x = 0; x < lastRow; x++)
+		this.trim(lastRow + 1, lastCol + 1);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void trim(int rows, int cols)
+	{
+		if (rows < 0 || rows > this.rows || cols < 0 || cols > this.cols) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(rows, cols));
+		if (rows != this.rows || cols != this.cols)
 		{
-			for (int y = 0; y < lastCol; y++)
-			{
-				replacement[x][y] = this.grid[x][y];
-			}
+			T[][] replacement = (T[][])new Object[rows][cols];
+			
+			for (int x = 0; x < rows; x++)
+				System.arraycopy(this.grid[x], 0, replacement[x], 0, cols);
+			
+			this.grid = replacement;
+			this.rows = rows;
+			this.cols = cols;
 		}
-		
-		this.grid = replacement;
-		this.rows = lastRow;
-		this.cols = lastCol;
 	}
 	
 	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
@@ -267,9 +269,9 @@ public class Grid<T> implements Iterable<T>
 		System.arraycopy(ints, 0, otherInts, 0, index);
 		System.arraycopy(ints, index + 1, otherInts, index, numMoved);
 		
-		Grid<Integer> g = new Grid<>(3, 4, (Integer x, Integer y) -> x + y);
+		Grid<Integer> g = new Grid<>(3, 4);
 		g.set(2, 1, valueOf(2));
-		g.removeCol(2);
+		g.trim(3, 5);
 		System.out.println(g);
 	} 
 }
