@@ -34,8 +34,7 @@ public class Grid<T> implements Iterable<T>
 	{
 		this(rows, cols);
 		for (int x = 0; x < rows; x++)
-			for (int y = 0; y < cols; y++)
-				this.grid[x][y] = defaultValue;
+			Arrays.fill(this.grid[x], defaultValue);
 		this.defaultValue = defaultValue;
 	}
 	
@@ -74,8 +73,7 @@ public class Grid<T> implements Iterable<T>
 	public void clear()
 	{
 		for (int x = 0; x < this.rows; x++)
-			for (int y = 0; y < this.cols; y++)
-				this.grid[x][y] = null;
+			Arrays.fill(this.grid[x], null);
 		this.grid = (T[][])(new Object[0][0]);
 	}
 	
@@ -103,22 +101,12 @@ public class Grid<T> implements Iterable<T>
 	
 	public int hashCode()
 	{
-		int hash = 1;
-		
-		for (T thing : this)
-			hash = (15 * hash) + Objects.hashCode(thing);
-		
-		return hash;
+		return Arrays.deepHashCode(this.grid);
 	}
 	
 	public String toString()
 	{
-		StringBuilder sb = new StringBuilder();
-		
-		for (int x = 0; x < this.rows; x++)
-			sb.append(Arrays.toString(this.grid[x])).append('\n');
-		
-		return sb.toString();
+		return Arrays.deepToString(this.grid).replace("], [", "]\n [");
 	}
 	
 	public void changeDefault(T newDefault)
@@ -131,19 +119,16 @@ public class Grid<T> implements Iterable<T>
 	{
 		if (rows > this.rows || cols > this.cols)
 		{
-			T[][] replacement = (T[][])(new Object[Math.max(rows, this.rows)][Math.max(cols, this.cols)]);
+			rows = Math.max(rows, this.rows);
+			cols = Math.max(cols, this.cols);
+			T[][] replacement = (T[][])(new Object[rows][cols]);
+			
+			for (int x = 0; x < rows; x++)
+				Arrays.fill(replacement[x], this.defaultValue);
 			
 			for (int x = 0; x < this.rows; x++)
 				for (int y = 0; y < this.cols; y++)
 					replacement[x][y] = this.grid[x][y];
-			
-			for (int x = this.rows; x < rows; x++)
-				for (int y = 0; y < this.cols; y++)
-					replacement[x][y] = this.defaultValue;
-			
-			for (int x = 0; x < rows; x++)
-				for (int y = this.cols; y < cols; y++)
-					replacement[x][y] = this.defaultValue;
 			
 			this.grid = replacement;
 			this.rows = rows;
@@ -290,6 +275,7 @@ public class Grid<T> implements Iterable<T>
 		
 		Grid<Integer> g = new Grid<>(3, 4, valueOf(6));
 		g.set(2, 1, valueOf(2));
+		g.trim();
 		System.out.println(g);
 	} 
 }
