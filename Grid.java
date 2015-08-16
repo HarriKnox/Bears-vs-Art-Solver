@@ -127,8 +127,7 @@ public class Grid<T> implements Iterable<T>
 				Arrays.fill(replacement[x], this.defaultValue);
 			
 			for (int x = 0; x < this.rows; x++)
-				for (int y = 0; y < this.cols; y++)
-					replacement[x][y] = this.grid[x][y];
+				System.arraycopy(this.grid[x], 0, replacement[x], 0, this.cols);
 			
 			this.grid = replacement;
 			this.rows = rows;
@@ -161,11 +160,8 @@ public class Grid<T> implements Iterable<T>
 		
 		for (int x = 0; x < this.rows; x++)
 		{
-			for (int y = 0; y < col; y++)
-				replacement[x][y] = this.grid[x][y];
-			
-			for (int y = col + 1; y < this.cols; y++)
-				replacement[x][y - 1] = this.grid[x][y];
+			System.arraycopy(this.grid[x], 0, replacement[x], 0, col);
+			System.arraycopy(this.grid[x], col + 1, replacement[x], col, this.cols - col - 1);
 		}
 		
 		this.grid = replacement;
@@ -178,11 +174,9 @@ public class Grid<T> implements Iterable<T>
 		checkRow(row);
 		
 		T[][] replacement = (T[][])(new Object[this.rows - 1][this.cols]);
-		for (int x = 0; x < row; x++)
-			replacement[x] = this.grid[x];
 		
-		for (int x = row + 1; x < this.rows; x++)
-			replacement[x - 1] = this.grid[x];
+		System.arraycopy(this.grid, 0, replacement, 0, row);
+		System.arraycopy(this.grid, row + 1, replacement, row, this.rows - row - 1);
 		
 		this.grid = replacement;
 		this.rows--;
@@ -273,9 +267,9 @@ public class Grid<T> implements Iterable<T>
 		System.arraycopy(ints, 0, otherInts, 0, index);
 		System.arraycopy(ints, index + 1, otherInts, index, numMoved);
 		
-		Grid<Integer> g = new Grid<>(3, 4, valueOf(6));
+		Grid<Integer> g = new Grid<>(3, 4, (Integer x, Integer y) -> x + y);
 		g.set(2, 1, valueOf(2));
-		g.trim();
+		g.removeCol(2);
 		System.out.println(g);
 	} 
 }
