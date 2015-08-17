@@ -78,13 +78,18 @@ public class Grid<T> implements Iterable<T>
 		this.grid = (T[][])(new Object[0][0]);
 	}
 	
-	public boolean contains(T o)
+	public Pos positionOf(T o);
 	{
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
 				if (Objects.equals(o, this.grid[x][y]))
-					return true;
-		return false;
+					return new Pos(x, y);
+		return null;
+	}
+	
+	public boolean contains(T o)
+	{
+		return this.positionOf(o) != null;
 	}
 	
 	public boolean inRange(int row, int col)
