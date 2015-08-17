@@ -151,6 +151,22 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
+	public void forEachPosition(BiConsumer<Integer, Integer> action)
+	{
+		requireNonNull(action);
+		final int expectedRows = this.rows;
+		final int expectedCols = this.cols;
+		
+		for (int x = 0; x < this.rows; x++)
+		{
+			for (int y = 0; y < this.cols; y++)
+			{
+				this.checkConcurrentModification(expectedRows, expectedCols);
+				action.accept(x, y);
+			}
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void removeCol(int col)
 	{
@@ -258,20 +274,10 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
-		Integer[] ints = {valueOf(0), valueOf(1), valueOf(2), valueOf(3), valueOf(4), valueOf(5), valueOf(6)};
-		int index = 6;
-		int size = ints.length;
-		int numMoved = size - index - 1;
-		
-		Integer[] otherInts = new Integer[size - 1];
-		System.arraycopy(ints, 0, otherInts, 0, index);
-		System.arraycopy(ints, index + 1, otherInts, index, numMoved);
-		
-		Grid<Integer> g = new Grid<>(3, 4);
-		g.set(2, 1, valueOf(2));
-		g.trim(3, 5);
-		System.out.println(g);
+		Grid<Integer> g = new Grid<Integer>(3, 4);
+		g = null;
 	} 
 }
