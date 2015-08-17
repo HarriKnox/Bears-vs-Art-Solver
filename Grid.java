@@ -65,6 +65,16 @@ public class Grid<T> implements Iterable<T>
 		return this.rows * this.cols;
 	}
 	
+	public int rows()
+	{
+		return this.rows;
+	}
+	
+	public int cols()
+	{
+		return this.cols;
+	}
+	
 	public boolean isEmpty()
 	{
 		return this.size() == 0;
@@ -78,7 +88,7 @@ public class Grid<T> implements Iterable<T>
 		this.grid = (T[][])(new Object[0][0]);
 	}
 	
-	public Pos positionOf(T o);
+	public Pos positionOf(T o)
 	{
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
