@@ -12,7 +12,8 @@ public abstract class GridSpace
 	
 	public void interact() {;}
 	public void endOfMove() {;}
-	public boolean isSolid() { return false; };
+	public boolean isSolid() { return false; }
+	public abstract GridSpace copy();
 	
 	public boolean hasLaser() { return this.laser; }
 	public void setLaser(boolean status) { this.laser = status; }
@@ -20,12 +21,15 @@ public abstract class GridSpace
 	public static final class Space extends GridSpace
 	{
 		public Space(int row, int col) { super(row, col); }
+		public GridSpace copy() { return new Space(this.row, this.col); }
 	}
 	
 	public static final class Wall extends GridSpace
 	{
 		public Wall(int row, int col) { super(row, col); }
 		
-		@Override public boolean isSolid() { return true; }
+		public boolean isSolid() { return true; }
+		public void setLaser(boolean status) {;}
+		public GridSpace copy() { return this; }
 	}
 }
