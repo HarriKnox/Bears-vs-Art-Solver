@@ -8,6 +8,4 @@ public class Rory
 		this.row = row;
 		this.col = col;
 	}
-	
-	
 }
