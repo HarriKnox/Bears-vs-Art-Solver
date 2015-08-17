@@ -243,6 +243,22 @@ public class Grid<T> implements Iterable<T>
 	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
 	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
 	
+	private static class Pos
+	{
+		public final int row;
+		public final int col;
+		
+		public Pos(int row, int col)
+		{
+			this.row = row;
+			this.col = col;
+		}
+		
+		public String toString() { return "(" + this.row + "," + this.col + ")"; }
+		public boolean equals(Object o) { return o instanceof Pos && (this == o || ((Pos)o.row == this.row && (Pos)o.col == this.col)); }
+		public int hashCode() { return this.row * 31 + this.col; }
+	}
+	
 	public Iterator<T> iterator()
 	{
 		return new Itr();
