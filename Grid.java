@@ -223,7 +223,7 @@ public class Grid<T> implements Iterable<T>
 	@SuppressWarnings("unchecked")
 	public void trim(int rows, int cols)
 	{
-		if (rows < 0 || rows > this.rows || cols < 0 || cols > this.cols) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(rows, cols));
+		if (rows < 0 || rows > this.rows || cols < 0 || cols > this.cols) throw new IndexOutOfBoundsException("Dimensions: " + Pos.pair(this.rows, this.cols) + ", Given: " + Pos.pair(rows, cols));
 		if (rows != this.rows || cols != this.cols)
 		{
 			T[][] replacement = (T[][])new Object[rows][cols];
@@ -237,10 +237,9 @@ public class Grid<T> implements Iterable<T>
 		}
 	}
 	
-	private static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
 	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
-	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + pair(this.rows, this.cols) + ", Given: " + pair(row, col)); }
+	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + Pos.pair(this.rows, this.cols) + ", Given: " + Pos.pair(row, col)); }
 	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
 	
 	private static class Pos
@@ -254,8 +253,9 @@ public class Grid<T> implements Iterable<T>
 			this.col = col;
 		}
 		
-		public String toString() { return "(" + this.row + "," + this.col + ")"; }
-		public boolean equals(Object o) { return o instanceof Pos && (this == o || ((Pos)o.row == this.row && (Pos)o.col == this.col)); }
+		public static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
+		public String toString() { return pair(this.row, this.col); }
+		public boolean equals(Object o) { return o instanceof Pos && (this == o || (((Pos)o).row == this.row && ((Pos)o).col == this.col)); }
 		public int hashCode() { return this.row * 31 + this.col; }
 	}
 	
@@ -294,7 +294,6 @@ public class Grid<T> implements Iterable<T>
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args)
 	{
-		Grid<Integer> g = new Grid<Integer>(3, 4);
-		g = null;
+		
 	} 
 }
