@@ -10,6 +10,8 @@ public final class Directions
 	public static final int DOWN_LEFT  = DOWN + LEFT;
 	public static final int DOWN_RIGHT = DOWN + RIGHT;
 	
+	public static final int[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
+	
 	private static final int VERT  = 0b1100;
 	private static final int HORIZ = 0b0011;
 	private static final int DIAG  = 0b0101;
@@ -20,4 +22,7 @@ public final class Directions
 	
 	public static int verticalChange(int dir) { return ((dir & VERT) >> 2) - 2; }
 	public static int horizontalChange(int dir) { return (dir & HORIZ) - 2; }
+	
+	public static int verticalComponent(int dir) { return dir & VERT; }
+	public static int horizontalComponent(int dir) { return dir & HORIZ; }
 }
