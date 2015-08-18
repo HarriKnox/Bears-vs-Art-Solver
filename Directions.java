@@ -15,14 +15,14 @@ public final class Directions
 	
 	static
 	{
-		NAMES[NONE] = "NONE";
-		NAMES[UP] = "UP";
-		NAMES[DOWN] = "DOWN";
-		NAMES[LEFT] = "LEFT";
-		NAMES[RIGHT] = "RIGHT";
-		NAMES[UP_LEFT] = "UP_LEFT";
-		NAMES[UP_RIGHT] = "UP_RIGHT";
-		NAMES[DOWN_LEFT] = "DOWN_LEFT";
+		NAMES[NONE]       = "NONE";
+		NAMES[UP]         = "UP";
+		NAMES[DOWN]       = "DOWN";
+		NAMES[LEFT]       = "LEFT";
+		NAMES[RIGHT]      = "RIGHT";
+		NAMES[UP_LEFT]    = "UP_LEFT";
+		NAMES[UP_RIGHT]   = "UP_RIGHT";
+		NAMES[DOWN_LEFT]  = "DOWN_LEFT";
 		NAMES[DOWN_RIGHT] = "DOWN_RIGHT";
 	}
 	
@@ -30,13 +30,13 @@ public final class Directions
 	private static final int HORIZ = 0b0011;
 	private static final int DIAG  = 0b0101;
 	
-	public static boolean isVertical(int dir) { return (dir & VERT) != 0; }
+	public static boolean isVertical  (int dir) { return (dir & VERT)  != 0; }
 	public static boolean isHorizontal(int dir) { return (dir & HORIZ) != 0; }
-	public static boolean isDiagonal(int dir) { return (dir & DIAG) == DIAG; }
+	public static boolean isDiagonal  (int dir) { return (dir & DIAG)  != 0; }
 	
-	public static int verticalChange(int dir) { return ((dir & VERT) >> 2) - 2; }
+	public static int verticalChange  (int dir) { return ((dir & VERT) >> 2) - 2; }
 	public static int horizontalChange(int dir) { return (dir & HORIZ) - 2; }
 	
-	public static int verticalComponent(int dir) { return (dir & VERT) | 0b0010; }
+	public static int verticalComponent  (int dir) { return (dir & VERT) | 0b0010; }
 	public static int horizontalComponent(int dir) { return (dir & HORIZ) | 0b1000; }
 }
