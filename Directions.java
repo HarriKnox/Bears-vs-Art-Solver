@@ -11,6 +11,20 @@ public final class Directions
 	public static final int DOWN_RIGHT = 0b1111;
 	
 	public static final int[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
+	public static final String[] NAMES = new String[16];
+	
+	static
+	{
+		NAMES[NONE] = "NONE";
+		NAMES[UP] = "UP";
+		NAMES[DOWN] = "DOWN";
+		NAMES[LEFT] = "LEFT";
+		NAMES[RIGHT] = "RIGHT";
+		NAMES[UP_LEFT] = "UP_LEFT";
+		NAMES[UP_RIGHT] = "UP_RIGHT";
+		NAMES[DOWN_LEFT] = "DOWN_LEFT";
+		NAMES[DOWN_RIGHT] = "DOWN_RIGHT";
+	}
 	
 	private static final int VERT  = 0b1100;
 	private static final int HORIZ = 0b0011;
