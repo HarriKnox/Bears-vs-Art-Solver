@@ -20,12 +20,17 @@ public class GameState
 	
 	private boolean canGo(int dir)
 	{
-		if (Directions.isVertical(dir) && !this.checkDir(Directions.verticalComponent(dir)))
-			return false;
-		if (Directions.isHorizontal(dir) && !this.checkDir(Directions.horizontalComponent(dir)))
-			return false;
-		if (Directions.isDiagonal(dir) && !this.checkDir(dir))
-			return false;
+		if (Directions.isVertical(dir))
+		{
+			boolean vert = this.checkDir(Directions.verticalComponent(dir));
+			if (Directions.isHorizontal(dir)) return vert && this.checkDir(Directions.horizontalComponent(dir)) && this.checkDir(dir);
+			return vert;
+		}
+		else if (Directions.isHorizontal(dir))
+		{
+			return this.checkDir(Directions.horizontalComponent(dir));
+		}
+		return false;
 	}
 	
 	private boolean checkDir(int dir)
