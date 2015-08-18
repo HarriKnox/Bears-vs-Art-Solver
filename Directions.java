@@ -12,7 +12,6 @@ public final class Directions
 	
 	public static final int[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
 	public static final String[] NAMES = new String[16];
-	
 	static
 	{
 		NAMES[NONE]       = "NONE";
