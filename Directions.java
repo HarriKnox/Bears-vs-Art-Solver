@@ -1,14 +1,14 @@
 public final class Directions
 {
-	public static final int NONE       = 0b0000;
-	public static final int UP         = 0b0100;
-	public static final int DOWN       = 0b1100;
-	public static final int LEFT       = 0b0001;
-	public static final int RIGHT      = 0b0011;
-	public static final int UP_LEFT    = UP + LEFT;
-	public static final int UP_RIGHT   = UP + RIGHT;
-	public static final int DOWN_LEFT  = DOWN + LEFT;
-	public static final int DOWN_RIGHT = DOWN + RIGHT;
+	public static final int NONE       = 0b1010;
+	public static final int UP         = 0b0110;
+	public static final int DOWN       = 0b1110;
+	public static final int LEFT       = 0b1001;
+	public static final int RIGHT      = 0b1011;
+	public static final int UP_LEFT    = 0b0101;
+	public static final int UP_RIGHT   = 0b0111;
+	public static final int DOWN_LEFT  = 0b1101;
+	public static final int DOWN_RIGHT = 0b1111;
 	
 	public static final int[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
 	
@@ -23,6 +23,6 @@ public final class Directions
 	public static int verticalChange(int dir) { return ((dir & VERT) >> 2) - 2; }
 	public static int horizontalChange(int dir) { return (dir & HORIZ) - 2; }
 	
-	public static int verticalComponent(int dir) { return dir & VERT; }
-	public static int horizontalComponent(int dir) { return dir & HORIZ; }
+	public static int verticalComponent(int dir) { return (dir & VERT) | 0b0010; }
+	public static int horizontalComponent(int dir) { return (dir & HORIZ) | 0b1000; }
 }
