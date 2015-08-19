@@ -71,22 +71,36 @@ public class GameState
 	public static void main(String[] args)
 	{
 		GameState gs = new GameState();
-		gs.roryRow = 2;
-		gs.roryCol = 8;
-		gs.gameBoard = new Grid<GridSpace>(5, 10, (Integer x, Integer y) -> new GridSpace.Space(x, y));
-		for (int x = 0; x < 5; x++)
+		gs.roryRow = 1;
+		gs.roryCol = 1;
 		{
-			gs.gameBoard.set(x, 0, new GridSpace.Wall(x, 0));
-			gs.gameBoard.set(x, 9, new GridSpace.Wall(x, 9));
+			String[] board = {
+				"WWWWWW",
+				"WWR WW",
+				"WW  WW",
+				"W    W",
+				"W    W",
+				"W    W",
+				"WW  WW",
+				"WWWWWW"
+			};
+			gs.gameBoard = new Grid<GridSpace>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? new GridSpace.Wall() : new GridSpace.Space());
+			
+			spawn:
+			for (int x = 0; x < board.length; x++)
+			{
+				for (int y = 0; y < board[0].length(); y++)
+				{
+					if (board[x].charAt(y) == 'R')
+					{
+						gs.roryRow = x;
+						gs.roryCol = y;
+						break spawn;
+					}
+				}
+			}
 		}
-		for (int y = 1; y < 9; y++)
-		{
-			gs.gameBoard.set(0, y, new GridSpace.Wall(0, y));
-			gs.gameBoard.set(4, y, new GridSpace.Wall(4, y));
-		}
-		gs.moveRory(Directions.UP_LEFT);
-		gs.moveRory(Directions.DOWN_LEFT);
-		gs.moveRory(Directions.UP);
+		gs.moveRory(Directions.LEFT);
 		System.out.println(gs.getBoard());
 		System.out.println(dirsToString(gs.getPossibleDirections()));
 	}

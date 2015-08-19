@@ -1,14 +1,6 @@
 public abstract class GridSpace
 {
-	public final int row;
-	public final int col;
 	protected boolean laser = false;
-	
-	public GridSpace(int row, int col)
-	{
-		this.row = row;
-		this.col = col;
-	}
 	
 	public void interact() {;}
 	public void endOfMove() {;}
@@ -24,15 +16,12 @@ public abstract class GridSpace
 	
 	public static final class Space extends GridSpace
 	{
-		public Space(int row, int col) { super(row, col); }
 		public GridSpace copy() { return new Space(this.row, this.col); }
 		public String toString() { return " "; }
 	}
 	
 	public static final class Wall extends GridSpace
 	{
-		public Wall(int row, int col) { super(row, col); }
-		
 		public boolean isSolid() { return true; }
 		public boolean setLaser(boolean status) { return false; }
 		public GridSpace copy() { return this; }
