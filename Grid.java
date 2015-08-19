@@ -305,10 +305,4 @@ public class Grid<T> implements Iterable<T>
 			return element;
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static void main(String[] args)
-	{
-		
-	} 
 }
