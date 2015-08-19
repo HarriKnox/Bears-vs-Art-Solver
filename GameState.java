@@ -5,9 +5,34 @@ public class GameState
 	public Grid<GridSpace> gameBoard;
 	public int roryRow;
 	public int roryCol;
+	public int[] directions;
 	
 	public boolean alive = true;
-	public boolean success = false;
+	
+	public GameState(Grid<GridSpace> gb, int row, int col, int[] dirs)
+	{
+		this.gameBoard = gb;
+		this.roryRow = row;
+		this.roryCol = col;
+		this.directions = dirs;
+	}
+	
+	private GameState[] createResultingGameStates()
+	{
+		int rows = this.gameBoard.rows();
+		int cols = this.gameBoard.cols();
+		
+		int[] dirs = this.getPossibleDirections();
+		int len = dirs.length;
+		GameState[] states = new GameState[len];
+		
+		for (int d = 0; d < len; d++)
+		{
+			GameState gs = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions);
+			gs.moveRory(dirs[d]);
+		}
+		return states;
+	}
 	
 	private int[] getPossibleDirections()
 	{
@@ -45,10 +70,18 @@ public class GameState
 	
 	private void moveRory(int dir)
 	{
-		while (this.canGo(dir))
+		if (this.canGo(dir))
 		{
-			this.roryRow += Directions.verticalChange(dir);
-			this.roryCol += Directions.horizontalChange(dir);
+			while (this.canGo(dir))
+			{
+				this.roryRow += Directions.verticalChange(dir);
+				this.roryCol += Directions.horizontalChange(dir);
+			}
+			int len = this.directions.length;
+			int[] dirs = new int[len + 1];
+			System.arraycopy(this.directions, 0, dirs, 0, len);
+			dirs[len] = dir;
+			this.directions = dirs;
 		}
 	}
 	
@@ -73,9 +106,7 @@ public class GameState
 	
 	public static void main(String[] args)
 	{
-		GameState gs = new GameState();
-		gs.roryRow = 1;
-		gs.roryCol = 1;
+		GameState gs;
 		{
 			String[] board = {
 				"WWWWWW",
@@ -87,8 +118,10 @@ public class GameState
 				"WW  WW",
 				"WWWWWW"
 			};
-			gs.gameBoard = new Grid<GridSpace>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? new GridSpace.Wall() : new GridSpace.Space());
+			Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
 			
+			int roryRow = 2;
+			int roryCol = 2;
 			spawn:
 			for (int x = 0; x < board.length; x++)
 			{
@@ -96,15 +129,22 @@ public class GameState
 				{
 					if (board[x].charAt(y) == 'R')
 					{
-						gs.roryRow = x;
-						gs.roryCol = y;
+						roryRow = x;
+						roryCol = y;
 						break spawn;
 					}
 				}
 			}
+			gs = new GameState(gameBoard, roryRow, roryCol, new int[]{});
 		}
+		gs.moveRory(Directions.RIGHT);
+		gs.moveRory(Directions.DOWN);
+		gs.moveRory(Directions.UP_LEFT);
+		gs.moveRory(Directions.RIGHT);
+		gs.moveRory(Directions.UP);
+		gs.moveRory(Directions.DOWN_LEFT);
 		gs.moveRory(Directions.LEFT);
 		System.out.println(gs.getBoard());
-		System.out.println(dirsToString(gs.getPossibleDirections()));
+		System.out.println(dirsToString(gs.directions));
 	}
 }
