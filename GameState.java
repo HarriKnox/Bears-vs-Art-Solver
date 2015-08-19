@@ -6,6 +6,9 @@ public class GameState
 	public int roryRow;
 	public int roryCol;
 	
+	public boolean alive = true;
+	public boolean success = false;
+	
 	private int[] getPossibleDirections()
 	{
 		LinkedList<Integer> dirList = new LinkedList<>();
