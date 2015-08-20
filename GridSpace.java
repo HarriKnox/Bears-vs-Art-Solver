@@ -7,39 +7,48 @@ public abstract class GridSpace
 	
 	
 	private boolean art = false;
+	private boolean laser = false;
 	public boolean hasArt() { return this.art; }
 	public boolean setArt() { return this.art = true; }
+	public boolean hasLaser() { return this.laser; }
+	
+	protected abstract int ID();
+	private int laserArtHash() { return (this.laser ? 0b10 : 0) + (this.art ? 0b01 : 0); }
+	protected abstract int metadataHash();
+	public abstract String toString();
 	
 	public abstract boolean isSolid();
-	public abstract GridSpace copy();
-	protected final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
-	public void passOver() {;}
+	public void passThrough() {;}
 	public void endOfMove() {;}
 	public void landedOn() { this.art = false; }
 	
-	protected abstract int ID();
-	private int laserArtHash() { return (this.art ? 1 << 4 : 0); }
-	protected int metadataHash() { return 0; }
-	public final int hashCode() { return this.metadataHash() + this.laserArtHash() + this.ID(); }
-	public boolean equals(Object o) { return o instanceof GridSpace && (((GridSpace)o).art == this.art); }
-	public abstract String toString();
+	public abstract GridSpace copy();
+	protected final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
+	
+	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
+	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
 	
 	private static final class Wall extends GridSpace
 	{
-		protected int ID() { return 1; }
 		public boolean setArt() { return false; }
+		
+		protected int ID() { return 1; }
+		protected int metadataHash() { return 0; }
+		
 		public boolean isSolid() { return true; }
 		public GridSpace copy() { return this; }
+		
 		public String toString() { return "W"; }
-		public boolean equals(Object o) { return o instanceof Wall; }
 	}
 	
 	private static final class Space extends GridSpace
 	{
 		protected int ID() { return 2; }
+		protected int metadataHash() { return 0; }
+		
 		public boolean isSolid() { return false; }
 		public GridSpace copy() { return super.copy(new Space()); }
+		
 		public String toString() { return " "; }
-		public boolean equals(Object o) { return o instanceof Space && super.equals(o); }
 	}
 }
