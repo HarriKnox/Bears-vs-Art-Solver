@@ -40,4 +40,6 @@ public final class Directions
 	
 	public static int verticalComponent  (int dir) { return (dir & VERT) | 0b0010; }
 	public static int horizontalComponent(int dir) { return (dir & HORIZ) | 0b1000; }
+	
+	public static int opposite(int dir) { return 0b10100 - dir; }
 }
