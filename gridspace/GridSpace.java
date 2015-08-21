@@ -1,3 +1,5 @@
+package gridspace;
+
 public abstract class GridSpace
 {
 	private static final GridSpace WALL = new Wall();

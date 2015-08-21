@@ -1,3 +1,5 @@
+package utility;
+
 public final class Directions
 {
 	public static final int NONE       = 0b1010;
