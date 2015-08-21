@@ -1,5 +1,7 @@
 package gridspace;
 
+import solver.GameState;
+
 public abstract class GridSpace
 {
 	private static final GridSpace WALL = new Wall();
