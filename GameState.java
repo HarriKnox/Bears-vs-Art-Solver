@@ -13,7 +13,16 @@ public class GameState
 	
 	public boolean alive = true;
 	
-	public GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
+	public GameState(Grid<GridSpace> gb, int row, int col)
+	{
+		this.gameBoard = gb;
+		this.roryRow = row;
+		this.roryCol = col;
+		this.directions = new int[0];
+		this.direction = Directions.NONE;
+	}
+	
+	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
@@ -96,6 +105,9 @@ public class GameState
 	{
 		this.direction = dir;
 	}
+	
+	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 8) + (this.roryCol << 4) + this.directions[this.directions.length - 1]; }
+	public boolean equals(Object o) { return (o instanceof GameState) && (o.hashCode() == this.hashCode()); }
 	
 	private static String dirsToString(int[] dirs)
 	{
