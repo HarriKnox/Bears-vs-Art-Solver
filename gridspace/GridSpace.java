@@ -22,9 +22,18 @@ public abstract class GridSpace
 	private int laserSource = Directions.NONE;
 	private boolean laserBlue = false;
 	private boolean laserOn = false;
-	public int hasLaserSource() { return this.laserSource; }
-	public int setLaserSource() { return this.laserSource = true; }
-	public boolean 
+	public int laserSourceDirection() { return this.laserSource; }
+	public int setLaserSource(int dir) { return this.laserSource = dir; }
+	public boolean laserSourceOn() { return this.laserOn; }
+	
+	private int laserArtHash()
+	{
+		return (this.laserSource << 4) +
+		       (this.laserBlue ? 0b1000 : 0) +
+		       (this.laserOn ? 0b0100 : 0) +
+		       (this.laser ? 0b0010 : 0) +
+		       (this.art ? 0b0001 : 0);
+	}
 	
 	
 	public abstract String toString();
@@ -45,7 +54,6 @@ public abstract class GridSpace
 	
 	
 	protected abstract int ID();
-	private int laserArtHash() { return (this.laser ? 0b10 : 0) + (this.art ? 0b01 : 0); }
 	protected abstract int metadataHash();
 	
 	public abstract GridSpace copy();
