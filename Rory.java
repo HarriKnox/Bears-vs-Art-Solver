@@ -8,4 +8,10 @@ public class Rory
 		this.row = row;
 		this.col = col;
 	}
+	
+	public Rory copy()
+	{
+		Rory r = new Rory(this.row, this.col);
+		return r;
+	}
 }
