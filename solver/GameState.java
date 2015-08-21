@@ -14,7 +14,7 @@ public class GameState
 	public int[] directions;
 	public int direction;
 	
-	public boolean alive = true;
+	private boolean alive = true;
 	
 	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
@@ -111,8 +111,19 @@ public class GameState
 		return this.gameBoard.whileTrue((GridSpace gs) -> !gs.hasArt());
 	}
 	
+	public boolean stillAlive()
+	{
+		return this.alive;
+	}
+	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 8) + (this.roryCol << 4) + this.directions[this.directions.length - 1]; }
-	public boolean equals(Object o) { return (o instanceof GameState) && (o.hashCode() == this.hashCode()); }
+	
+	public boolean equals(Object o)
+	{
+		if (!(o instanceof GameState)) return false;
+		GameState gs = (GameState)o;
+		return this.gameBoard.equals(gs.gameBoard) && (this.roryRow == gs.roryRow) && (this.roryCol == gs.roryCol);
+	}
 	
 	
 	private static String dirsToString(int[] dirs)
