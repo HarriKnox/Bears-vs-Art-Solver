@@ -195,7 +195,7 @@ public class Grid<T> implements Iterable<T>
 			for (int y = 0; y < this.cols; y++)
 			{
 				this.checkConcurrentModification(expectedRows, expectedCols);
-				if (action.accept(this.grid[x][y]) == false) return false;
+				if (action.test(this.grid[x][y]) == false) return false;
 			}
 		}
 		
