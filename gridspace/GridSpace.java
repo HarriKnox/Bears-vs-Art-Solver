@@ -1,6 +1,7 @@
 package gridspace;
 
 import solver.GameState;
+import utility.Directions;
 
 public abstract class GridSpace
 {
@@ -16,6 +17,14 @@ public abstract class GridSpace
 	
 	private boolean laser = false;
 	public boolean hasLaser() { return this.laser; }
+	public boolean setLaser(boolean las) { return this.laser = las; }
+	
+	private int laserSource = Directions.NONE;
+	private boolean laserBlue = false;
+	private boolean laserOn = false;
+	public int hasLaserSource() { return this.laserSource; }
+	public int setLaserSource() { return this.laserSource = true; }
+	public boolean 
 	
 	
 	public abstract String toString();

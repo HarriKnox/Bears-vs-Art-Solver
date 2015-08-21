@@ -3,6 +3,7 @@ package gridspace;
 final class Wall extends GridSpace
 {
 	public boolean setArt() { return false; }
+	public boolean setLaser(boolean las) { return false; }
 	
 	protected int ID() { return 1; }
 	protected int metadataHash() { return 0; }
