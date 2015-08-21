@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
@@ -181,6 +182,24 @@ public class Grid<T> implements Iterable<T>
 				action.accept(x, y);
 			}
 		}
+	}
+	
+	public boolean whileTrue(Predicate<? super T> action)
+	{
+		requireNonNull(action);
+		final int expectedRows = this.rows;
+		final int expectedCols = this.cols;
+		
+		for (int x = 0; x < this.rows; x++)
+		{
+			for (int y = 0; y < this.cols; y++)
+			{
+				this.checkConcurrentModification(expectedRows, expectedCols);
+				if (action.accept(this.grid[x][y]) == false) return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	@SuppressWarnings("unchecked")
