@@ -94,7 +94,7 @@ public class GameState
 				this.roryCol += Directions.horizontalChange(this.direction);
 			}
 			
-			this.gameBoard.get(this.roryRow, this.roryCol).landedOn();
+			this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
 		}
 	}
 	
