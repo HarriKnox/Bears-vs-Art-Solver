@@ -126,12 +126,12 @@ public class GameState
 	}
 	
 	
-	private static String dirsToString(int[] dirs)
+	public static String dirsToString(int[] dirs)
 	{
 		return java.util.Arrays.toString(java.util.Arrays.stream(dirs).mapToObj((int i) -> Directions.NAMES[i]).toArray());
 	}
 	
-	private String getBoard()
+	public String getBoard()
 	{
 		StringBuilder sb = new StringBuilder();
 		for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)

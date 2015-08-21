@@ -12,18 +12,17 @@ public class Main
 				"WWWWWW",
 				"WWR WW",
 				"WW  WW",
-				"W    W",
-				"W    W",
-				"W    W",
+				"W   aW",
+				"Wa  aW",
+				"Wa   W",
 				"WW  WW",
 				"WWWWWW"
 			};
 			Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
-			gameBoard.get(2, 3).setArt();
 			
 			int roryRow = 2;
 			int roryCol = 2;
-			spawn:
+			
 			for (int x = 0; x < board.length; x++)
 			{
 				for (int y = 0; y < board[0].length(); y++)
@@ -32,7 +31,10 @@ public class Main
 					{
 						roryRow = x;
 						roryCol = y;
-						break spawn;
+					}
+					if (board[x].charAt(y) == 'a')
+					{
+						gameBoard.get(x, y).setArt();
 					}
 				}
 			}
