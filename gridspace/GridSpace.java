@@ -18,11 +18,19 @@ public abstract class GridSpace
 	private int laserArtHash() { return (this.laser ? 0b10 : 0) + (this.art ? 0b01 : 0); }
 	protected abstract int metadataHash();
 	public abstract String toString();
+	protected String toString(char l)
+	{
+		StringBuilder sb = new StringBuilder();
+		if (this.art) sb.append("\033[41m");
+		sb.append(l);
+		if (this.art) sb.append("\033[0m");
+		return sb.toString();
+	}
 	
 	public abstract boolean isSolid();
-	public void passThrough() {;}
-	public void endOfMove() {;}
-	public void landedOn() { this.art = false; }
+	public void passThrough(GameState state) {;}
+	public void endOfMove(GameState state) {;}
+	public void landedOn(GameState state) { this.art = false; }
 	
 	public abstract GridSpace copy();
 	protected final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
@@ -40,7 +48,7 @@ public abstract class GridSpace
 		public boolean isSolid() { return true; }
 		public GridSpace copy() { return this; }
 		
-		public String toString() { return "W"; }
+		public String toString() { return super.toString('W'); }
 	}
 	
 	private static final class Space extends GridSpace
@@ -51,6 +59,6 @@ public abstract class GridSpace
 		public boolean isSolid() { return false; }
 		public GridSpace copy() { return super.copy(new Space()); }
 		
-		public String toString() { return " "; }
+		public String toString() { return super.toString(' '); }
 	}
 }
