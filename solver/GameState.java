@@ -116,7 +116,7 @@ public class GameState
 		return this.alive;
 	}
 	
-	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 8) + (this.roryCol << 4) + this.directions[this.directions.length - 1]; }
+	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
 	
 	public boolean equals(Object o)
 	{
