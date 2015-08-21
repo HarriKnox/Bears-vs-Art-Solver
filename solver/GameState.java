@@ -113,7 +113,7 @@ public class GameState
 	
 	public boolean stillAlive()
 	{
-		return this.alive;
+		return this.alive && this.directions.length < 40;
 	}
 	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
