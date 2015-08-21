@@ -1,20 +1,26 @@
 import java.util.LinkedList;
 
+import gridspace.GridSpace;
+import utility.Directions;
+
 public class GameState
 {
-	public Grid<GridSpace> gameBoard;
-	public int roryRow;
-	public int roryCol;
-	public int[] directions;
+	private Grid<GridSpace> gameBoard;
+	private int roryRow;
+	private int roryCol;
+	private int[] directions;
+	private int direction;
 	
 	public boolean alive = true;
 	
-	public GameState(Grid<GridSpace> gb, int row, int col, int[] dirs)
+	public GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
 		this.roryCol = col;
 		this.directions = dirs;
+		this.direction = dir;
+		this.moveRory();
 	}
 	
 	private GameState[] createResultingGameStates()
@@ -28,8 +34,8 @@ public class GameState
 		
 		for (int d = 0; d < len; d++)
 		{
-			GameState gs = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions);
-			gs.moveRory(dirs[d]);
+			GameState gs = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions, dirs[d]);
+			states[d] = gs;
 		}
 		return states;
 	}
@@ -68,21 +74,27 @@ public class GameState
 		return this.gameBoard.inRange(x, y) && !this.gameBoard.get(x, y).isSolid();
 	}
 	
-	private void moveRory(int dir)
+	private void moveRory()
 	{
-		if (this.canGo(dir))
+		if (this.canGo(this.direction))
 		{
-			while (this.canGo(dir))
-			{
-				this.roryRow += Directions.verticalChange(dir);
-				this.roryCol += Directions.horizontalChange(dir);
-			}
 			int len = this.directions.length;
 			int[] dirs = new int[len + 1];
 			System.arraycopy(this.directions, 0, dirs, 0, len);
-			dirs[len] = dir;
+			dirs[len] = this.direction;
 			this.directions = dirs;
+			
+			while (this.canGo(this.direction))
+			{
+				this.roryRow += Directions.verticalChange(this.direction);
+				this.roryCol += Directions.horizontalChange(this.direction);
+			}
 		}
+	}
+	
+	public void changeDirection(int dir)
+	{
+		this.direction = dir;
 	}
 	
 	private static String dirsToString(int[] dirs)
@@ -137,7 +149,17 @@ public class GameState
 			}
 			gs = new GameState(gameBoard, roryRow, roryCol, new int[]{});
 		}
-		gs.moveRory(Directions.RIGHT);
+		GameState gs2;
+		{
+			int rows = gs.gameBoard.rows();
+			int cols = gs.gameBoard.cols();
+			gs2 = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> gs.gameBoard.get(x, y).copy()), gs.roryRow, gs.roryCol, gs.directions);
+		}
+		//gs.gameBoard.get(1, 3).setArt();
+		System.out.println(gs.gameBoard.hashCode());
+		System.out.println(gs2.gameBoard.hashCode());
+		System.out.println(gs.gameBoard.equals(gs2.gameBoard));
+		/*gs.moveRory(Directions.RIGHT);
 		gs.moveRory(Directions.DOWN);
 		gs.moveRory(Directions.UP_LEFT);
 		gs.moveRory(Directions.RIGHT);
@@ -145,6 +167,6 @@ public class GameState
 		gs.moveRory(Directions.DOWN_LEFT);
 		gs.moveRory(Directions.LEFT);
 		System.out.println(gs.getBoard());
-		System.out.println(dirsToString(gs.directions));
+		System.out.println(dirsToString(gs.directions));*/
 	}
 }
