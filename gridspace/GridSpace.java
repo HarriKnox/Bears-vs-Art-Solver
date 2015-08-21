@@ -11,14 +11,13 @@ public abstract class GridSpace
 	
 	
 	private boolean art = false;
-	private boolean laser = false;
 	public boolean hasArt() { return this.art; }
 	public boolean setArt() { return this.art = true; }
+	
+	private boolean laser = false;
 	public boolean hasLaser() { return this.laser; }
 	
-	protected abstract int ID();
-	private int laserArtHash() { return (this.laser ? 0b10 : 0) + (this.art ? 0b01 : 0); }
-	protected abstract int metadataHash();
+	
 	public abstract String toString();
 	protected String toString(char l)
 	{
@@ -29,10 +28,16 @@ public abstract class GridSpace
 		return sb.toString();
 	}
 	
+	
 	public abstract boolean isSolid();
 	public void passThrough(GameState state) {;}
 	public void endOfMove(GameState state) {;}
 	public void landedOn(GameState state) { this.art = false; }
+	
+	
+	protected abstract int ID();
+	private int laserArtHash() { return (this.laser ? 0b10 : 0) + (this.art ? 0b01 : 0); }
+	protected abstract int metadataHash();
 	
 	public abstract GridSpace copy();
 	protected final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
