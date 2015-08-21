@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import gridspace.GridSpace;
 import utility.Directions;
+import utility.Grid;
 
 public class GameState
 {
