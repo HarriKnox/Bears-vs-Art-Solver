@@ -47,7 +47,7 @@ public class GameState
 		return states;
 	}
 	
-	private int[] getPossibleDirections()
+	public int[] getPossibleDirections()
 	{
 		LinkedList<Integer> dirList = new LinkedList<>();
 		for (int d = 0, len = Directions.LIST.length; d < len; d++)
