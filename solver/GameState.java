@@ -1,5 +1,6 @@
 package solver;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import gridspace.GridSpace;
@@ -8,15 +9,15 @@ import utility.Grid;
 
 public class GameState
 {
-	public Grid<GridSpace> gameBoard;
-	public int roryRow;
-	public int roryCol;
-	public int[] directions;
-	public int direction;
+	private Grid<GridSpace> gameBoard;
+	private int roryRow;
+	private int roryCol;
+	private int[] directions;
+	private int direction;
 	
 	private boolean alive = true;
 	
-	public GameState(Grid<GridSpace> gb, int row, int col)
+	GameState(Grid<GridSpace> gb, int row, int col)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
@@ -106,14 +107,14 @@ public class GameState
 		this.direction = dir;
 	}
 	
-	public boolean success()
+	boolean success()
 	{
 		return this.gameBoard.whileTrue((GridSpace gs) -> !gs.hasArt());
 	}
 	
-	public boolean stillAlive()
+	boolean stillAlive(int maxMoves)
 	{
-		return this.alive && this.directions.length < 40;
+		return this.alive && this.directions.length <= maxMoves;
 	}
 	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
@@ -125,10 +126,15 @@ public class GameState
 		return this.gameBoard.equals(gs.gameBoard) && (this.roryRow == gs.roryRow) && (this.roryCol == gs.roryCol);
 	}
 	
+	int[] getDirections()
+	{
+		return this.directions;
+	}
+	
 	
 	public static String dirsToString(int[] dirs)
 	{
-		return java.util.Arrays.toString(java.util.Arrays.stream(dirs).mapToObj((int i) -> Directions.NAMES[i]).toArray());
+		return Arrays.toString(Arrays.stream(dirs).mapToObj((int i) -> Directions.NAMES[i]).toArray());
 	}
 	
 	public String getBoard()

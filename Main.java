@@ -7,14 +7,15 @@ public class Main
 	public static void main(String[] args)
 	{
 		String[] board = {
-				"WWWWWW",
-				"WWR WW",
-				"WW  WW",
-				"W   aW",
-				"Wa  aW",
-				"Wa   W",
-				"WW  WW",
-				"WWWWWW"
+			"WWWWWWWWW",
+			"Wa      W",
+			"W WWWWW W",
+			"W WR   aW",
+			"W W WWWWW",
+			"W Wa    W",
+			"W WWWWW W",
+			"W      aW",
+			"WWWWWWWWW"
 		};
 		Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
 		
@@ -36,23 +37,8 @@ public class Main
 				}
 			}
 		}
-		Solver solver = new Solver();
-		solver.addState(new GameState(gameBoard, roryRow, roryCol));
-		GameState solved = null;
-		int counter = 0;
-		while (!solver.openQueue.isEmpty())
-		{
-			solved = solver.openQueue.peekFirst();
-			if (solved.success())
-			{
-				int[] dirs = solved.directions;
-				System.out.println(solution(dirs));
-			}
-			solver.processFirstState();
-		}
-		System.out.println(solver.sizes());
-		//System.out.println(solver.sizes());}
-		//solver.closedSet.forEach((GameState gs) -> System.out.print(gs.success() ? "true\n" : ""));
-		//solver.openQueue.forEach((GameState gs) -> System.out.println(gs.dirsToString(gs.getPossibleDirections())));
+		Solver solver = new Solver(gameBoard, roryRow, roryCol, 10);
+		int[] solution = solver.solve();
+		System.out.println(Solver.solution(solution));
 	}
 }
