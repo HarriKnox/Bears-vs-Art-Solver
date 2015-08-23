@@ -48,7 +48,8 @@ public class Solver
 			{
 				if (count == 0)
 				{
-					this.closedSet.removeIf((GameState state) -> state.countArt() >= maxArt);
+					final int stupidLocalVariableThatNeedsToBeTreatedAsFinal = maxArt;
+					this.closedSet.removeIf((GameState state) -> state.countArt() >= stupidLocalVariableThatNeedsToBeTreatedAsFinal);
 					maxArt--;
 				}
 				lastMoves = moves;
