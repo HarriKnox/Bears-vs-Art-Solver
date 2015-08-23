@@ -117,7 +117,7 @@ public class GameState
 		return this.alive && this.directions.length <= maxMoves;
 	}
 	
-	boolean Grid<GridSpace> gameBoard()
+	Grid<GridSpace> gameBoard()
 	{
 		return this.gameBoard;
 	}
