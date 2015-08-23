@@ -1,16 +1,18 @@
 package solver;
 
+import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.Set;
 
 import gridspace.*;
 import utility.*;
 
 public class Solver
 {
-	private LinkedList<GameState> openQueue;
-	private HashSet<GameState> closedSet;
+	private Deque<GameState> openQueue;
+	private Set<GameState> closedSet;
 	
 	private int maxMoves;
 	

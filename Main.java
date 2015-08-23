@@ -7,15 +7,16 @@ public class Main
 	public static void main(String[] args)
 	{
 		String[] board = {
-			"WWWWWWWWW",
-			"Wa      W",
-			"W WWWWW W",
-			"W WR   aW",
-			"W W WWWWW",
-			"W Wa    W",
-			"W WWWWW W",
-			"W      aW",
-			"WWWWWWWWW"
+			"WWWWWWWW",
+			"Wa R  aW",
+			"Wa    aW",
+			"Wa    aW",
+			"Wa    aW",
+			"Wa    aW",
+			"Wa    aW",
+			"Wa    aW",
+			"Wa    aW",
+			"WWWWWWWW"
 		};
 		Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
 		
@@ -37,8 +38,12 @@ public class Main
 				}
 			}
 		}
-		Solver solver = new Solver(gameBoard, roryRow, roryCol, 10);
+		Solver solver = new Solver(gameBoard, roryRow, roryCol, 20);
+		long start = System.currentTimeMillis();
 		int[] solution = solver.solve();
+		long stop = System.currentTimeMillis();
+		
+		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
 		System.out.println(Solver.solution(solution));
 	}
 }
