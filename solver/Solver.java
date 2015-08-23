@@ -36,9 +36,26 @@ public class Solver
 	
 	public int[] solve()
 	{
+		int lastMoves = 0;
+		int maxArt = this.openQueue.peekFirst().countArt();
+		int count = 0;
+		
 		while (!this.openQueue.isEmpty())
 		{
-			GameState[] states = this.openQueue.removeFirst().createResultingGameStates();
+			GameState first = this.openQueue.removeFirst();
+			int moves = first.getMoves();
+			if (moves > lastMoves)
+			{
+				if (count == 0)
+				{
+					this.closedSet.removeIf((GameState state) -> state.countArt() >= maxArt);
+					maxArt--;
+				}
+				lastMoves = moves;
+				count = 0;
+			}
+			
+			GameState[] states = first.createResultingGameStates();
 			for (int s = 0, len = states.length; s < len; s++)
 			{
 				GameState state = states[s];
@@ -47,6 +64,8 @@ public class Solver
 					if (state.success()) return state.getDirections();
 					
 					this.addState(state);
+					
+					if (state.countArt() >= maxArt) count++;
 				}
 			}
 		}

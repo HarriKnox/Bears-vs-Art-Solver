@@ -117,6 +117,28 @@ public class GameState
 		return this.alive && this.directions.length <= maxMoves;
 	}
 	
+	boolean Grid<GridSpace> gameBoard()
+	{
+		return this.gameBoard;
+	}
+	
+	int countArt()
+	{
+		int art = 0;
+		for (GridSpace gs : this.gameBoard) if (gs.hasArt()) art++;
+		return art;
+	}
+	
+	int[] getDirections()
+	{
+		return this.directions;
+	}
+	
+	int getMoves()
+	{
+		return this.directions.length;
+	}
+	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
 	
 	public boolean equals(Object o)
@@ -124,11 +146,6 @@ public class GameState
 		if (!(o instanceof GameState)) return false;
 		GameState gs = (GameState)o;
 		return this.gameBoard.equals(gs.gameBoard) && (this.roryRow == gs.roryRow) && (this.roryCol == gs.roryCol);
-	}
-	
-	int[] getDirections()
-	{
-		return this.directions;
 	}
 	
 	
