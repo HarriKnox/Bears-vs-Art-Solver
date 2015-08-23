@@ -61,28 +61,4 @@ public abstract class GridSpace
 	
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
 	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
-	
-	private static final class Wall extends GridSpace
-	{
-		public boolean setArt() { return false; }
-		
-		protected int ID() { return 1; }
-		protected int metadataHash() { return 0; }
-		
-		public boolean isSolid() { return true; }
-		public GridSpace copy() { return this; }
-		
-		public String toString() { return super.toString('W'); }
-	}
-	
-	private static final class Space extends GridSpace
-	{
-		protected int ID() { return 2; }
-		protected int metadataHash() { return 0; }
-		
-		public boolean isSolid() { return false; }
-		public GridSpace copy() { return super.copy(new Space()); }
-		
-		public String toString() { return super.toString(' '); }
-	}
 }
