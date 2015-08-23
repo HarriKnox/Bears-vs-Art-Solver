@@ -89,6 +89,8 @@ public class Grid<T> implements Iterable<T>
 		for (int x = 0; x < this.rows; x++)
 			Arrays.fill(this.grid[x], null);
 		this.grid = (T[][])(new Object[0][0]);
+		this.rows = 0;
+		this.cols = 0;
 	}
 	
 	public Pos positionOf(T o)
@@ -108,19 +110,6 @@ public class Grid<T> implements Iterable<T>
 	public boolean inRange(int row, int col)
 	{
 		return row >= 0 && row < this.rows && col >= 0 && col < this.cols;
-	}
-	
-	public boolean equals(Object o)
-	{
-		if (o == this) return true;
-		if (!(o instanceof Grid)) return false;
-		
-		return Arrays.deepEquals(this.grid, ((Grid<?>)o).grid);
-	}
-	
-	public int hashCode()
-	{
-		return Arrays.deepHashCode(this.grid);
 	}
 	
 	public String toString()
@@ -271,6 +260,19 @@ public class Grid<T> implements Iterable<T>
 			this.rows = rows;
 			this.cols = cols;
 		}
+	}
+	
+	public boolean equals(Object o)
+	{
+		if (o == this) return true;
+		if (!(o instanceof Grid)) return false;
+		
+		return Arrays.deepEquals(this.grid, ((Grid<?>)o).grid);
+	}
+	
+	public int hashCode()
+	{
+		return Arrays.deepHashCode(this.grid);
 	}
 	
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
