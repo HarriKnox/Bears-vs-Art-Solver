@@ -2,11 +2,29 @@ import gridspace.*;
 import solver.*;
 import utility.*;
 
-public class Main
+import processing.core.PApplet;
+
+public class Main extends PApplet
 {
+	private Grid<GridSpace> startingGrid;
+	private Grid<GridSpace> allChanges;
+	private int maxMoves = 20;
+	
+	public void setup()
+	{
+		this.size(200, 200);
+		if (frame != null) frame.setResizable(true);
+	}
+	
+	public void draw()
+	{
+		
+	}
+	
 	public static void main(String[] args)
 	{
-		String[] board = {
+		PApplet.main("Main");
+		/*String[] board = {
 			"WWWWWWWW",
 			"Wa R  aW",
 			"Wa    aW",
@@ -44,6 +62,6 @@ public class Main
 		long stop = System.currentTimeMillis();
 		
 		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
-		System.out.println(Solver.solution(solution));
+		System.out.println(Solver.solution(solution));*/
 	}
 }
