@@ -2,7 +2,7 @@ package gridspace;
 
 final class Wall extends GridSpace
 {
-	public boolean setArt() { return false; }
+	public boolean setArt(boolean has) { return false; }
 	public boolean setLaser(boolean las) { return false; }
 	
 	protected int ID() { return 1; }

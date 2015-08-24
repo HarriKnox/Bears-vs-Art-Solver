@@ -13,7 +13,7 @@ public abstract class GridSpace
 	
 	private boolean art = false;
 	public boolean hasArt() { return this.art; }
-	public boolean setArt() { return this.art = true; }
+	public boolean setArt(boolean has) { return this.art = has; }
 	
 	private boolean laser = false;
 	public boolean hasLaser() { return this.laser; }
