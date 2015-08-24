@@ -114,7 +114,7 @@ public class GameState
 	
 	boolean stillAlive(int maxMoves)
 	{
-		return this.alive && this.directions.length <= maxMoves;
+		return this.alive && this.directions.length <= (maxMoves - this.countArt());
 	}
 	
 	Grid<GridSpace> gameBoard()
