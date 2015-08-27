@@ -12,8 +12,10 @@ public class GameState
 	private Grid<GridSpace> gameBoard;
 	private int roryRow;
 	private int roryCol;
-	private int[] directions;
-	private int direction;
+	
+	private int[] directions = new int[0];
+	private int direction = Directions.NONE;
+	private int artCount = 0;
 	
 	private boolean alive = true;
 	
@@ -22,8 +24,9 @@ public class GameState
 		this.gameBoard = gb;
 		this.roryRow = row;
 		this.roryCol = col;
-		this.directions = new int[0];
-		this.direction = Directions.NONE;
+		for (GridSpace gs : this.gameBoard)
+			if (gs.hasArt())
+				this.artCount++;
 	}
 	
 	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
@@ -114,7 +117,7 @@ public class GameState
 	
 	boolean stillAlive(int maxMoves)
 	{
-		return this.alive && this.directions.length <= (maxMoves - this.countArt());
+		return this.alive && this.directions.length <= (maxMoves - this.artCount);
 	}
 	
 	Grid<GridSpace> gameBoard()
@@ -124,9 +127,7 @@ public class GameState
 	
 	int countArt()
 	{
-		int art = 0;
-		for (GridSpace gs : this.gameBoard) if (gs.hasArt()) art++;
-		return art;
+		return this.artCount;
 	}
 	
 	int[] getDirections()
