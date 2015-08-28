@@ -42,4 +42,5 @@ public final class Directions
 	public static int horizontalComponent(int dir) { return (dir & HORIZ) | 0b1000; }
 	
 	public static int opposite(int dir) { return 0b10100 - dir; }
+	public static boolean isDir(int dir) { return dir <= 0b1111 && NAMES[dir] != null && dir != NONE; }
 }
