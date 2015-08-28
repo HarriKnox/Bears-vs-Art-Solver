@@ -16,34 +16,46 @@ public class GameState
 	public int[] directions;
 	public int direction;
 	public int artCount;
+	public boolean hasLasers;
 	
 	public boolean alive = true;
-	public boolean hasLasers = false;
 	
 	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
-		this.gameBoard = gb;
-		this.roryRow = row;
-		this.roryCol = col;
+		this.setDefaults(gb, row, col);
+		
 		this.directions = new int[0];
 		this.direction = Directions.NONE;
+		
 		this.artCount = 0;
 		for (GridSpace gs : this.gameBoard)
 		{
 			if (gs.hasArt()) this.artCount++;
 			if (gs.isLaserSource()) this.hasLasers = true;
 		}
+		
 		this.updateLasers();
+		
+		this.checkHazards();
 	}
 	
-	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
+	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir, int art, boolean lasers)
+	{
+		this.setDefaults(gb, row, col);
+		
+		this.directions = dirs;
+		this.direction = dir;
+		this.artCount = art;
+		this.hasLasers = lasers;
+		
+		this.moveRory();
+	}
+	
+	private void setDefaults(Grid<GridSpace> gb, int row, int col)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
 		this.roryCol = col;
-		this.directions = dirs;
-		this.direction = dir;
-		this.moveRory();
 	}
 	
 	public GameState[] createResultingGameStates()
@@ -108,7 +120,8 @@ public class GameState
 			{
 				this.roryRow += Directions.verticalChange(this.direction);
 				this.roryCol += Directions.horizontalChange(this.direction);
-				if (this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this)) return;
+				
+				if (this.checkHazards()) return;
 			}
 			
 			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
@@ -121,15 +134,25 @@ public class GameState
 			
 			this.updateLasers();
 			
-			if (this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this)) return;
+			if (this.checkHazards()) return;
 			
 			this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
 		}
 	}
 	
+	private boolean checkHazards()
+	{
+		return this.alive = this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
+	}
+	
 	public void changeDirection(int dir)
 	{
 		this.direction = dir;
+	}
+	
+	public void decrementArt()
+	{
+		this.artCount--;
 	}
 	
 	public void updateLasers()
@@ -175,11 +198,6 @@ public class GameState
 	boolean stillAlive(int maxMoves)
 	{
 		return this.alive && this.directions.length <= (maxMoves - this.artCount);
-	}
-	
-	public void kill()
-	{
-		this.alive = false;
 	}
 	
 	Grid<GridSpace> gameBoard()
