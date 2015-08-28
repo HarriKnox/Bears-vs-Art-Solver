@@ -84,4 +84,9 @@ public class Solver
 	{
 		return (new StringBuilder(GameState.dirsToString(dirs))).append(' ').append(dirs.length).toString();
 	}
+	
+	public Deque<GameState> getOpenQueue()
+	{
+		return this.openQueue
+	}
 }
