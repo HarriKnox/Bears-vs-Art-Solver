@@ -87,6 +87,6 @@ public class Solver
 	
 	public Deque<GameState> getOpenQueue()
 	{
-		return this.openQueue
+		return this.openQueue;
 	}
 }
