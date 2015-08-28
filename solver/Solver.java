@@ -36,13 +36,13 @@ public class Solver
 		return false;
 	}
 	
-	public int[] solve()
+	public int[] solve(int limit)
 	{
 		int lastMoves = 0;
 		int maxArt = this.openQueue.peekFirst().countArt();
 		int count = 0;
 		
-		while (!this.openQueue.isEmpty())
+		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++
 		{
 			GameState first = this.openQueue.removeFirst();
 			int moves = first.getMoves();
