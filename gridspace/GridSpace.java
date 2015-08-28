@@ -24,6 +24,7 @@ public abstract class GridSpace
 	private boolean laserOn = false;
 	public int laserSourceDirection() { return this.laserSource; }
 	public int setLaserSource(int dir) { return this.laserSource = dir; }
+	public boolean isLaserSource() { return Directions.isDir(this.laserSource); }
 	public boolean laserSourceOn() { return this.laserOn; }
 	public boolean setLaserSourceOn(boolean on) { return this.laserOn = on; }
 	
@@ -41,17 +42,17 @@ public abstract class GridSpace
 	protected String toString(char l)
 	{
 		StringBuilder sb = new StringBuilder();
-		if (Directions.isDir(this.laserSource)) sb.append("\033[41m");
+		if (this.laser) sb.append("\033[41m");
 		if (this.art) sb.append("\033[32m");
 		sb.append(l);
-		if (this.art || Directions.isDir(this.laserSource)) sb.append("\033[0m");
+		if (this.art || this.laser) sb.append("\033[0m");
 		return sb.toString();
 	}
 	
 	
 	public abstract boolean isSolid();
 	public void passThrough(GameState state) {;}
-	public void endOfMove(GameState state) { this.laserOn = Directions.isDir(this.laserSource) && (this.laserBlue || !this.laserOn); }
+	public void endOfMove(GameState state) { this.laserOn = this.isLaserSource() && (this.laserBlue || !this.laserOn); }
 	public void landedOn(GameState state) { this.art = false; }
 	
 	
