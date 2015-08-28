@@ -42,7 +42,7 @@ public class Solver
 		int maxArt = this.openQueue.peekFirst().countArt();
 		int count = 0;
 		
-		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++
+		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++)
 		{
 			GameState first = this.openQueue.removeFirst();
 			int moves = first.getMoves();
