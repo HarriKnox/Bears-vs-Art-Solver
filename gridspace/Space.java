@@ -8,5 +8,5 @@ final class Space extends GridSpace
 	public boolean isSolid() { return false; }
 	public GridSpace copy() { return super.copy(new Space()); }
 	
-	public String toString() { return super.toString(' '); }
+	public String toString() { return super.toString('-'); }
 }

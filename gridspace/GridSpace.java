@@ -40,14 +40,18 @@ public abstract class GridSpace
 	public abstract String toString();
 	protected String toString(char l)
 	{
-		if (this.art) return "\033[41ma\033[0m");
-		return String.valueOf(l);
+		StringBuilder sb = new StringBuilder();
+		if (Directions.isDir(this.laserSource)) sb.append("\033[41m");
+		if (this.art) sb.append("\033[32m");
+		sb.append(l);
+		if (this.art || Directions.isDir(this.laserSource)) sb.append("\033[0m");
+		return sb.toString();
 	}
 	
 	
 	public abstract boolean isSolid();
 	public void passThrough(GameState state) {;}
-	public void endOfMove(GameState state) { this.laserOn = this.laserSource != Directions.NONE && (this.laserBlue || !this.laserOn); }
+	public void endOfMove(GameState state) { this.laserOn = Directions.isDir(this.laserSource) && (this.laserBlue || !this.laserOn); }
 	public void landedOn(GameState state) { this.art = false; }
 	
 	
@@ -55,7 +59,7 @@ public abstract class GridSpace
 	protected abstract int metadataHash();
 	
 	public abstract GridSpace copy();
-	protected final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
+	final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
 	
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
 	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
