@@ -57,37 +57,37 @@ public class GameState
 		for (int d = 0, len = Directions.LIST.length; d < len; d++)
 		{
 			int dir = Directions.LIST[d];
-			if (canGo(dir)) dirList.add(Integer.valueOf(dir));
+			if (canGo(this.roryRow, this.roryCol, dir)) dirList.add(Integer.valueOf(dir));
 		}
 		
 		return dirList.stream().mapToInt(Integer::intValue).toArray();
 	}
 	
-	private boolean canGo(int dir)
+	private boolean canGo(int row, int col, int dir)
 	{
 		if (Directions.isVertical(dir))
 		{
-			boolean vert = this.checkDir(Directions.verticalComponent(dir));
-			if (Directions.isHorizontal(dir)) return vert && this.checkDir(Directions.horizontalComponent(dir)) && this.checkDir(dir);
+			boolean vert = this.checkDir(row, col, Directions.verticalComponent(dir));
+			if (Directions.isHorizontal(dir)) return vert && this.checkDir(row, col, Directions.horizontalComponent(dir)) && this.checkDir(row, col, dir);
 			return vert;
 		}
 		else if (Directions.isHorizontal(dir))
 		{
-			return this.checkDir(Directions.horizontalComponent(dir));
+			return this.checkDir(row, col, Directions.horizontalComponent(dir));
 		}
 		return false;
 	}
 	
-	private boolean checkDir(int dir)
+	private boolean checkDir(int row, int col, int dir)
 	{
-		int x = this.roryRow + Directions.verticalChange(dir);
-		int y = this.roryCol + Directions.horizontalChange(dir);
+		int x = row + Directions.verticalChange(dir);
+		int y = col + Directions.horizontalChange(dir);
 		return this.gameBoard.inRange(x, y) && !this.gameBoard.get(x, y).isSolid();
 	}
 	
 	private void moveRory()
 	{
-		if (this.canGo(this.direction))
+		if (this.canGo(this.roryRow, this.roryCol, this.direction))
 		{
 			int len = this.directions.length;
 			int[] dirs = new int[len + 1];
@@ -95,7 +95,7 @@ public class GameState
 			dirs[len] = this.direction;
 			this.directions = dirs;
 			
-			while (this.canGo(this.direction))
+			while (this.canGo(this.roryRow, this.roryCol, this.direction))
 			{
 				this.roryRow += Directions.verticalChange(this.direction);
 				this.roryCol += Directions.horizontalChange(this.direction);
