@@ -9,7 +9,7 @@ import utility.Grid;
 
 public class GameState
 {
-	private Grid<GridSpace> gameBoard;
+	public Grid<GridSpace> gameBoard;
 	private int roryRow;
 	private int roryCol;
 	
@@ -18,15 +18,18 @@ public class GameState
 	private int artCount = 0;
 	
 	private boolean alive = true;
+	private boolean hasLasers = false;
 	
-	GameState(Grid<GridSpace> gb, int row, int col)
+	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
 		this.roryCol = col;
 		for (GridSpace gs : this.gameBoard)
-			if (gs.hasArt())
-				this.artCount++;
+		{
+			if (gs.hasArt()) this.artCount++;
+			if (gs.isLaserSource()) this.hasLasers = true;
+		}
 	}
 	
 	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
@@ -78,7 +81,7 @@ public class GameState
 		return false;
 	}
 	
-	private boolean checkDir(int row, int col, int dir)
+	public boolean checkDir(int row, int col, int dir)
 	{
 		int x = row + Directions.verticalChange(dir);
 		int y = col + Directions.horizontalChange(dir);
@@ -108,6 +111,41 @@ public class GameState
 	public void changeDirection(int dir)
 	{
 		this.direction = dir;
+	}
+	
+	public void updateLasers()
+	{
+		if (this.hasLasers)
+		{
+			for (GridSpace gs : this.gameBoard)
+			{
+				gs.setLaser(false);
+			}
+			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
+			{
+				for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
+				{
+					GridSpace square = this.gameBoard.get(x, y);
+					if (square.isLaserSource() && square.laserSourceOn())
+					{
+						int dir = square.laserSourceDirection();
+						if (this.checkDir(x, y, Directions.NONE))
+						{
+							square.setLaser(true);
+							int row = x;
+							int col = y;
+							
+							while (this.canGo(row, col, dir))
+							{
+								row += Directions.verticalChange(dir);
+								col += Directions.horizontalChange(dir);
+								this.gameBoard.get(row, col).setLaser(true);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	boolean success()
