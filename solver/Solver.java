@@ -20,7 +20,7 @@ public class Solver
 	{
 		int gridSize = grid.size();
 		this.openQueue = new LinkedList<>();
-		this.closedSet = new HashSet<>((int)Math.pow(gridSize, 3));
+		this.closedSet = new LinkedHashSet<>((int)Math.pow(gridSize, 3));
 		this.addState(new GameState(grid, row, col));
 		this.maxMoves = max;
 	}
@@ -88,5 +88,10 @@ public class Solver
 	public Deque<GameState> getOpenQueue()
 	{
 		return this.openQueue;
+	}
+	
+	public Set<GameState> getClosedSet()
+	{
+		return this.closedSet;
 	}
 }
