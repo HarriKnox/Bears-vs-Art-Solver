@@ -10,31 +10,37 @@ import utility.Grid;
 public class GameState
 {
 	public Grid<GridSpace> gameBoard;
-	private int roryRow;
-	private int roryCol;
+	public int roryRow;
+	public int roryCol;
 	
-	private int[] directions = new int[0];
-	private int direction = Directions.NONE;
-	private int artCount = 0;
+	public int[] directions;
+	public int direction;
+	public int artCount;
 	
-	private boolean alive = true;
-	private boolean hasLasers = false;
+	public boolean alive = true;
+	public boolean hasLasers = false;
 	
 	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
 		this.gameBoard = gb;
 		this.roryRow = row;
 		this.roryCol = col;
+		this.directions = new int[0];
+		this.direction = Directions.NONE;
+		this.artCount = 0;
 		for (GridSpace gs : this.gameBoard)
 		{
 			if (gs.hasArt()) this.artCount++;
 			if (gs.isLaserSource()) this.hasLasers = true;
 		}
+		this.updateLasers();
 	}
 	
 	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir)
 	{
-		this(gb, row, col);
+		this.gameBoard = gb;
+		this.roryRow = row;
+		this.roryCol = col;
 		this.directions = dirs;
 		this.direction = dir;
 		this.moveRory();
@@ -102,7 +108,20 @@ public class GameState
 			{
 				this.roryRow += Directions.verticalChange(this.direction);
 				this.roryCol += Directions.horizontalChange(this.direction);
+				if (this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this)) return;
 			}
+			
+			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
+			{
+				for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
+				{
+					this.gameBoard.get(x, y).endOfMove(this);
+				}
+			}
+			
+			this.updateLasers();
+			
+			if (this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this)) return;
 			
 			this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
 		}
@@ -156,6 +175,11 @@ public class GameState
 	boolean stillAlive(int maxMoves)
 	{
 		return this.alive && this.directions.length <= (maxMoves - this.artCount);
+	}
+	
+	public void kill()
+	{
+		this.alive = false;
 	}
 	
 	Grid<GridSpace> gameBoard()
