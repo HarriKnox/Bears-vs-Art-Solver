@@ -52,6 +52,7 @@ public abstract class GridSpace
 	
 	public abstract boolean isSolid();
 	public void passThrough(GameState state) {;}
+	public boolean checkHazard(GameState state) { return this.laser || this.isSolid(); }
 	public void endOfMove(GameState state) { this.laserOn = this.isLaserSource() && (this.laserBlue || !this.laserOn); }
 	public void landedOn(GameState state) { this.art = false; }
 	
@@ -60,7 +61,15 @@ public abstract class GridSpace
 	protected abstract int metadataHash();
 	
 	public abstract GridSpace copy();
-	final GridSpace copy(GridSpace gs) { gs.art = this.art; return gs; }
+	final GridSpace copy(GridSpace gs)
+	{
+		gs.art = this.art;
+		gs.laser = this.laser;
+		gs.laserSource = this.laserSource;
+		gs.laserBlue = this.laserBlue;
+		gs.laserOn = this.laserOn;
+		return gs;
+	}
 	
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
 	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
