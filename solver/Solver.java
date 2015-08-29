@@ -72,7 +72,7 @@ public class Solver
 				}
 			}
 		}
-		return new int[0];
+		return this.openQueue.isEmpty() ? new int[0] : new int[]{ Directions.NONE };
 	}
 	
 	public String sizes()
