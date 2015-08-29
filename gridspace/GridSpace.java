@@ -55,7 +55,14 @@ public abstract class GridSpace
 	public void passThrough(GameState state) { ; }
 	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
 	public void endOfMove(GameState state) { this.laserOn = this.isLaserSource() && (this.laserBlue || !this.laserOn); }
-	public void landedOn(GameState state) { if (this.art != (this.art = false)) state.decrementArt(); }
+	public void landedOn(GameState state)
+	{
+		if (this.art)
+		{
+			this.art = false;
+			state.decrementArt();
+		}
+	}
 	
 	
 	protected abstract int ID();
