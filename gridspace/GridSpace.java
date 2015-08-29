@@ -29,7 +29,7 @@ public abstract class GridSpace
 	public boolean laserSourceOn() { return this.laserOn; }
 	public boolean setLaserSourceOn(boolean on) { return this.laserOn = on; }
 	
-	private int laserArtHash()
+	private final int laserArtHash()
 	{
 		return (this.laserSource << 4) +
 		       (this.laserBlue ? 0b1000 : 0) +
@@ -52,9 +52,11 @@ public abstract class GridSpace
 	
 	
 	public boolean isSolid() { return false; }
+	
+	
 	public void passThrough(GameState state) { ; }
 	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
-	public void endOfMove(GameState state) { this.laserOn = this.isLaserSource() && (this.laserBlue || !this.laserOn); }
+	public void endOfMove(GameState state) { this.laserOn = (this.isLaserSource() && (this.laserBlue || !this.laserOn)); }
 	public void landedOn(GameState state)
 	{
 		if (this.art)
