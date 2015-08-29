@@ -31,18 +31,11 @@ public class Main //extends PApplet
 	{
 		//PApplet.main("Main");
 		String[] board = {
-			"WWWWWWWWWWWW",
-			"W    W  v aW",
-			"W>         W",
-			"W          W",
-			"W          W",
-			"W    R  W  W",
-			"W          W",
-			"W>  W      W",
-			"W         <W",
-			"W          W",
-			"W     ^    W",
-			"WWWWWWWWWWWW"
+			"RW  Sa",
+			"    S ",
+			"W   Sa",
+			"WsssWW",
+			"Wa aWW"
 		};
 		Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
 		
@@ -75,16 +68,20 @@ public class Main //extends PApplet
 					case '^':
 						square.setLaserSource(Directions.UP);
 						break;
+					case 'S': case 's':
+						Spike s = (Spike)GridSpace.getSpike();
+						gameBoard.set(x, y, s);
+						if (board[x].charAt(y) == 'S') s.setUp(true);
+						break;
 				}
 				if (square.isLaserSource()) square.setLaserSourceOn(true);
 			}
 		}
-		gameBoard.get(7, 1).setLaserBlue(true);
 		
 		Solver solver = new Solver(gameBoard, roryRow, roryCol, 20);
 		
-		int[] solution = solver.solve(100000);
-		System.out.println(Solver.solution(solution));
+		//System.out.println(solver.first().gameBoard);
+		System.out.println(Solver.solution(solver.solve(0)));
 		System.out.println(solver.sizes());
 		/*
 		long start = System.currentTimeMillis();
