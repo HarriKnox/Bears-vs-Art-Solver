@@ -93,6 +93,11 @@ public class Solver
 		return this.openQueue;
 	}
 	
+	public GameState first()
+	{
+		return this.openQueue.peekFirst();
+	}
+	
 	public Set<GameState> getClosedSet()
 	{
 		return this.closedSet;
