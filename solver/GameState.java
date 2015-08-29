@@ -121,44 +121,19 @@ public class GameState
 				this.roryCol += Directions.horizontalChange(this.direction);
 				
 				this.checkHazards();
+				this.passThrough();
+				this.checkHazards();
 				
 				if (!this.alive) return;
 			}
 			
-			
-			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
-			{
-				for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
-				{
-					this.gameBoard.get(x, y).endOfMove(this);
-				}
-			}
+			this.endOfMove();
 			
 			this.updateLasers();
 			this.checkHazards();
 			
-			this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
+			this.landedOn();
 		}
-	}
-	
-	private void checkHazards()
-	{
-		this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
-	}
-	
-	public void changeDirection(int dir)
-	{
-		this.direction = dir;
-	}
-	
-	public void decrementArt()
-	{
-		this.artCount--;
-	}
-	
-	public void kill()
-	{
-		this.alive = false;
 	}
 	
 	public void updateLasers()
@@ -194,6 +169,48 @@ public class GameState
 				}
 			}
 		}
+	}
+	
+	private void checkHazards()
+	{
+		this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
+	}
+	
+	
+	private void passThrough()
+	{
+		this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this);
+	}
+	
+	private void endOfMove()
+	{
+		for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
+		{
+			for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
+			{
+				this.gameBoard.get(x, y).endOfMove(this);
+			}
+		}
+	}
+	
+	private void landedOn()
+	{
+		this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
+	}
+	
+	public void changeDirection(int dir)
+	{
+		this.direction = dir;
+	}
+	
+	public void decrementArt()
+	{
+		this.artCount--;
+	}
+	
+	public void kill()
+	{
+		this.alive = false;
 	}
 	
 	boolean success()
