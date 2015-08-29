@@ -7,8 +7,9 @@ public abstract class GridSpace
 {
 	private static final GridSpace WALL = new Wall();
 	
-	public static GridSpace getWall() { return WALL; }
-	public static GridSpace getSpace() { return new Space(); }
+	public static final GridSpace getWall() { return WALL; }
+	public static final GridSpace getSpace() { return new Space(); }
+	public static final GridSpace getSpike() { return new Spike(); }
 	
 	
 	private boolean art = false;
@@ -32,9 +33,9 @@ public abstract class GridSpace
 	private final int laserArtHash()
 	{
 		return (this.laserSource << 4) +
-		       b2i(this.laserBlue << 3) +
-		       b2i(this.laserOn << 2) +
-		       b2i(this.laser << 1) +
+		       (b2i(this.laserBlue) << 3) +
+		       (b2i(this.laserOn) << 2) +
+		       (b2i(this.laser) << 1) +
 		       b2i(this.art);
 	}
 	
