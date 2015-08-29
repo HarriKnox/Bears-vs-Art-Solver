@@ -16,6 +16,10 @@ public class Solver
 	
 	private int maxMoves;
 	
+	private int lastMoves;
+	private int maxArt;
+	private int count;
+	
 	public Solver(Grid<GridSpace> grid, int row, int col, int max)
 	{
 		int gridSize = grid.size();
@@ -23,6 +27,10 @@ public class Solver
 		this.closedSet = new LinkedHashSet<>((int)Math.pow(gridSize, 3));
 		this.addState(new GameState(grid, row, col));
 		this.maxMoves = max;
+		
+		this.lastMoves = 0;
+		this.maxArt = this.openQueue.peekFirst().countArt();
+		this.count = 0;
 	}
 	
 	private boolean addState(GameState state)
@@ -38,24 +46,19 @@ public class Solver
 	
 	public int[] solve(int limit)
 	{
-		int lastMoves = 0;
-		int maxArt = this.openQueue.peekFirst().countArt();
-		int count = 0;
-		
 		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++)
 		{
 			GameState first = this.openQueue.removeFirst();
 			int moves = first.getMoves();
-			if (moves > lastMoves)
+			if (moves > this.lastMoves)
 			{
-				if (count == 0)
+				if (this.count == 0)
 				{
-					final int stupidLocalVariableThatNeedsToBeTreatedAsFinal = maxArt;
-					this.closedSet.removeIf((GameState state) -> state.countArt() >= stupidLocalVariableThatNeedsToBeTreatedAsFinal);
-					maxArt--;
+					this.closedSet.removeIf((GameState state) -> state.countArt() >= this.maxArt);
+					this.maxArt--;
 				}
-				lastMoves = moves;
-				count = 0;
+				this.lastMoves = moves;
+				this.count = 0;
 			}
 			
 			GameState[] states = first.createResultingGameStates();
@@ -68,7 +71,7 @@ public class Solver
 					
 					this.addState(state);
 					
-					if (state.countArt() >= maxArt) count++;
+					if (state.countArt() >= maxArt) this.count++;
 				}
 			}
 		}
