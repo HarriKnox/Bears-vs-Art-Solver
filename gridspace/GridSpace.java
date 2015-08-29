@@ -24,6 +24,7 @@ public abstract class GridSpace
 	private boolean laserOn = false;
 	public int laserSourceDirection() { return this.laserSource; }
 	public int setLaserSource(int dir) { return this.laserSource = dir; }
+	public boolean setLaserBlue(boolean blue) { return this.laserBlue = blue; }
 	public boolean isLaserSource() { return Directions.isDir(this.laserSource); }
 	public boolean laserSourceOn() { return this.laserOn; }
 	public boolean setLaserSourceOn(boolean on) { return this.laserOn = on; }
@@ -50,9 +51,9 @@ public abstract class GridSpace
 	}
 	
 	
-	public abstract boolean isSolid();
-	public void passThrough(GameState state) {;}
-	public boolean checkHazard(GameState state) { return this.laser || this.isSolid(); }
+	public boolean isSolid() { return false; }
+	public void passThrough(GameState state) { ; }
+	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
 	public void endOfMove(GameState state) { this.laserOn = this.isLaserSource() && (this.laserBlue || !this.laserOn); }
 	public void landedOn(GameState state) { if (this.art != (this.art = false)) state.decrementArt(); }
 	
@@ -65,9 +66,9 @@ public abstract class GridSpace
 	{
 		gs.art = this.art;
 		gs.laser = this.laser;
-		gs.laserSource = this.laserSource;
-		gs.laserBlue = this.laserBlue;
 		gs.laserOn = this.laserOn;
+		gs.laserBlue = this.laserBlue;
+		gs.laserSource = this.laserSource;
 		return gs;
 	}
 	
