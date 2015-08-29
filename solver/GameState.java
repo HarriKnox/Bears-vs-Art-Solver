@@ -16,9 +16,10 @@ public class GameState
 	public int[] directions;
 	public int direction;
 	public int artCount;
-	public boolean hasLasers;
 	
 	public boolean alive = true;
+	
+	public static boolean hasLasers;
 	
 	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
@@ -31,22 +32,20 @@ public class GameState
 		for (GridSpace gs : this.gameBoard)
 		{
 			if (gs.hasArt()) this.artCount++;
-			if (gs.isLaserSource()) this.hasLasers = true;
+			if (gs.isLaserSource()) hasLasers = true;
 		}
 		
 		this.updateLasers();
-		
 		this.checkHazards();
 	}
 	
-	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir, int art, boolean lasers)
+	private GameState(Grid<GridSpace> gb, int row, int col, int[] dirs, int dir, int art)
 	{
 		this.setDefaults(gb, row, col);
 		
 		this.directions = dirs;
 		this.direction = dir;
 		this.artCount = art;
-		this.hasLasers = lasers;
 		
 		this.moveRory();
 	}
@@ -68,7 +67,7 @@ public class GameState
 		GameState[] states = new GameState[len];
 		
 		for (int d = 0; d < len; d++)
-			states[d] = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions, dirs[d]);
+			states[d] = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions, dirs[d], this.artCount);
 		return states;
 	}
 	
@@ -121,8 +120,11 @@ public class GameState
 				this.roryRow += Directions.verticalChange(this.direction);
 				this.roryCol += Directions.horizontalChange(this.direction);
 				
-				if (this.checkHazards()) return;
+				this.checkHazards();
+				
+				if (!this.alive) return;
 			}
+			
 			
 			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
 			{
@@ -133,16 +135,15 @@ public class GameState
 			}
 			
 			this.updateLasers();
-			
-			if (this.checkHazards()) return;
+			this.checkHazards();
 			
 			this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
 		}
 	}
 	
-	private boolean checkHazards()
+	private void checkHazards()
 	{
-		return this.alive = this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
+		this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
 	}
 	
 	public void changeDirection(int dir)
@@ -155,9 +156,14 @@ public class GameState
 		this.artCount--;
 	}
 	
+	public void kill()
+	{
+		this.alive = false;
+	}
+	
 	public void updateLasers()
 	{
-		if (this.hasLasers)
+		if (hasLasers)
 		{
 			for (GridSpace gs : this.gameBoard)
 			{
