@@ -32,10 +32,10 @@ public abstract class GridSpace
 	private final int laserArtHash()
 	{
 		return (this.laserSource << 4) +
-		       (this.laserBlue ? 0b1000 : 0) +
-		       (this.laserOn ? 0b0100 : 0) +
-		       (this.laser ? 0b0010 : 0) +
-		       (this.art ? 0b0001 : 0);
+		       b2i(this.laserBlue << 3) +
+		       b2i(this.laserOn << 2) +
+		       b2i(this.laser << 1) +
+		       b2i(this.art);
 	}
 	
 	
@@ -83,4 +83,6 @@ public abstract class GridSpace
 	
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
 	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
+	
+	protected static final int b2i(boolean thing) { return thing ? 1 : 0; }
 }
