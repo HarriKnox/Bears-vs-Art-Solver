@@ -107,7 +107,6 @@ public class GameState
 		this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
 	}
 	
-	
 	private void passThrough()
 	{
 		this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this);
@@ -174,7 +173,10 @@ public class GameState
 		return this.directions.length;
 	}
 	
-	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
+	public int hashCode()
+	{
+		return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol;
+	}
 	
 	public boolean equals(Object o)
 	{
