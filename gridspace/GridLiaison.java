@@ -18,6 +18,23 @@ public final class GridLiaison
 	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); }
 	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
 	
+	public static int countArt(Grid<GridSpace> grid)
+	{
+		int count = 0;
+		for (GridSpace gs : grid)
+			if (gs.art)
+				count++;
+		return count;
+	}
+	
+	public static boolean hasLasers(Grid<GridSpace> grid)
+	{
+		for (GridSpace gs : grid)
+			if (gs.isLaserSource())
+				return true;
+		return false;
+	}
+	
 	public static Grid<GridSpace> copyGrid(Grid<GridSpace> grid)
 	{
 		return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy());

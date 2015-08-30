@@ -27,12 +27,8 @@ public class GameState
 		this.directions = new int[0];
 		this.direction = Directions.NONE;
 		
-		this.artCount = 0;
-		for (GridSpace gs : this.gameBoard)
-		{
-			//if (gs.hasArt()) this.artCount++;
-			//if (gs.isLaserSource()) hasLasers = true;
-		}
+		this.artCount = GridLiaison.countArt(this.gameBoard);
+		this.hasLasers = GridLiaison.hasLasers(this.gameBoard);
 		
 		this.updateLasers();
 		this.checkHazards();
