@@ -1,8 +1,20 @@
 package gridspace;
 
+import java.util.LinkedList;
+
 public class GridTraveler
 {
-	
+	public static int[] getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
+	{
+		LinkedList<Integer> dirList = new LinkedList<>();
+		for (int d = 0, len = Directions.LIST.length; d < len; d++)
+		{
+			int dir = Directions.LIST[d];
+			if (canGo(row, col, dir)) dirList.add(Integer.valueOf(dir));
+		}
+		
+		return dirList.stream().mapToInt(Integer::intValue).toArray();
+	}
 	
 	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, int dir)
 	{
