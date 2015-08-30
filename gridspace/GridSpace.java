@@ -17,12 +17,12 @@ public abstract class GridSpace
 	int laserSourceDirection = Directions.NONE;
 	boolean laserSourceBlue = false;
 	boolean laserSourceOn = false;
+	boolean isLaserSource() { return Directions.isDir(this.laserSourceDirection); }
 	
 	private final int laserArtHash()
 	{
 		return (this.laserSourceDirection << 4) +
-		       (b2i(this.laserBlue) << 3) +
-		       (b2i(this.laserOn) << 2) +
+		       (this.isLaserSource() ? (b2i(this.laserSourceBlue) << 3) + (b2i(this.laserSourceOn) << 2) : 0)
 		       (b2i(this.laser) << 1) +
 		       b2i(this.art);
 	}
@@ -45,7 +45,7 @@ public abstract class GridSpace
 	
 	public void passThrough(GameState state) { ; }
 	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
-	public void endOfMove(GameState state) { this.laserOn = (this.isLaserSource() && (this.laserBlue || !this.laserOn)); }
+	public void endOfMove(GameState state) { this.laserSourceOn = (this.isLaserSource() && (this.laserSourceBlue || !this.laserSourceOn)); }
 	public void landedOn(GameState state)
 	{
 		if (this.art)
