@@ -4,11 +4,10 @@ import solver.GameState;
 
 public final class Spike extends GridSpace
 {
-	private boolean up = false;
-	public boolean setUp(boolean up) { return this.up = up; }
+	boolean up = false;
 	
-	protected int ID() { return 2; }
-	protected int metadataHash() { return b2i(this.up); }
+	int ID() { return 2; }
+	int metadataHash() { return b2i(this.up); }
 	
 	public String toString() { return super.toString(this.up ? 'S' : 's'); }
 	
