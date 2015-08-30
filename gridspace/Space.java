@@ -1,6 +1,6 @@
 package gridspace;
 
-final class Space extends GridSpace
+public final class Space extends GridSpace
 {
 	int ID() { return 2; }
 	int metadataHash() { return 0; }

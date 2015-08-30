@@ -1,6 +1,6 @@
 package gridspace;
 
-final class Wall extends GridSpace
+public final class Wall extends GridSpace
 {
 	int ID() { return 1; }
 	int metadataHash() { return 0; }

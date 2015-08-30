@@ -2,7 +2,7 @@ package gridspace;
 
 import utility.*;
 
-public class GridLiaison
+public final class GridLiaison
 {
 	private Grid<GridSpace> grid;
 	
