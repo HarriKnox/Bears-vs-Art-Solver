@@ -22,7 +22,7 @@ public abstract class GridSpace
 	private final int laserArtHash()
 	{
 		return (this.laserSourceDirection << 4) +
-		       (this.isLaserSource() ? (b2i(this.laserSourceBlue) << 3) + (b2i(this.laserSourceOn) << 2) : 0)
+		       (this.isLaserSource() ? (b2i(this.laserSourceBlue) << 3) + (b2i(this.laserSourceOn) << 2) : 0) + 
 		       (b2i(this.laser) << 1) +
 		       b2i(this.art);
 	}
