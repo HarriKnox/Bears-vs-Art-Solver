@@ -215,7 +215,7 @@ public class GameState
 	
 	boolean success()
 	{
-		return this.gameBoard.whileTrue((GridSpace gs) -> !gs.hasArt());
+		return this.artCount == 0;
 	}
 	
 	boolean stillAlive(int maxMoves)
