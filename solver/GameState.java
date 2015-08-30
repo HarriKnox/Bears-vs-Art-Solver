@@ -97,39 +97,9 @@ public class GameState
 		}
 	}
 	
-	public void updateLasers()
+	private void updateLasers()
 	{
-		/*if (hasLasers)
-		{
-			for (GridSpace gs : this.gameBoard)
-			{
-				gs.setLaser(false);
-			}
-			for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
-			{
-				for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
-				{
-					GridSpace square = this.gameBoard.get(x, y);
-					if (square.isLaserSource() && square.laserSourceOn())
-					{
-						int dir = square.laserSourceDirection();
-						if (this.checkDir(x, y, Directions.NONE))
-						{
-							square.setLaser(true);
-							int row = x;
-							int col = y;
-							
-							while (this.canGo(row, col, dir))
-							{
-								row += Directions.verticalChange(dir);
-								col += Directions.horizontalChange(dir);
-								this.gameBoard.get(row, col).setLaser(true);
-							}
-						}
-					}
-				}
-			}
-		}*/
+		GridLiaison.updateLasers(this.gameBoard);
 	}
 	
 	private void checkHazards()

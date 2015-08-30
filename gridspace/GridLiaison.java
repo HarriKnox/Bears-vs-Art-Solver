@@ -39,4 +39,36 @@ public final class GridLiaison
 	{
 		return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy());
 	}
+	
+	public static void updateLasers(Grid<GridSpace> gameBoard)
+	{
+		for (GridSpace gs : gameBoard)
+		{
+			gs.laser = false;
+		}
+		for (int x = 0, rows = gameBoard.rows(); x < rows; x++)
+		{
+			for (int y = 0, cols = gameBoard.cols(); y < cols; y++)
+			{
+				GridSpace square = gameBoard.get(x, y);
+				if (square.isLaserSource() && square.laserSourceOn)
+				{
+					int dir = square.laserSourceDirection;
+					if (GridTraveler.checkDir(gameBoard, x, y, Directions.NONE))
+					{
+						square.laser = true;
+						int row = x;
+						int col = y;
+						
+						while (GridTraveler.canGo(gameBoard, row, col, dir))
+						{
+							row += Directions.verticalChange(dir);
+							col += Directions.horizontalChange(dir);
+							gameBoard.get(row, col).laser = true;
+						}
+					}
+				}
+			}
+		}
+	}
 }
