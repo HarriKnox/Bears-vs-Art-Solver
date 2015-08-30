@@ -29,7 +29,7 @@ public class Main //extends PApplet
 	public static void main(String[] args)
 	{
 		//PApplet.main("Main");
-		String[] board = {
+		/*String[] board = {
 			"RW  Sa",
 			"    S ",
 			"W   Sa",

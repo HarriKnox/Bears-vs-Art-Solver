@@ -8,7 +8,7 @@ public final class GridLiaison
 	
 	public GridLiaison(int rows, int cols)
 	{
-		this.grid = new Grid(rows, cols, GridSpace.getWall());
+		this.grid = new Grid<>(rows, cols, GridSpace.getWall());
 	}
 	
 	public int size() { return this.grid.size(); }

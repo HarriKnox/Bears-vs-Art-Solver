@@ -1,5 +1,6 @@
 package gridspace;
 
+import utility.*;
 import java.util.LinkedList;
 
 public class GridTraveler
@@ -10,7 +11,7 @@ public class GridTraveler
 		for (int d = 0, len = Directions.LIST.length; d < len; d++)
 		{
 			int dir = Directions.LIST[d];
-			if (canGo(row, col, dir)) dirList.add(Integer.valueOf(dir));
+			if (canGo(gameBoard, row, col, dir)) dirList.add(Integer.valueOf(dir));
 		}
 		
 		return dirList.stream().mapToInt(Integer::intValue).toArray();
