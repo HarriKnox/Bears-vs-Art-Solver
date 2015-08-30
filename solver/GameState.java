@@ -3,9 +3,8 @@ package solver;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import gridspace.GridSpace;
-import utility.Directions;
-import utility.Grid;
+import gridspace.*;
+import utility.*;
 
 public class GameState
 {
@@ -31,8 +30,8 @@ public class GameState
 		this.artCount = 0;
 		for (GridSpace gs : this.gameBoard)
 		{
-			if (gs.hasArt()) this.artCount++;
-			if (gs.isLaserSource()) hasLasers = true;
+			//if (gs.hasArt()) this.artCount++;
+			//if (gs.isLaserSource()) hasLasers = true;
 		}
 		
 		this.updateLasers();
@@ -62,52 +61,18 @@ public class GameState
 		int rows = this.gameBoard.rows();
 		int cols = this.gameBoard.cols();
 		
-		int[] dirs = this.getPossibleDirections();
+		int[] dirs = GridTraveler.getPossibleDirections(this.gameBoard, this.roryRow, this.roryCol);
 		int len = dirs.length;
 		GameState[] states = new GameState[len];
 		
 		for (int d = 0; d < len; d++)
-			states[d] = new GameState(new Grid<GridSpace>(rows, cols, (Integer x, Integer y) -> this.gameBoard.get(x, y).copy()), this.roryRow, this.roryCol, this.directions, dirs[d], this.artCount);
+			states[d] = new GameState(GridLiaison.copyGrid(this.gameBoard), this.roryRow, this.roryCol, this.directions, dirs[d], this.artCount);
 		return states;
-	}
-	
-	public int[] getPossibleDirections()
-	{
-		LinkedList<Integer> dirList = new LinkedList<>();
-		for (int d = 0, len = Directions.LIST.length; d < len; d++)
-		{
-			int dir = Directions.LIST[d];
-			if (canGo(this.roryRow, this.roryCol, dir)) dirList.add(Integer.valueOf(dir));
-		}
-		
-		return dirList.stream().mapToInt(Integer::intValue).toArray();
-	}
-	
-	private boolean canGo(int row, int col, int dir)
-	{
-		if (Directions.isVertical(dir))
-		{
-			boolean vert = this.checkDir(row, col, Directions.verticalComponent(dir));
-			if (Directions.isHorizontal(dir)) return vert && this.checkDir(row, col, Directions.horizontalComponent(dir)) && this.checkDir(row, col, dir);
-			return vert;
-		}
-		else if (Directions.isHorizontal(dir))
-		{
-			return this.checkDir(row, col, Directions.horizontalComponent(dir));
-		}
-		return false;
-	}
-	
-	public boolean checkDir(int row, int col, int dir)
-	{
-		int x = row + Directions.verticalChange(dir);
-		int y = col + Directions.horizontalChange(dir);
-		return this.gameBoard.inRange(x, y) && !this.gameBoard.get(x, y).isSolid();
 	}
 	
 	private void moveRory()
 	{
-		if (this.canGo(this.roryRow, this.roryCol, this.direction))
+		if (GridTraveler.canGo(this.gameBoard, this.roryRow, this.roryCol, this.direction))
 		{
 			int len = this.directions.length;
 			int[] dirs = new int[len + 1];
@@ -115,7 +80,7 @@ public class GameState
 			dirs[len] = this.direction;
 			this.directions = dirs;
 			
-			while (this.canGo(this.roryRow, this.roryCol, this.direction))
+			while (GridTraveler.canGo(this.gameBoard, this.roryRow, this.roryCol, this.direction))
 			{
 				this.roryRow += Directions.verticalChange(this.direction);
 				this.roryCol += Directions.horizontalChange(this.direction);
@@ -138,7 +103,7 @@ public class GameState
 	
 	public void updateLasers()
 	{
-		if (hasLasers)
+		/*if (hasLasers)
 		{
 			for (GridSpace gs : this.gameBoard)
 			{
@@ -168,7 +133,7 @@ public class GameState
 					}
 				}
 			}
-		}
+		}*/
 	}
 	
 	private void checkHazards()
