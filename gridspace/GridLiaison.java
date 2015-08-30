@@ -20,6 +20,6 @@ public final class GridLiaison
 	
 	public static Grid<GridSpace> copyGrid(Grid<GridSpace> grid)
 	{
-		return new Grid<GridSpace>(grid.rows(), gridcols(), (Integer x, Integer y) -> grid.get(x, y).copy());
+		return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy());
 	}
 }
