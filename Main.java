@@ -1,6 +1,7 @@
 import gridspace.*;
 import solver.*;
 import utility.*;
+import java.util.*;
 
 import processing.core.PApplet;
 
@@ -29,6 +30,15 @@ public class Main //extends PApplet
 	public static void main(String[] args)
 	{
 		//PApplet.main("Main");
+		
+		HashMap<Class, String> things = new HashMap<>();
+		things.put(Wall.class, "wall");
+		things.put(Space.class, "space");
+		things.put(Spike.class, "spike");
+		
+		GridSpace wall = new Wall();
+		System.out.println(wall.getClass() == Wall.class);
+		
 		/*String[] board = {
 			"RW  Sa",
 			"    S ",
