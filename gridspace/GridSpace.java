@@ -5,11 +5,9 @@ import utility.Directions;
 
 public abstract class GridSpace
 {
-	private static final GridSpace WALL = new Wall();
-	
-	public static final GridSpace getWall() { return WALL; }
-	public static final GridSpace getSpace() { return new Space(); }
-	public static final GridSpace getSpike() { return new Spike(); }
+	public static final int WALL = 1;
+	public static final int SPACE = 2;
+	public static final int SPIKE = 3;
 	
 	
 	boolean art = false;
