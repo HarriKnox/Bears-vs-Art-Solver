@@ -18,6 +18,20 @@ public final class GridLiaison
 	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); }
 	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
 	
+	public void setCell(int row, int col, int ID)
+	{
+		GridSpace gs = null;
+		
+		switch (ID)
+		{
+			case Grid.Space: gs = new Space(); break;
+			case Grid.Spike: gs = new Spike(); break;
+			case Grid.Wall: default: gs = new Wall();
+		}
+		
+		this.grid.set(row, col, gs);
+	}
+	
 	public static int countArt(Grid<GridSpace> grid)
 	{
 		int count = 0;
