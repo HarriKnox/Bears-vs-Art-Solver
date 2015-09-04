@@ -6,7 +6,6 @@ public final class Spike extends GridSpace
 {
 	boolean up = false;
 	
-	int ID() { return 2; }
 	int metadataHash() { return b2i(this.up); }
 	
 	public String toString() { return super.toString(this.up ? 'S' : 's'); }
