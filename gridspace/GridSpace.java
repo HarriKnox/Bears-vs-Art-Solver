@@ -75,7 +75,7 @@ public abstract class GridSpace
 	}
 	
 	abstract GridSpace makeCopy();
-	final GridSpace copy()
+	public final GridSpace copy()
 	{
 		GridSpace gs = this.makeCopy();
 		gs.art = this.art;

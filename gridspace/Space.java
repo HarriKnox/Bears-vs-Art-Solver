@@ -2,9 +2,7 @@ package gridspace;
 
 public final class Space extends GridSpace
 {
-	int metadataHash() { return 0; }
-	
-	public GridSpace copy() { return super.copy(new Space()); }
+	GridSpace makeCopy() { return new Space(); }
 	
 	public String toString() { return super.toString('-'); }
 }

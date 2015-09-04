@@ -13,10 +13,10 @@ public final class Spike extends GridSpace
 	public void checkHazard(GameState state) { if (this.up) state.kill(); else super.checkHazard(state); }
 	public void endOfMove(GameState state) { this.up = !this.up; }
 	
-	public GridSpace copy()
+	GridSpace makeCopy()
 	{
 		Spike s = new Spike();
 		s.up = this.up;
-		return super.copy(s);
+		return s;
 	}
 }
