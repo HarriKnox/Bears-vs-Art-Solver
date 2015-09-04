@@ -13,11 +13,13 @@ public abstract class GridSpace
         IDs.put(Wall.class, 1);
         IDs.put(Space.class, 2);
         IDs.put(Spike.class, 3);
+		IDs.put(Booster.class, 4);
     }
     
 	public static final int WALL = IDs.get(Wall.class);
 	public static final int SPACE = IDs.get(Space.class);
 	public static final int SPIKE = IDs.get(Spike.class);
+	public static final int BOOSTER = IDs.get(Booster.class);
 	
 	
 	boolean art = false;
