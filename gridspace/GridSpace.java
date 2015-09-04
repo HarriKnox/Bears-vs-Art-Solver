@@ -2,6 +2,8 @@ package gridspace;
 
 import solver.GameState;
 import utility.Directions;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class GridSpace
 {
