@@ -32,6 +32,11 @@ public final class GridLiaison
 		this.grid.set(row, col, gs);
 	}
 	
+	public GridSpace getCell(int row, int col)
+	{
+		return this.grid.get(row, col).copy();
+	}
+	
 	public static int countArt(Grid<GridSpace> grid)
 	{
 		int count = 0;
