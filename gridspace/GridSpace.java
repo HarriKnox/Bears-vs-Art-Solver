@@ -69,11 +69,15 @@ public abstract class GridSpace
 		return IDs.get(this.getClass(), -1);
 	}
 	
-	abstract int metadataHash();
-	
-	public abstract GridSpace copy();
-	final GridSpace copy(GridSpace gs)
+	int metadataHash()
 	{
+		return 0;
+	}
+	
+	abstract GridSpace makeCopy();
+	final GridSpace copy()
+	{
+		GridSpace gs = this.makeCopy();
 		gs.art = this.art;
 		gs.laser = this.laser;
 		gs.laserSourceOn = this.laserSourceOn;
