@@ -65,10 +65,10 @@ public abstract class GridSpace
 	
 	
 	final int ID()
-    {
-        return IDs.get(this.getClass(), -1);
-    }
-    
+	{
+		return IDs.get(this.getClass(), -1);
+	}
+	
 	abstract int metadataHash();
 	
 	public abstract GridSpace copy();
