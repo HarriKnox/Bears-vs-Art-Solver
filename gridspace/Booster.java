@@ -25,4 +25,16 @@ final class Booster extends GridSpace
 	{
 		state.changeDirection(this.direction);
 	}
+	
+	private int rotate()
+	{
+		if (this.rotates)
+		{
+			if ((this.clockwise && this.direction == Directions.RIGHT) || (!this.clockwise && this.direction == Directions.LEFT)) return Directions.DOWN;
+			if ((this.clockwise && this.direction == Directions.LEFT) || (!this.clockwise && this.direction == Directions.RIGHT)) return Directions.UP;
+			if ((this.clockwise && this.direction == Directions.UP) || (!this.clockwise && this.direction == Directions.DOWN)) return Directions.RIGHT;
+			if ((this.clockwise && this.direction == Directions.DOWN) || (!this.clockwise && this.direction == Directions.UP)) return Directions.LEFT;
+		}
+		return this.direction;
+	}
 }
