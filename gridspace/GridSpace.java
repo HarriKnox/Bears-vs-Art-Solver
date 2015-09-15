@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class GridSpace
-{
-    static final Map<Class, Integer> IDs = new HashMap<>();
-    static
-    {
-        IDs.put(Wall.class, 1);
-        IDs.put(Space.class, 2);
-        IDs.put(Spike.class, 3);
+	{
+	static final Map<Class, Integer> IDs = new HashMap<>();
+	static
+	{
+		IDs.put(Wall.class, 1);
+		IDs.put(Space.class, 2);
+		IDs.put(Spike.class, 3);
 		IDs.put(Booster.class, 4);
-    }
-    
+	}
+	
 	public static final int WALL = IDs.get(Wall.class);
 	public static final int SPACE = IDs.get(Space.class);
 	public static final int SPIKE = IDs.get(Spike.class);
