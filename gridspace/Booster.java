@@ -1,7 +1,7 @@
 package gridspace;
 
 import solver.GameState;
-import utility.*
+import utility.*;
 
 final class Booster extends GridSpace
 {
@@ -25,6 +25,15 @@ final class Booster extends GridSpace
 	public void passThrough(GameState state)
 	{
 		state.changeDirection(this.direction);
+	}
+	
+	GridSpace makeCopy()
+	{
+		Booster b = new Booster();
+		b.direction = this.direction;
+		b.rotates = this.rotates;
+		b.clockwise = this.clockwise;
+		return b;
 	}
 	
 	private int rotate()
