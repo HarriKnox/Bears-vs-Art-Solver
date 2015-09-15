@@ -32,54 +32,29 @@ public class Main //extends PApplet
 		//PApplet.main("Main");
 		
 		String[] board = {
-			"WWaWW",
-			"WW WW",
-			"R  WW",
-			"WWWWW",
-			"WWWWW"
+			"RW    b      ",
+			"b W     b  W ",
+			" b W      a  ",
+			"          W  ",
+			"  b    W     "
 		};
-		Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
-		
-		int roryRow = 2;
-		int roryCol = 2;
+		GridLiaison liaison = new GridLiaison(board.length, board[0].length());
 		
 		for (int x = 0; x < board.length; x++)
 		{
 			for (int y = 0; y < board[0].length(); y++)
 			{
-				GridSpace square = gameBoard.get(x, y);
 				switch (board[x].charAt(y))
 				{
-					case 'R':
-						roryRow = x;
-						roryCol = y;
-						break;
-					case 'a':
-						square.setArt(true);
-						break;
-					case 'v':
-						square.setLaserSource(Directions.DOWN);
-						break;
-					case '<':
-						square.setLaserSource(Directions.LEFT);
-						break;
-					case '>':
-						square.setLaserSource(Directions.RIGHT);
-						break;
-					case '^':
-						square.setLaserSource(Directions.UP);
-						break;
-					case 'S': case 's':
-						Spike s = (Spike)GridSpace.getSpike();
-						gameBoard.set(x, y, s);
-						if (board[x].charAt(y) == 'S') s.setUp(true);
-						break;
+					case 'R': liaison.setRory(x, y); break;
+					case ' ': liaison.setCell(x, y, GridSpace.SPACE); break;
+					case 'b': liaison.setCell(x, y, GridSpace.BOOSTER); break;
+					case 'a': liaison.setCell(x, y, GridSpace.SPACE); liaison.setArt(x, y, true); break;
 				}
-				if (square.isLaserSource()) square.setLaserSourceOn(true);
 			}
 		}
 		
-		Solver solver = new Solver(gameBoard, roryRow, roryCol, 20);
+		Solver solver = new Solver(liaison, );
 		
 		//System.out.println(solver.first().gameBoard);
 		System.out.println(Solver.solution(solver.solve(0)));
