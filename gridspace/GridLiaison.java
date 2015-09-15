@@ -5,10 +5,19 @@ import utility.*;
 public final class GridLiaison
 {
 	private Grid<GridSpace> grid;
+	private int roryRow;
+	private int roryCol;
 	
 	public GridLiaison(int rows, int cols)
 	{
 		this.grid = new Grid<>(rows, cols, GridSpace.getWall());
+	}
+	
+	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
+	{
+		this(rows, cols);
+		this.roryRow = roryRow;
+		this.roryCol = roryCol;
 	}
 	
 	public int size() { return this.grid.size(); }
@@ -33,9 +42,9 @@ public final class GridLiaison
 		this.grid.set(row, col, gs);
 	}
 	
-	public GridSpace getCell(int row, int col)
+	public int getCell(int row, int col)
 	{
-		return this.grid.get(row, col).copy();
+		return GridSpace.IDs.get(this.grid.get(row, col).getClass());
 	}
 	
 	public static int countArt(Grid<GridSpace> grid)
