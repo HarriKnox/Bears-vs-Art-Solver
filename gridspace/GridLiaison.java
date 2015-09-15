@@ -65,6 +65,19 @@ public final class GridLiaison
 		}
 	}
 	
+	public void setDirection(int row, int col, int dir)
+	{
+		if (this.isOpen(row, col) && Directions.isDir(dir))
+		{
+			switch (this.getCell(row, col))
+			{
+				case GridSpace.BOOSTER:
+					if (Directions.isCardinal(dir)) ((Booster)this.grid.get(row, col)).direction = dir;
+					break;
+			}
+		}
+	}
+	
 	private isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 	
 	
