@@ -33,7 +33,7 @@ public final class Directions
 	
 	public static boolean isVertical  (int dir) { return (dir & VERT)  != 0; }
 	public static boolean isHorizontal(int dir) { return (dir & HORIZ) != 0; }
-	public static boolean isDiagonal  (int dir) { return (dir & DIAG)  != 0; }
+	public static boolean isDiagonal  (int dir) { return (dir & DIAG) == DIAG; }
 	
 	public static int verticalChange  (int dir) { return ((dir & VERT) >> 2) - 2; }
 	public static int horizontalChange(int dir) { return (dir & HORIZ) - 2; }
