@@ -13,7 +13,6 @@ final class Booster extends GridSpace
 	{
 		return (this.direction << 2) +
 		       (this.rotates ? (b2i(this.clockwise) << 1) + 1 : 0);
-		// I shortcutted right here since this.rotates is already true, so it would always be a 1 in that spot.
 	}
 	
 	public String toString()
@@ -30,10 +29,10 @@ final class Booster extends GridSpace
 	{
 		if (this.rotates)
 		{
-			if (this.direction == (this.clockwise ? Directions.RIGHT : Directions.LEFT)) return Directions.DOWN;
-			if (this.direction == (this.clockwise ? Directions.LEFT : Directions.RIGHT)) return Directions.UP;
-			if (this.direction == (this.clockwise ? Directions.UP : Directions.DOWN)) return Directions.RIGHT;
-			if (this.direction == (this.clockwise ? Directions.DOWN : Directions.UP)) return Directions.LEFT;
+			if (this.direction == (this.clockwise ? Directions.RIGHT : Directions.LEFT))  return Directions.DOWN;
+			if (this.direction == (this.clockwise ? Directions.LEFT  : Directions.RIGHT)) return Directions.UP;
+			if (this.direction == (this.clockwise ? Directions.UP    : Directions.DOWN))  return Directions.RIGHT;
+			if (this.direction == (this.clockwise ? Directions.DOWN  : Directions.UP))    return Directions.LEFT;
 		}
 		return this.direction;
 	}
