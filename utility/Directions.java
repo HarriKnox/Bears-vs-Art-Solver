@@ -30,12 +30,12 @@ public final class Directions
 	private static final int VERT  = 0b1100;
 	private static final int HORIZ = 0b0011;
 	
-	public static int verticalChange  (int dir) { return ((dir & VERT) >> 2) - 2; }
-	public static int horizontalChange(int dir) { return (dir & HORIZ) - 2; }
+	public static int verticalChange  (int dir) { return (isDir(dir) ? ((dir & VERT) >> 2) - 2 : 0); }
+	public static int horizontalChange(int dir) { return (isDir(dir) ? (dir & HORIZ) - 2 : 0); }
 	
 	public static boolean isVertical  (int dir) { return verticalChange(dir) != 0; }
 	public static boolean isHorizontal(int dir) { return horizontalChange(dir) != 0; }
-	public static boolean isDiagonal  (int dir) { return isVertical(dir) == isHorizontal(dir); }
+	public static boolean isDiagonal  (int dir) { return isVertical(dir) && isHorizontal(dir); }
 	public static boolean isCardinal  (int dir) { return isVertical(dir) != isHorizontal(dir); }
 	
 	public static int verticalComponent  (int dir) { return (dir & VERT) | 0b0010; }
