@@ -5,6 +5,8 @@ import utility.*
 
 final class Booster extends GridSpace
 {
+	Booster() {}
+	
 	int direction = Directions.RIGHT;
 	boolean rotates = false;
 	boolean clockwise = true;

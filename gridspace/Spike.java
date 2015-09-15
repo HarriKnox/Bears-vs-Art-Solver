@@ -4,6 +4,8 @@ import solver.GameState;
 
 public final class Spike extends GridSpace
 {
+	Spike() {}
+	
 	boolean up = false;
 	
 	int metadataHash() { return b2i(this.up); }

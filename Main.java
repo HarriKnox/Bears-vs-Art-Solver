@@ -31,20 +31,12 @@ public class Main //extends PApplet
 	{
 		//PApplet.main("Main");
 		
-		HashMap<Class, String> things = new HashMap<>();
-		things.put(Wall.class, "wall");
-		things.put(Space.class, "space");
-		things.put(Spike.class, "spike");
-		
-		GridSpace wall = new Wall();
-		System.out.println(wall.getClass() == Wall.class);
-		
-		/*String[] board = {
-			"RW  Sa",
-			"    S ",
-			"W   Sa",
-			"WsssWW",
-			"Wa aWW"
+		String[] board = {
+			"WWaWW",
+			"WW WW",
+			"R  WW",
+			"WWWWW",
+			"WWWWW"
 		};
 		Grid<GridSpace> gameBoard = new Grid<>(board.length, board[0].length(), (Integer x, Integer y) -> board[x].charAt(y) == 'W' ? GridSpace.getWall() : GridSpace.getSpace());
 		
