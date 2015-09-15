@@ -44,7 +44,7 @@ public final class GridLiaison
 	
 	public int getCell(int row, int col)
 	{
-		return GridSpace.IDs.get(this.grid.get(row, col).getClass());
+		return this.grid.get(row, col).ID());
 	}
 	
 	public static int countArt(Grid<GridSpace> grid)
