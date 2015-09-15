@@ -33,6 +33,12 @@ public class Solver
 		this.count = 0;
 	}
 	
+	public Solver(GridLiaison liaison, int max)
+	{
+		this(liaison.copyGrid(), liaison.roryRow(), liaison.roryCol(), max);
+	}
+	
+	
 	private boolean addState(GameState state)
 	{
 		if (!this.closedSet.contains(state))
