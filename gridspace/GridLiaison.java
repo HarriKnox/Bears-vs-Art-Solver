@@ -52,6 +52,19 @@ public final class GridLiaison
 	public void setLaserSourceBlue(int row, int col, boolean blue) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceBlue = blue; }
 	public void setLaserSourceOn(int row, int col, boolean on) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceOn = on; }
 	
+	public void setUp(int row, int col, boolean up)
+	{
+		if (this.isOpen(row, col))
+		{
+			switch (this.getCell(row, col))
+			{
+				case GridSpace.SPIKE:
+					((Spike)this.grid.get(row, col)).up = up;
+					break;
+			}
+		}
+	}
+	
 	private isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 	
 	
