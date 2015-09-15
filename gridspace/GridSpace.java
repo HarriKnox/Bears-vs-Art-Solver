@@ -82,8 +82,11 @@ public abstract class GridSpace
 		GridSpace gs = this.makeCopy();
 		gs.art = this.art;
 		gs.laser = this.laser;
-		gs.laserSourceOn = this.laserSourceOn;
-		gs.laserSourceBlue = this.laserSourceBlue;
+		if (gs.isLaserSource())
+		{
+			gs.laserSourceOn = this.laserSourceOn;
+			gs.laserSourceBlue = this.laserSourceBlue;
+		}
 		gs.laserSourceDirection = this.laserSourceDirection;
 		return gs;
 	}
