@@ -5,8 +5,8 @@ import utility.*;
 public final class GridLiaison
 {
 	private Grid<GridSpace> grid;
-	private int roryRow;
-	private int roryCol;
+	private int roryRow = -1;
+	private int roryCol = -1;
 	
 	public GridLiaison(int rows, int cols)
 	{
@@ -16,8 +16,13 @@ public final class GridLiaison
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
 	{
 		this(rows, cols);
-		this.roryRow = roryRow;
-		this.roryCol = roryCol;
+		this.setRory(roryRow, roryCol);
+	}
+	
+	public void setRory(int row, int col)
+	{
+		this.roryRow = row;
+		this.roryCol = col;
 	}
 	
 	public int size() { return this.grid.size(); }
@@ -27,25 +32,27 @@ public final class GridLiaison
 	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); }
 	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
 	
+	public int getCell(int row, int col) { return this.grid.get(row, col).ID()); }
 	public void setCell(int row, int col, int ID)
 	{
-		GridSpace gs = null;
+		GridSpace gs = new Wall();
 		
 		switch (ID)
 		{
 			case GridSpace.SPACE: gs = new Space(); break;
 			case GridSpace.SPIKE: gs = new Spike(); break;
 			case GridSpace.BOOSTER: gs = new Booster(); break;
-			case GridSpace.WALL: default: gs = new Wall();
 		}
 		
 		this.grid.set(row, col, gs);
 	}
 	
-	public int getCell(int row, int col)
+	public void setArt(int row, int col, boolean art)
 	{
-		return this.grid.get(row, col).ID());
+		GridSpace gs = this.grid.get(row, col);
+		if (gs.ID() > GridSpace.WALL) gs.art = art;
 	}
+	
 	
 	public static int countArt(Grid<GridSpace> grid)
 	{
