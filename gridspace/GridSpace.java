@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class GridSpace
-	{
+{
 	static final Map<Class, Integer> IDs = new HashMap<>();
 	static
 	{
@@ -20,6 +20,8 @@ public abstract class GridSpace
 	public static final int SPACE = IDs.get(Space.class);
 	public static final int SPIKE = IDs.get(Spike.class);
 	public static final int BOOSTER = IDs.get(Booster.class);
+	
+	static final Wall THE_WALL = new Wall();
 	
 	
 	boolean art = false;
@@ -68,7 +70,7 @@ public abstract class GridSpace
 	
 	final int ID()
 	{
-		return IDs.get(this.getClass(), 0);
+		return IDs.getOrDefault(this.getClass(), 0);
 	}
 	
 	int metadataHash()

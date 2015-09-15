@@ -10,7 +10,7 @@ public final class GridLiaison
 	
 	public GridLiaison(int rows, int cols)
 	{
-		this.grid = new Grid<>(rows, cols, GridSpace.getWall());
+		this.grid = new Grid<>(rows, cols, GridSpace.THE_WALL);
 	}
 	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
