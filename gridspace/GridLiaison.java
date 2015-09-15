@@ -24,9 +24,10 @@ public final class GridLiaison
 		
 		switch (ID)
 		{
-			case Grid.Space: gs = new Space(); break;
-			case Grid.Spike: gs = new Spike(); break;
-			case Grid.Wall: default: gs = new Wall();
+			case GridSpace.SPACE: gs = new Space(); break;
+			case GridSpace.SPIKE: gs = new Spike(); break;
+			case GridSpace.BOOSTER: gs = new Booster(); break;
+			case GridSpace.WALL: default: gs = new Wall();
 		}
 		
 		this.grid.set(row, col, gs);
