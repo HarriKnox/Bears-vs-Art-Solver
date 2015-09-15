@@ -86,8 +86,8 @@ public abstract class GridSpace
 		{
 			gs.laserSourceOn = this.laserSourceOn;
 			gs.laserSourceBlue = this.laserSourceBlue;
+			gs.laserSourceDirection = this.laserSourceDirection;
 		}
-		gs.laserSourceDirection = this.laserSourceDirection;
 		return gs;
 	}
 	
