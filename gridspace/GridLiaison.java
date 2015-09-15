@@ -47,11 +47,12 @@ public final class GridLiaison
 		this.grid.set(row, col, gs);
 	}
 	
-	public void setArt(int row, int col, boolean art)
-	{
-		GridSpace gs = this.grid.get(row, col);
-		if (gs.ID() > GridSpace.WALL) gs.art = art;
-	}
+	public void setArt(int row, int col, boolean art) { if (this.isOpen(row, col)) this.grid.get(row, col).art = art; }
+	public void setLaserSourceDirection(int row, int col, int dir) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceDirection = dir; }
+	public void setLaserSourceBlue(int row, int col, boolean blue) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceBlue = blue; }
+	public void setLaserSourceOn(int row, int col, boolean on) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceOn = on; }
+	
+	private isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 	
 	
 	public static int countArt(Grid<GridSpace> grid)
