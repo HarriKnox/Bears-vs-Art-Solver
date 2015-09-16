@@ -25,6 +25,7 @@ final class Booster extends GridSpace
 	public void passThrough(GameState state)
 	{
 		state.changeDirection(this.direction);
+		this.direction = this.getDirection();
 	}
 	
 	GridSpace makeCopy()
@@ -36,7 +37,7 @@ final class Booster extends GridSpace
 		return b;
 	}
 	
-	private int rotate()
+	private int getDirection()
 	{
 		if (this.rotates)
 		{
