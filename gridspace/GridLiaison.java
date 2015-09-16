@@ -75,6 +75,26 @@ public final class GridLiaison
 		}
 	}
 	
+	public void setRotates(int row, int col, boolean rotates)
+	{
+		if (this.isOpen(row, col))
+		{
+			int ID = this.getCell(row, col);
+			
+			if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(row, col)).rotates = rotates;
+		}
+	}
+	
+	public void setClockwise(int row, int col, boolean clockwise)
+	{
+		if (this.isOpen(row, col))
+		{
+			int ID = this.getCell(row, col);
+			
+			if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(row, col)).clockwise = clockwise;
+		}
+	}
+	
 	private boolean isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 	
 	
