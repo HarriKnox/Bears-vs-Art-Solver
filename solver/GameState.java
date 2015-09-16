@@ -97,21 +97,10 @@ public class GameState
 		}
 	}
 	
-	private void updateLasers()
-	{
-		GridLiaison.updateLasers(this.gameBoard);
-	}
-	
-	private void checkHazards()
-	{
-		this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this);
-	}
-	
-	private void passThrough()
-	{
-		this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this);
-	}
-	
+	private void updateLasers() { GridLiaison.updateLasers(this.gameBoard); }
+	private void checkHazards() { this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this); }
+	private void passThrough() { this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this); }
+	private void landedOn() { this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this); }
 	private void endOfMove()
 	{
 		for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
@@ -123,67 +112,29 @@ public class GameState
 		}
 	}
 	
-	private void landedOn()
-	{
-		this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this);
-	}
+	public void changeDirection(int dir) { this.direction = dir; }
+	public void decrementArt() { this.artCount--; }
+	public void kill() { this.alive = false; }
 	
-	public void changeDirection(int dir)
-	{
-		this.direction = dir;
-	}
+	boolean success() { return this.artCount == 0; }
+	boolean stillAlive(int maxMoves) { return this.alive && this.directions.length <= (maxMoves - this.artCount); }
+	int countArt() { return this.artCount; }
+	int[] getDirections() { return this.directions; }
 	
-	public void decrementArt()
-	{
-		this.artCount--;
-	}
+	public Grid<GridSpace> getGameBoard() { return this.gameBoard; }
+	public int getRoryRow() { return this.roryRow; }
+	public int getRoryCol() { return this.roryCol; }
 	
-	public void kill()
-	{
-		this.alive = false;
-	}
-	
-	boolean success()
-	{
-		return this.artCount == 0;
-	}
-	
-	boolean stillAlive(int maxMoves)
-	{
-		return this.alive && this.directions.length <= (maxMoves - this.artCount);
-	}
-	
-	Grid<GridSpace> gameBoard()
-	{
-		return this.gameBoard;
-	}
-	
-	int countArt()
-	{
-		return this.artCount;
-	}
-	
-	int[] getDirections()
-	{
-		return this.directions;
-	}
-	
-	int getMoves()
-	{
-		return this.directions.length;
-	}
-	
-	public int hashCode()
-	{
-		return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol;
-	}
-	
+	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
 	public boolean equals(Object o)
 	{
 		if (!(o instanceof GameState)) return false;
 		GameState gs = (GameState)o;
 		return this.gameBoard.equals(gs.gameBoard) && (this.roryRow == gs.roryRow) && (this.roryCol == gs.roryCol);
 	}
+	
+	
+	
 	
 	
 	public static String dirsToString(int[] dirs)
