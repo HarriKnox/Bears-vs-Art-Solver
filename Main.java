@@ -32,11 +32,14 @@ public class Main //extends PApplet
 		//PApplet.main("Main");
 		
 		String[] board = {
-			"RW    b      ",
-			"b W     b  W ",
-			" b W      a  ",
-			"          W  ",
-			"  b    W     "
+			"ww ww",
+			"ww ww",
+			"R b a",
+			"ww ww",
+			"ww ww",
+			"  b a",
+			"ww ww",
+			"wwbww"
 		};
 		GridLiaison liaison = new GridLiaison(board.length, board[0].length());
 		
@@ -54,7 +57,17 @@ public class Main //extends PApplet
 			}
 		}
 		
-		Solver solver = new Solver(liaison, 10);
+		liaison.setDirection(2, 2, Directions.UP);
+		liaison.setRotates(2, 2, true);
+		liaison.setClockwise(2, 2, true);
+		
+		liaison.setDirection(5, 2, Directions.LEFT);
+		liaison.setRotates(5, 2, true);
+		liaison.setClockwise(5, 2, false);
+		
+		liaison.setDirection(7, 2, Directions.UP);
+		
+		Solver solver = new Solver(liaison, 7);
 		
 		//System.out.println(solver.first().gameBoard);
 		System.out.println(Solver.solution(solver.solve(0)));
