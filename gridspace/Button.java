@@ -5,5 +5,5 @@ import utility.*;
 
 final class Button extends GridSpace
 {
-	
+	Button() {}
 }
