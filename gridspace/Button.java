@@ -21,6 +21,11 @@ final class Button extends GridSpace
 					Button b = (Button)gs;
 					if (b.color == this.color) b.up = !b.up;
 				}
+				if (gs instanceof ButtonDoor)
+				{
+					ButtonDoor b = (ButtonDoor)gs;
+					if (b.color == this.color) b.up = !b.up;
+				}
 			}
 		}
 	}
