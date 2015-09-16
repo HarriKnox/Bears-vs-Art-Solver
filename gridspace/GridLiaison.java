@@ -12,7 +12,7 @@ public final class GridLiaison
 	
 	public GridLiaison(int rows, int cols)
 	{
-		this.grid = new Grid<>(rows, cols, THE_WALL);
+		this.grid = new Grid<>(rows, cols, (Integer x, Integer y) -> new Space());
 	}
 	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
@@ -45,6 +45,8 @@ public final class GridLiaison
 		if (ID == GridSpace.SPACE) gs = new Space();
 		if (ID == GridSpace.SPIKE) gs = new Spike();
 		if (ID == GridSpace.BOOSTER) gs = new Booster();
+		if (ID == GridSpace.BUTTON) gs = new Button();
+		if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
 		
 		this.grid.set(row, col, gs);
 	}
