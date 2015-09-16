@@ -54,7 +54,7 @@ public class Main //extends PApplet
 			}
 		}
 		
-		Solver solver = new Solver(liaison, );
+		Solver solver = new Solver(liaison, 10);
 		
 		//System.out.println(solver.first().gameBoard);
 		System.out.println(Solver.solution(solver.solve(0)));
