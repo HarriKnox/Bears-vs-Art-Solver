@@ -55,7 +55,7 @@ public class Solver
 		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++)
 		{
 			GameState first = this.openQueue.removeFirst();
-			int moves = first.getMoves();
+			int moves = first.getDirections().length;
 			if (moves > this.lastMoves)
 			{
 				if (this.count == 0)

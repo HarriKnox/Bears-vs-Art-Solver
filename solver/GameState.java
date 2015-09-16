@@ -116,14 +116,14 @@ public class GameState
 	public void decrementArt() { this.artCount--; }
 	public void kill() { this.alive = false; }
 	
+	public Grid<GridSpace> getGameBoard() { return this.gameBoard; }
+	public int getRoryRow() { return this.roryRow; }
+	public int getRoryCol() { return this.roryCol; }
+	
 	boolean success() { return this.artCount == 0; }
 	boolean stillAlive(int maxMoves) { return this.alive && this.directions.length <= (maxMoves - this.artCount); }
 	int countArt() { return this.artCount; }
 	int[] getDirections() { return this.directions; }
-	
-	public Grid<GridSpace> getGameBoard() { return this.gameBoard; }
-	public int getRoryRow() { return this.roryRow; }
-	public int getRoryCol() { return this.roryCol; }
 	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
 	public boolean equals(Object o)
