@@ -8,9 +8,11 @@ public final class GridLiaison
 	private int roryRow = -1;
 	private int roryCol = -1;
 	
+	private static final Wall THE_WALL = new Wall();
+	
 	public GridLiaison(int rows, int cols)
 	{
-		this.grid = new Grid<>(rows, cols, GridSpace.THE_WALL);
+		this.grid = new Grid<>(rows, cols, THE_WALL);
 	}
 	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
@@ -47,8 +49,6 @@ public final class GridLiaison
 		this.grid.set(row, col, gs);
 	}
 	
-	public Grid<GridSpace> copyGrid() { return copyGrid(this.grid); }
-	
 	
 	public void setArt(int row, int col, boolean art) { if (this.isOpen(row, col)) this.grid.get(row, col).art = art; }
 	public void setLaserSourceDirection(int row, int col, int dir) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceDirection = dir; }
@@ -78,6 +78,7 @@ public final class GridLiaison
 	private boolean isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 	
 	
+	public int countArt() { return countArt(this.grid); }
 	public static int countArt(Grid<GridSpace> grid)
 	{
 		int count = 0;
@@ -87,6 +88,7 @@ public final class GridLiaison
 		return count;
 	}
 	
+	public boolean hasLasers() { return hasLasers(this.grid); }
 	public static boolean hasLasers(Grid<GridSpace> grid)
 	{
 		for (GridSpace gs : grid)
@@ -95,11 +97,10 @@ public final class GridLiaison
 		return false;
 	}
 	
-	public static Grid<GridSpace> copyGrid(Grid<GridSpace> grid)
-	{
-		return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy());
-	}
+	public Grid<GridSpace> copyGrid() { return copyGrid(this.grid); }
+	public static Grid<GridSpace> copyGrid(Grid<GridSpace> grid) { return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy()); }
 	
+	public void updateLasers() { updateLasers(this.grid); }
 	public static void updateLasers(Grid<GridSpace> gameBoard)
 	{
 		for (GridSpace gs : gameBoard)

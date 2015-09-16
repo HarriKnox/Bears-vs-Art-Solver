@@ -21,8 +21,6 @@ public abstract class GridSpace
 	public static final int SPIKE = IDs.get(Spike.class);
 	public static final int BOOSTER = IDs.get(Booster.class);
 	
-	static final Wall THE_WALL = new Wall();
-	
 	
 	boolean art = false;
 	boolean laser = false;
@@ -68,15 +66,8 @@ public abstract class GridSpace
 	}
 	
 	
-	final int ID()
-	{
-		return IDs.getOrDefault(this.getClass(), 0);
-	}
-	
-	int metadataHash()
-	{
-		return 0;
-	}
+	final int ID() { return IDs.getOrDefault(this.getClass(), 0); }
+	int metadataHash() { return 0; }
 	
 	abstract GridSpace makeCopy();
 	public final GridSpace copy()
