@@ -8,17 +8,17 @@ import utility.*;
 
 public class GameState
 {
-	public Grid<GridSpace> gameBoard;
-	public int roryRow;
-	public int roryCol;
+	private Grid<GridSpace> gameBoard;
+	private int roryRow;
+	private int roryCol;
 	
-	public int[] directions;
-	public int direction;
-	public int artCount;
+	private int[] directions;
+	private int direction;
+	private int artCount;
 	
-	public boolean alive = true;
+	private boolean alive = true;
 	
-	public static boolean hasLasers;
+	private static boolean hasLasers;
 	
 	public GameState(Grid<GridSpace> gb, int row, int col)
 	{
