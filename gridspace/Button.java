@@ -8,7 +8,12 @@ final class Button extends GridSpace
 	Button() {}
 	
 	boolean up = true;
-	int color = Colors.RED;
+	int color = Colors.BLUE;
+	
+	int metadataHash()
+	{
+		return (this.color << 1) + b2i(up);
+	}
 	
 	public void passThrough(GameState state)
 	{
@@ -37,4 +42,6 @@ final class Button extends GridSpace
 		b.color = this.color;
 		return b;
 	}
+	
+	public String toString() { return super.toString(this.up ? 'B' : 'b'); }
 }
