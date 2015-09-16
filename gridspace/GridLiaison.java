@@ -62,6 +62,8 @@ public final class GridLiaison
 			int ID = this.getCell(row, col);
 			
 			if (ID == GridSpace.SPIKE) ((Spike)this.grid.get(row, col)).up = up;
+			if (ID == GridSpace.BUTTON) ((Button)this.grid.get(row, col)).up = up;
+			if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(row, col)).up = up;
 		}
 	}
 	
@@ -92,6 +94,17 @@ public final class GridLiaison
 			int ID = this.getCell(row, col);
 			
 			if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(row, col)).clockwise = clockwise;
+		}
+	}
+	
+	public void setColor(int row, int col, int color)
+	{
+		if (this.isOpen(row, col))
+		{
+			int ID = this.getCell(row, col);
+			
+			if (ID == GridSpace.BUTTON) ((Button)this.grid.get(row, col)).color = color;
+			if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(row, col)).color = color;
 		}
 	}
 	
