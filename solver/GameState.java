@@ -83,6 +83,7 @@ public class GameState
 				
 				this.checkHazards();
 				this.passThrough();
+				this.updateLasers();
 				this.checkHazards();
 				
 				if (!this.alive) return;
