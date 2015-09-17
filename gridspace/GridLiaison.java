@@ -37,8 +37,9 @@ public final class GridLiaison
 	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); }
 	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
 	
-	public int getCell(int row, int col) { return this.grid.get(row, col).ID(); }
-	public void setCell(int row, int col, int ID)
+	public int getCellID(int row, int col) { return this.grid.get(row, col).ID(); }
+	public GridSpaceLiaison getCell(int row, int col) { return new GridSpaceLiaison(row, col); }
+	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
 		GridSpace gs = new Wall();
 		
@@ -49,8 +50,21 @@ public final class GridLiaison
 		if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
 		
 		this.grid.set(row, col, gs);
+		
+		return this.getCell(row, col);
 	}
 	
+	private static final class GridSpaceLiaison
+	{
+		int row;
+		int col;
+		
+		GridSpaceLiaison(int row, int col)
+		{
+			this.row = row;
+			this.col = col;
+		}
+	}
 	
 	public void setArt(int row, int col, boolean art) { if (this.isOpen(row, col)) this.grid.get(row, col).art = art; }
 	public void setLaserSourceDirection(int row, int col, int dir) { if (this.isOpen(row, col)) this.grid.get(row, col).laserSourceDirection = dir; }
