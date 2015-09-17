@@ -162,37 +162,23 @@ public class Main //extends PApplet
 		for (int r = 7; r < 9; r++) for (int c = 6; c < 8; c++) liaison.setCell(r, c, GridSpace.WALL);
 		
 		liaison.setCell(1, 0, GridSpace.BUTTON);
-		liaison.setCell(2, 4, GridSpace.BUTTON);
-		liaison.setUp(2, 4, false);
+		liaison.setCell(2, 4, GridSpace.BUTTON).setUp(false);
 		
 		liaison.setCell(5, 4, GridSpace.BUTTON_DOOR);
-		liaison.setCell(5, 7, GridSpace.BUTTON_DOOR);
-		liaison.setUp(5, 7, false);
+		liaison.setCell(5, 7, GridSpace.BUTTON_DOOR).setUp(false);
 		
-		liaison.setCell(1, 7, GridSpace.BUTTON);
-		liaison.setColor(1, 7, Colors.RED);
-		liaison.setCell(3, 2, GridSpace.BUTTON);
-		liaison.setColor(3, 2, Colors.RED);
-		liaison.setUp(3, 2, false);
+		liaison.setCell(1, 7, GridSpace.BUTTON).setColor(Colors.RED);
+		liaison.setCell(3, 2, GridSpace.BUTTON).setColor(Colors.RED).setUp(false);
 		
-		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR);
-		liaison.setColor(2, 3, Colors.RED);
-		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR);
-		liaison.setColor(7, 3, Colors.RED);
-		liaison.setUp(7, 3, false);
+		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setColor(Colors.RED);
+		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR).setColor(Colors.RED).setUp(false);
 		
 		
-		liaison.setCell(8, 5, GridSpace.BUTTON);
-		liaison.setColor(8, 5, Colors.GREEN);
-		liaison.setCell(5, 0, GridSpace.BUTTON);
-		liaison.setColor(5, 0, Colors.GREEN);
-		liaison.setUp(5, 0, false);
+		liaison.setCell(8, 5, GridSpace.BUTTON).setColor(Colors.GREEN);
+		liaison.setCell(5, 0, GridSpace.BUTTON).setColor(Colors.GREEN).setUp(false);
 		
-		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR);
-		liaison.setColor(7, 1, Colors.GREEN);
-		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR);
-		liaison.setColor(3, 1, Colors.GREEN);
-		liaison.setUp(3, 1, false);
+		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR).setColor(Colors.GREEN);
+		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR).setColor(Colors.GREEN).setUp(false);
 		
 		
 		liaison.setArt(0, 2, true);
@@ -207,18 +193,12 @@ public class Main //extends PApplet
 		liaison.setArt(6, 7, true);
 		liaison.setArt(8, 0, true);
 		
-		liaison.setLaserSourceDirection(0, 1, Directions.DOWN);
-		liaison.setLaserSourceOn(0, 1, true);
-		liaison.setLaserSourceDirection(0, 4, Directions.DOWN);
-		liaison.setLaserSourceOn(0, 4, true);
-		liaison.setLaserSourceDirection(2, 7, Directions.LEFT);
-		liaison.setLaserSourceOn(2, 7, true);
-		liaison.setLaserSourceDirection(5, 7, Directions.LEFT);
-		liaison.setLaserSourceOn(5, 7, true);
-		liaison.setLaserSourceDirection(7, 0, Directions.RIGHT);
-		liaison.setLaserSourceOn(7, 0, true);
-		liaison.setLaserSourceDirection(8, 3, Directions.UP);
-		liaison.setLaserSourceOn(8, 3, true);
+		liaison.setLaserSourceDirection(0, 1, Directions.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(0, 4, Directions.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(2, 7, Directions.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(5, 7, Directions.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(7, 0, Directions.RIGHT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(8, 3, Directions.UP).setLaserSourceOn(true);
 		
 		
 		liaison.updateLasers();
