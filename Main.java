@@ -198,21 +198,13 @@ public class Main //extends PApplet
 		liaison.setLaserSourceDirection(2, 7, Directions.LEFT).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(5, 7, Directions.LEFT).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(7, 0, Directions.RIGHT).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(8, 3, Directions.UP).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(8, 3, Directions.UP).setLaserSourceOn(true);/* */
 		
-		
-		liaison.updateLasers();
-		
-		System.out.println(liaison.copyGrid());
 		
 		Solver solver = new Solver(liaison, 36);
 		
-		System.out.println(Solver.solution(solver.solve(0)));
-		System.out.println(solver.sizes());
-		
-		/*
 		long start = System.currentTimeMillis();
-		int[] solution = solver.solve();
+		int[] solution = solver.solve(0);
 		long stop = System.currentTimeMillis();
 		
 		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
