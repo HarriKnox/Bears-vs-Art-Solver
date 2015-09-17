@@ -84,7 +84,7 @@ public class Main //extends PApplet
 		System.out.println(liaison.copyGrid());/* */
 		
 		
-		GridLiaison liaison = new GridLiaison(5, 5, 2, 2);
+		/*GridLiaison liaison = new GridLiaison(5, 5, 2, 2);
 		
 		liaison.setCell(1, 2, GridSpace.BUTTON_DOOR);
 		liaison.setCell(2, 1, GridSpace.BUTTON_DOOR);
@@ -108,15 +108,128 @@ public class Main //extends PApplet
 		liaison.setUp(4, 3, false);
 		
 		liaison.setCell(3, 0, GridSpace.BUTTON);
+		liaison.setArt(3, 0, true);/* */
+		
+		
+		/*GridLiaison liaison = new GridLiaison(7, 5, 6, 0);
+		
+		liaison.setCell(2, 1, GridSpace.WALL);
+		liaison.setCell(4, 3, GridSpace.WALL);
+		for (int i = 1; i < 4; i++) liaison.setCell(3, i, GridSpace.WALL);
+		liaison.setCell(4, 4, GridSpace.BUTTON_DOOR);
+		liaison.setCell(6, 4, GridSpace.BUTTON);
+		
+		liaison.setUp(4, 4, false);
+		
+		liaison.setArt(2, 2, true);
+		liaison.setArt(4, 2, true);
+		liaison.setArt(3, 4, true);/* */
+		
+		
+		/*GridLiaison liaison = new GridLiaison(5, 5, 0, 0);
+		
+		liaison.setCell(0, 2, GridSpace.BUTTON);
+		liaison.setCell(2, 0, GridSpace.WALL);
+		liaison.setCell(2, 1, GridSpace.BUTTON_DOOR);
+		liaison.setCell(4, 2, GridSpace.BUTTON);
+		
+		liaison.setUp(2, 1, false);
+		liaison.setUp(4, 2, false);
+		liaison.setArt(0, 4, true);
+		liaison.setArt(2, 1, true);
+		liaison.setArt(4, 4, true);/* */
+		
+		
+		/*GridLiaison liaison = new GridLiaison(8, 5, 0, 2);
+		
+		liaison.setCell(2, 2, GridSpace.WALL);
+		liaison.setCell(5, 2, GridSpace.WALL);
+		
+		liaison.setArt(1, 2, true);
+		liaison.setArt(2, 1, true);
+		liaison.setArt(3, 2, true);
+		liaison.setArt(2, 3, true);
+		liaison.setArt(4, 2, true);
+		liaison.setArt(5, 1, true);
+		liaison.setArt(5, 3, true);
+		liaison.setArt(6, 2, true);/* */
+		
+		
+		GridLiaison liaison = new GridLiaison(9, 8, 6, 4);
+		
+		liaison.setCell(0, 0, GridSpace.WALL);
+		for (int i = 5; i < 8; i++) liaison.setCell(0, i, GridSpace.WALL);
+		for (int r = 7; r < 9; r++) for (int c = 6; c < 8; c++) liaison.setCell(r, c, GridSpace.WALL);
+		
+		liaison.setCell(1, 0, GridSpace.BUTTON);
+		liaison.setCell(2, 4, GridSpace.BUTTON);
+		liaison.setUp(2, 4, false);
+		
+		liaison.setCell(5, 4, GridSpace.BUTTON_DOOR);
+		liaison.setCell(5, 7, GridSpace.BUTTON_DOOR);
+		liaison.setUp(5, 7, false);
+		
+		liaison.setCell(1, 7, GridSpace.BUTTON);
+		liaison.setColor(1, 7, Colors.RED);
+		liaison.setCell(3, 2, GridSpace.BUTTON);
+		liaison.setColor(3, 2, Colors.RED);
+		liaison.setUp(3, 2, false);
+		
+		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR);
+		liaison.setColor(2, 3, Colors.RED);
+		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR);
+		liaison.setColor(7, 3, Colors.RED);
+		liaison.setUp(7, 3, false);
+		
+		
+		liaison.setCell(8, 5, GridSpace.BUTTON);
+		liaison.setColor(8, 5, Colors.GREEN);
+		liaison.setCell(5, 0, GridSpace.BUTTON);
+		liaison.setColor(5, 0, Colors.GREEN);
+		liaison.setUp(5, 0, false);
+		
+		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR);
+		liaison.setColor(7, 1, Colors.GREEN);
+		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR);
+		liaison.setColor(3, 1, Colors.GREEN);
+		liaison.setUp(3, 1, false);
+		
+		
+		liaison.setArt(0, 2, true);
+		liaison.setArt(1, 5, true);
+		liaison.setArt(1, 6, true);
 		liaison.setArt(3, 0, true);
+		liaison.setArt(4, 0, true);
+		liaison.setArt(3, 7, true);
+		liaison.setArt(4, 7, true);
+		liaison.setArt(6, 0, true);
+		liaison.setArt(6, 6, true);
+		liaison.setArt(6, 7, true);
+		liaison.setArt(8, 0, true);
+		
+		liaison.setLaserSourceDirection(0, 1, Directions.DOWN);
+		liaison.setLaserSourceOn(0, 1, true);
+		liaison.setLaserSourceDirection(0, 4, Directions.DOWN);
+		liaison.setLaserSourceOn(0, 4, true);
+		liaison.setLaserSourceDirection(2, 7, Directions.LEFT);
+		liaison.setLaserSourceOn(2, 7, true);
+		liaison.setLaserSourceDirection(5, 7, Directions.LEFT);
+		liaison.setLaserSourceOn(5, 7, true);
+		liaison.setLaserSourceDirection(7, 0, Directions.RIGHT);
+		liaison.setLaserSourceOn(7, 0, true);
+		liaison.setLaserSourceDirection(8, 3, Directions.UP);
+		liaison.setLaserSourceOn(8, 3, true);
+		
+		
+		liaison.updateLasers();
 		
 		System.out.println(liaison.copyGrid());
 		
-		Solver solver = new Solver(liaison, 30);
+		Solver solver = new Solver(liaison, 36);
 		
-		//System.out.println(solver.first().gameBoard);
 		System.out.println(Solver.solution(solver.solve(0)));
 		System.out.println(solver.sizes());
+		
 		/*
 		long start = System.currentTimeMillis();
 		int[] solution = solver.solve();
