@@ -69,10 +69,30 @@ public final class GridLiaison
 		
 		private boolean isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 		
-		public void setArt(boolean art) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).art = art; }
-		public void setLaserSourceDirection(int dir) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceDirection = dir; }
-		public void setLaserSourceBlue(boolean blue) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceBlue = blue; }
-		public void setLaserSourceOn(boolean on) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceOn = on; }
+		public GridSpaceLiaison setArt(boolean art)
+		{
+			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).art = art;
+			return this;
+		}
+		
+		public GridSpaceLiaison setLaserSourceDirection(int dir)
+		{
+			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceDirection = dir;
+			return this;
+		}
+		
+		public GridSpaceLiaison setLaserSourceBlue(boolean blue)
+		{
+			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceBlue = blue;
+			return this;
+		}
+		
+		public GridSpaceLiaison setLaserSourceOn(boolean on)
+		{
+			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceOn = on;
+			return this;
+		}
+		
 		
 		public GridSpaceLiaison setUp(boolean up)
 		{
