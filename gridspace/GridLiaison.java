@@ -38,7 +38,7 @@ public final class GridLiaison
 	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
 	
 	public int getCellID(int row, int col) { return this.grid.get(row, col).ID(); }
-	public GridSpaceLiaison getCell(int row, int col) { return new GridSpaceLiaison(row, col); }
+	public GridSpaceLiaison getCell(int row, int col) { return new GridSpaceLiaison(row, col, this.grid); }
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
 		GridSpace gs = new Wall();
@@ -73,58 +73,58 @@ public final class GridLiaison
 		public void setLaserSourceDirection(int dir) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceDirection = dir; }
 		public void setLaserSourceBlue(boolean blue) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceBlue = blue; }
 		public void setLaserSourceOn(boolean on) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceOn = on; }
-	}
-	
-	public void setUp(int row, int col, boolean up)
-	{
-		if (this.isOpen(row, col))
+		
+		public void setUp(boolean up)
 		{
-			int ID = this.getCell(row, col);
-			
-			if (ID == GridSpace.SPIKE) ((Spike)this.grid.get(row, col)).up = up;
-			if (ID == GridSpace.BUTTON) ((Button)this.grid.get(row, col)).up = up;
-			if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(row, col)).up = up;
+			if (this.isOpen(this.row, this.col))
+			{
+				int ID = this.getCell(this.row, this.col);
+				
+				if (ID == GridSpace.SPIKE) ((Spike)this.grid.get(this.row, this.col)).up = up;
+				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).up = up;
+				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).up = up;
+			}
 		}
-	}
-	
-	public void setDirection(int row, int col, int dir)
-	{
-		if (this.isOpen(row, col) && Directions.isDir(dir))
+		
+		public void setDirection(int dir)
 		{
-			int ID = this.getCell(row, col);
-			
-			if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir) || dir == Directions.NONE) ((Booster)this.grid.get(row, col)).direction = dir; }
+			if (this.isOpen(this.row, this.col) && Directions.isDir(dir))
+			{
+				int ID = this.getCell(this.row, this.col);
+				
+				if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir) || dir == Directions.NONE) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
+			}
 		}
-	}
-	
-	public void setRotates(int row, int col, boolean rotates)
-	{
-		if (this.isOpen(row, col))
+		
+		public void setRotates(boolean rotates)
 		{
-			int ID = this.getCell(row, col);
-			
-			if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(row, col)).rotates = rotates;
+			if (this.isOpen(this.row, this.col))
+			{
+				int ID = this.getCell(this.row, this.col);
+				
+				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).rotates = rotates;
+			}
 		}
-	}
-	
-	public void setClockwise(int row, int col, boolean clockwise)
-	{
-		if (this.isOpen(row, col))
+		
+		public void setClockwise(boolean clockwise)
 		{
-			int ID = this.getCell(row, col);
-			
-			if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(row, col)).clockwise = clockwise;
+			if (this.isOpen(this.row, this.col))
+			{
+				int ID = this.getCell(this.row, this.col);
+				
+				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).clockwise = clockwise;
+			}
 		}
-	}
-	
-	public void setColor(int row, int col, int color)
-	{
-		if (this.isOpen(row, col))
+		
+		public void setColor(int color)
 		{
-			int ID = this.getCell(row, col);
-			
-			if (ID == GridSpace.BUTTON) ((Button)this.grid.get(row, col)).color = color;
-			if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(row, col)).color = color;
+			if (this.isOpen(this.row, this.col))
+			{
+				int ID = this.getCell(this.row, this.col);
+				
+				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).color = color;
+				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).color = color;
+			}
 		}
 	}
 	
