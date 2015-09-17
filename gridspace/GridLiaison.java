@@ -74,7 +74,7 @@ public final class GridLiaison
 		public void setLaserSourceBlue(boolean blue) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceBlue = blue; }
 		public void setLaserSourceOn(boolean on) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceOn = on; }
 		
-		public void setUp(boolean up)
+		public GridSpaceLiaison setUp(boolean up)
 		{
 			if (this.isOpen(this.row, this.col))
 			{
@@ -84,9 +84,10 @@ public final class GridLiaison
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).up = up;
 				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).up = up;
 			}
+			return this;
 		}
 		
-		public void setDirection(int dir)
+		public GridSpaceLiaison setDirection(int dir)
 		{
 			if (this.isOpen(this.row, this.col) && Directions.isDir(dir))
 			{
@@ -94,9 +95,10 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir) || dir == Directions.NONE) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
 			}
+			return this;
 		}
 		
-		public void setRotates(boolean rotates)
+		public GridSpaceLiaison setRotates(boolean rotates)
 		{
 			if (this.isOpen(this.row, this.col))
 			{
@@ -104,9 +106,10 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).rotates = rotates;
 			}
+			return this;
 		}
 		
-		public void setClockwise(boolean clockwise)
+		public GridSpaceLiaison setClockwise(boolean clockwise)
 		{
 			if (this.isOpen(this.row, this.col))
 			{
@@ -114,9 +117,10 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).clockwise = clockwise;
 			}
+			return this;
 		}
 		
-		public void setColor(int color)
+		public GridSpaceLiaison setColor(int color)
 		{
 			if (this.isOpen(this.row, this.col))
 			{
@@ -125,6 +129,7 @@ public final class GridLiaison
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).color = color;
 				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).color = color;
 			}
+			return this;
 		}
 	}
 	
