@@ -16,6 +16,7 @@ public abstract class GridSpace
 		IDs.put(Booster.class, 4);
 		IDs.put(Button.class, 5);
 		IDs.put(ButtonDoor.class, 6);
+		IDs.put(MoveDoor.class, 7);
 	}
 	
 	public static final int WALL = IDs.get(Wall.class);
@@ -24,6 +25,7 @@ public abstract class GridSpace
 	public static final int BOOSTER = IDs.get(Booster.class);
 	public static final int BUTTON = IDs.get(Button.class);
 	public static final int BUTTON_DOOR = IDs.get(ButtonDoor.class);
+	public static final int MOVE_DOOR = IDs.get(MoveDoor.class);
 	
 	
 	boolean art = false;
