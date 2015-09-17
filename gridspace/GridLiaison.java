@@ -54,18 +54,20 @@ public final class GridLiaison
 		return this.getCell(row, col);
 	}
 	
-	private final class GridSpaceLiaison
+	private static final class GridSpaceLiaison
 	{
 		int row;
 		int col;
+		Grid<GridSpace> grid;
 		
-		GridSpaceLiaison(int row, int col)
+		GridSpaceLiaison(int row, int col, Grid<GridSpace> grid)
 		{
 			this.row = row;
 			this.col = col;
+			this.grid = grid;
 		}
 		
-		private boolean isOpen(int row, int col) { return GridLiaison.this.grid.inRange(row, col) && GridLiaison.this.grid.get(row, col).ID() > GridSpace.WALL; }
+		private boolean isOpen(int row, int col) { return this.grid.inRange(row, col) && this.grid.get(row, col).ID() > GridSpace.WALL; }
 		
 		public void setArt(boolean art) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).art = art; }
 		public void setLaserSourceDirection(int dir) { if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceDirection = dir; }
