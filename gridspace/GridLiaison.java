@@ -54,7 +54,7 @@ public final class GridLiaison
 		return this.getCell(row, col);
 	}
 	
-	private static final class GridSpaceLiaison
+	public final class GridSpaceLiaison
 	{
 		int row;
 		int col;
@@ -98,7 +98,7 @@ public final class GridLiaison
 		{
 			if (this.isOpen(this.row, this.col))
 			{
-				int ID = this.getCell(this.row, this.col);
+				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
 				if (ID == GridSpace.SPIKE) ((Spike)this.grid.get(this.row, this.col)).up = up;
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).up = up;
@@ -111,7 +111,7 @@ public final class GridLiaison
 		{
 			if (this.isOpen(this.row, this.col) && Directions.isDir(dir))
 			{
-				int ID = this.getCell(this.row, this.col);
+				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
 				if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir) || dir == Directions.NONE) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
 			}
@@ -122,7 +122,7 @@ public final class GridLiaison
 		{
 			if (this.isOpen(this.row, this.col))
 			{
-				int ID = this.getCell(this.row, this.col);
+				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
 				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).rotates = rotates;
 			}
@@ -133,7 +133,7 @@ public final class GridLiaison
 		{
 			if (this.isOpen(this.row, this.col))
 			{
-				int ID = this.getCell(this.row, this.col);
+				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
 				if (ID == GridSpace.BOOSTER) ((Booster)this.grid.get(this.row, this.col)).clockwise = clockwise;
 			}
@@ -144,7 +144,7 @@ public final class GridLiaison
 		{
 			if (this.isOpen(this.row, this.col))
 			{
-				int ID = this.getCell(this.row, this.col);
+				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).color = color;
 				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).color = color;
@@ -161,7 +161,7 @@ public final class GridLiaison
 	public GridSpaceLiaison setDirection           (int row, int col, int dir)       { return new GridSpaceLiaison(row, col, this.grid).setDirection(dir); }
 	public GridSpaceLiaison setRotates             (int row, int col, boolean rot)   { return new GridSpaceLiaison(row, col, this.grid).setRotates(rot); }
 	public GridSpaceLiaison setClockwise           (int row, int col, boolean clock) { return new GridSpaceLiaison(row, col, this.grid).setClockwise(clock); }
-	public GridSpaceLiaison setColor               (int row, int col, int color)     { return new GridSpaceLiaison(row, col, this.grid).set(color); }
+	public GridSpaceLiaison setColor               (int row, int col, int color)     { return new GridSpaceLiaison(row, col, this.grid).setColor(color); }
 	
 	
 	public int countArt() { return countArt(this.grid); }
