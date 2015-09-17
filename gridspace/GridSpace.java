@@ -80,8 +80,9 @@ public abstract class GridSpace
 	String toString(char l)
 	{
 		StringBuilder sb = new StringBuilder();
-		if (this.laser) sb.append("\033[41m");
-		if (this.art) sb.append("\033[32m");
+		if (this.laser && this.art) sb.append("\033[43m");
+		else if (this.laser) sb.append("\033[41m");
+		else if (this.art) sb.append("\033[42m");
 		sb.append(l);
 		if (this.art || this.laser) sb.append("\033[0m");
 		return sb.toString();

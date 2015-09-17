@@ -24,5 +24,5 @@ final class ButtonDoor extends GridSpace
 		return bd;
 	}
 	
-	public String toString() { return super.toString(this.up ? 'D' : 'd'); }
+	public String toString() { return (this.color == Colors.BLUE ? "\033[1;34m" : (this.color == Colors.GREEN ? "\033[1;32m" : "\033[1;31m")) + super.toString(this.up ? 'D' : 'd') + "\033[0m"; }
 }
