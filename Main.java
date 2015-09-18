@@ -176,17 +176,48 @@ public class Main //extends PApplet
 		
 		
 		/// Level 70 "Through Space And Time"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(6, 3, 0, 0);
 		liaison.setCell(2, 1, GridSpace.TELEPORTER);
 		liaison.setCell(4, 1, GridSpace.TELEPORTER);
 		for (int i = 0; i < 3; i++) liaison.setCell(3, i, GridSpace.WALL);
-		liaison.setArt(0, 1, true);
+		liaison.setArt(0, 1, true);/* */
+		
+		
+		/// Level 91 "Tiny Tim"
+		/*
+		GridLiaison liaison = new GridLiaison(3, 2, 2, 0);
+		liaison.setCell(0, 0, GridSpace.BUTTON_DOOR).setArt(true).setUp(false);
+		liaison.setCell(0, 1, GridSpace.BUTTON).setUp(false).setColor(Colors.RED);
+		liaison.setCell(1, 0, GridSpace.BUTTON).setArt(true);
+		liaison.setCell(1, 1, GridSpace.BUTTON_DOOR).setArt(true).setColor(Colors.RED);
+		liaison.setCell(2, 0, GridSpace.BUTTON).setUp(false);
+		liaison.setCell(2, 1, GridSpace.BUTTON).setColor(Colors.RED);/* */
+		
+		
+		/// Level 93 "High Stakes 2"
+		//*
+		GridLiaison liaison = new GridLiaison(7, 5, 0, 2);
+		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Directions.DOWN);
+		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Directions.DOWN);
+		for (int i = 1; i < 4; i++) liaison.setCell(1, i, GridSpace.BOOSTER).setDirection(Directions.DOWN);
+		liaison.setCell(3, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN);
+		liaison.setCell(3, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
+		liaison.setCell(3, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN);
+		liaison.setCell(4, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN).setClockwise(false);
+		liaison.setCell(4, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
+		liaison.setCell(4, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
+		liaison.setCell(5, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.UP);
+		liaison.setCell(5, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
+		liaison.setCell(5, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.RIGHT);
+		liaison.setCell(5, 0, GridSpace.BOOSTER);
+		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Directions.LEFT);
+		liaison.setArt(6, 2, true);/* */
 		
 		
 		Solver solver = new Solver(liaison, 15);
 		
-		System.out.println(liaison.copyGrid());
+		System.out.println(liaison.copyGrid());, 1);
 		
 		long start = System.currentTimeMillis();
 		int[] solution = solver.solve(0);
@@ -195,5 +226,6 @@ public class Main //extends PApplet
 		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
 		System.out.println(solver.sizes());
 		System.out.println(Solver.solution(solution));/* */
+		System.out.println(solver.first().getGameBoard());
 	}
 }
