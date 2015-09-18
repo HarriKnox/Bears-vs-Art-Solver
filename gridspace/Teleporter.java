@@ -19,8 +19,9 @@ final class Teleporter extends GridSpace
 		{
 			for (int y = 0, cols = gameBoard.cols(); y < cols; y++)
 			{
+				GridSpace t = gameBoard.get(x, y);
 				// If the space in question is a teleporter and Rory is in it, then it's not the teleporter we're teleporting him to
-				if (gameBoard.get(x, y).ID() == this.ID() && !(x == gameBoard.roryRow() && y == gameBoard.roryCol()))
+				if (t.ID() == this.ID() && ((Teleporter)t).color == this.color && !(x == gameBoard.roryRow() && y == gameBoard.roryCol()))
 				{
 					state.teleportRory(x, y);
 					break;
