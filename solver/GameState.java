@@ -115,7 +115,7 @@ public class GameState
 	
 	public void decrementArt() { this.artCount--; }
 	public void changeDirection(int dir) { this.direction = dir; }
-	public void teleportRory(int x, int y) { this.roryRow = x; this.roryRow = y; }
+	public void teleportRory(int x, int y) { this.roryRow = x; this.roryCol = y; }
 	public void kill() { this.alive = false; }
 	
 	public Grid<GridSpace> getGameBoard() { return this.gameBoard; }
