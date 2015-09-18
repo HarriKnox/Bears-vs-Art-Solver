@@ -19,7 +19,7 @@ final class Booster extends GridSpace
 	
 	public String toString()
 	{
-		return super.toString('b');
+		return (this.rotates ? (this.clockwise ? "\033[1;33m" : "\033[1;34m") : "") + super.toString(this.direction == Directions.UP ? '^' : (this.direction == Directions.DOWN ? 'v' : (this.direction == Directions.LEFT ? '<' : '>'))) + "\033[0m";
 	}
 
 	public void passThrough(GameState state)
@@ -32,8 +32,11 @@ final class Booster extends GridSpace
 	{
 		Booster b = new Booster();
 		b.direction = this.direction;
-		b.rotates = this.rotates;
-		b.clockwise = this.clockwise;
+		if (this.rotates)
+		{
+			b.rotates = true;
+			b.clockwise = this.clockwise;
+		}
 		return b;
 	}
 	
