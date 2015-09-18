@@ -43,12 +43,13 @@ public final class GridLiaison
 	{
 		GridSpace gs = new Wall();
 		
-		if (ID == GridSpace.SPACE) gs = new Space();
-		if (ID == GridSpace.SPIKE) gs = new Spike();
-		if (ID == GridSpace.BOOSTER) gs = new Booster();
-		if (ID == GridSpace.BUTTON) gs = new Button();
+		if (ID == GridSpace.SPACE)       gs = new Space();
+		if (ID == GridSpace.SPIKE)       gs = new Spike();
+		if (ID == GridSpace.BOOSTER)     gs = new Booster();
+		if (ID == GridSpace.BUTTON)      gs = new Button();
 		if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
-		if (ID == GridSpace.MOVE_DOOR) gs = new MoveDoor();
+		if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
+		if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
 		
 		this.grid.set(row, col, gs);
 		
@@ -150,6 +151,7 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).color = color;
 				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).color = color;
+				if (ID == GridSpace.TELEPORTER) ((Teleporter)this.grid.get(this.row, this.col)).color = color;
 			}
 			return this;
 		}
