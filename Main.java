@@ -158,7 +158,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 66 "Right Place, Right Time"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(6, 4, 0, 0);
 		for (int i = 0; i < 3; i++) liaison.setCell(i, 2, GridSpace.WALL);
 		for (int i = 2; i < 5; i++) liaison.setCell(i, 1, GridSpace.WALL);
@@ -175,7 +175,18 @@ public class Main //extends PApplet
 		liaison.setArt(0, 3, true);/* */
 		
 		
+		/// Level 70 "Through Space And Time"
+		//*
+		GridLiaison liaison = new GridLiaison(6, 3, 0, 0);
+		liaison.setCell(2, 1, GridSpace.TELEPORTER);
+		liaison.setCell(4, 1, GridSpace.TELEPORTER);
+		for (int i = 0; i < 3; i++) liaison.setCell(3, i, GridSpace.WALL);
+		liaison.setArt(0, 1, true);
+		
+		
 		Solver solver = new Solver(liaison, 15);
+		
+		System.out.println(liaison.copyGrid());
 		
 		long start = System.currentTimeMillis();
 		int[] solution = solver.solve(0);
