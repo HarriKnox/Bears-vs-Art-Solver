@@ -32,14 +32,14 @@ public abstract class GridSpace
 	
 	boolean art = false;
 	boolean laser = false;
-	int laserSourceDirection = Directions.NONE;
+	Directions laserSourceDirection = Directions.NONE;
 	boolean laserSourceBlue = false;
 	boolean laserSourceOn = false;
-	boolean isLaserSource() { return Directions.isDir(this.laserSourceDirection) && this.laserSourceDirection != Directions.NONE; }
+	boolean isLaserSource() { return this.laserSourceDirection != Directions.NONE; }
 	
 	private final int laserArtHash()
 	{
-		return (this.laserSourceDirection << 4) +
+		return (this.laserSourceDirection.hash << 4) +
 		       (this.isLaserSource() ? (b2i(this.laserSourceBlue) << 3) + (b2i(this.laserSourceOn) << 2) : 0) + 
 		       (b2i(this.laser) << 1) +
 		       b2i(this.art);

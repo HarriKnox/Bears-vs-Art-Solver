@@ -7,17 +7,17 @@ public class GridTraveler
 {
 	public static int[] getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
 	{
-		LinkedList<Integer> dirList = new LinkedList<>();
+		LinkedList<Directions> dirList = new LinkedList<>();
 		for (int d = 0, len = Directions.LIST.length; d < len; d++)
 		{
-			int dir = Directions.LIST[d];
+			Directions dir = Directions.LIST[d];
 			if (canGo(gameBoard, row, col, dir)) dirList.add(Integer.valueOf(dir));
 		}
 		
-		return dirList.stream().mapToInt(Integer::intValue).toArray();
+		return dirList.stream().toArray();
 	}
 	
-	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, int dir)
+	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, Directions dir)
 	{
 		if (Directions.isVertical(dir))
 		{
@@ -32,7 +32,7 @@ public class GridTraveler
 		return false;
 	}
 	
-	public static boolean checkDir(Grid<GridSpace> gameBoard, int row, int col, int dir)
+	public static boolean checkDir(Grid<GridSpace> gameBoard, int row, int col, Directions dir)
 	{
 		row += Directions.verticalChange(dir);
 		col += Directions.horizontalChange(dir);

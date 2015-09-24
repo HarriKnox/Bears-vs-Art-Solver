@@ -77,7 +77,7 @@ public final class GridLiaison
 			return this;
 		}
 		
-		public GridSpaceLiaison setLaserSourceDirection(int dir)
+		public GridSpaceLiaison setLaserSourceDirection(Directions dir)
 		{
 			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).laserSourceDirection = dir;
 			return this;
@@ -110,13 +110,13 @@ public final class GridLiaison
 			return this;
 		}
 		
-		public GridSpaceLiaison setDirection(int dir)
+		public GridSpaceLiaison setDirection(Directions dir)
 		{
-			if (this.isOpen(this.row, this.col) && Directions.isDir(dir))
+			if (this.isOpen(this.row, this.col) && dir)
 			{
 				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
-				if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir) || dir == Directions.NONE) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
+				if (ID == GridSpace.BOOSTER) { if (Directions.isCardinal(dir)) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
 			}
 			return this;
 		}
@@ -184,11 +184,11 @@ public final class GridLiaison
 	}
 	
 	public GridSpaceLiaison setArt                 (int row, int col, boolean art)    { return new GridSpaceLiaison(row, col, this.grid).setArt(art); }
-	public GridSpaceLiaison setLaserSourceDirection(int row, int col, int dir)        { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceDirection(dir); }
+	public GridSpaceLiaison setLaserSourceDirection(int row, int col, Directions dir) { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceDirection(dir); }
 	public GridSpaceLiaison setLaserSourceBlue     (int row, int col, boolean blue)   { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceBlue(blue); }
 	public GridSpaceLiaison setLaserSourceOn       (int row, int col, boolean on)     { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceOn(on); }
 	public GridSpaceLiaison setUp                  (int row, int col, boolean up)     { return new GridSpaceLiaison(row, col, this.grid).setUp(up); }
-	public GridSpaceLiaison setDirection           (int row, int col, int dir)        { return new GridSpaceLiaison(row, col, this.grid).setDirection(dir); }
+	public GridSpaceLiaison setDirection           (int row, int col, Directions dir) { return new GridSpaceLiaison(row, col, this.grid).setDirection(dir); }
 	public GridSpaceLiaison setRotates             (int row, int col, boolean rot)    { return new GridSpaceLiaison(row, col, this.grid).setRotates(rot); }
 	public GridSpaceLiaison setClockwise           (int row, int col, boolean clock)  { return new GridSpaceLiaison(row, col, this.grid).setClockwise(clock); }
 	public GridSpaceLiaison setColor               (int row, int col, int color)      { return new GridSpaceLiaison(row, col, this.grid).setColor(color); }
@@ -232,7 +232,7 @@ public final class GridLiaison
 				GridSpace square = gameBoard.get(x, y);
 				if (square.isLaserSource() && square.laserSourceOn)
 				{
-					int dir = square.laserSourceDirection;
+					Directions dir = square.laserSourceDirection;
 					if (GridTraveler.checkDir(gameBoard, x, y, Directions.NONE))
 					{
 						square.laser = true;

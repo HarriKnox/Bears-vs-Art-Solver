@@ -7,13 +7,13 @@ final class Booster extends GridSpace
 {
 	Booster() {}
 	
-	int direction = Directions.RIGHT;
+	Directions direction = Directions.RIGHT;
 	boolean rotates = false;
 	boolean clockwise = true;
 	
 	int metadataHash()
 	{
-		return (this.direction << 2) +
+		return (this.direction.hash << 2) +
 		       (this.rotates ? (b2i(this.clockwise) << 1) + 1 : 0);
 	}
 	
@@ -40,7 +40,7 @@ final class Booster extends GridSpace
 		return b;
 	}
 	
-	private int getDirection()
+	private Directions getDirection()
 	{
 		if (this.rotates)
 		{

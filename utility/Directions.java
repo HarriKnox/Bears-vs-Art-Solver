@@ -12,7 +12,7 @@ public final class Directions
 	DOWN_LEFT (0b1101),
 	DOWN_RIGHT(0b1111);
 	
-	private int hash;
+	public final int hash;
 	private Directions(int hash)
 	{
 		this.hash = hash;
