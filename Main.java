@@ -196,7 +196,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 93 "High Stakes 2"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(7, 5, 0, 2);
 		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Directions.DOWN);
 		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Directions.DOWN);
@@ -215,9 +215,38 @@ public class Main //extends PApplet
 		liaison.setArt(6, 2, true);/* */
 		
 		
-		Solver solver = new Solver(liaison, 15);
+		/// Level 95 "Swerve"
+		//*
+		GridLiaison liaison = new GridLiaison(8, 6, 3, 2);
+		liaison.setCell(0, 0, GridSpace.WALL);
+		liaison.setCell(1, 0, GridSpace.WALL);
+		liaison.setCell(6, 0, GridSpace.WALL);
+		liaison.setCell(7, 0, GridSpace.WALL);
+		for (int i = 3; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, GridSpace.WALL);
+		liaison.setCell(2, 0, GridSpace.BOOSTER);
+		liaison.setCell(5, 0, GridSpace.BOOSTER);
+		liaison.setCell(2, 4, GridSpace.BOOSTER).setDirection(Directions.UP);
+		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Directions.DOWN);
+		liaison.setCell(2, 2, GridSpace.BUTTON).setUp(false);
+		liaison.setCell(5, 2, GridSpace.BUTTON);
+		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setUp(false);
+		liaison.setCell(5, 3, GridSpace.BUTTON_DOOR);
+		liaison.setCell(3, 1, GridSpace.TELEPORTER);
+		liaison.setCell(4, 1, GridSpace.TELEPORTER);
+		liaison.setLaserSourceDirection(0, 3, Directions.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(2, 5, Directions.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(5, 5, Directions.LEFT).setLaserSourceOn(true);
+		liaison.setArt(0, 2, true);
+		liaison.setArt(1, 5, true);
+		liaison.setArt(6, 1, true);
+		liaison.setArt(7, 2, true);
+		liaison.setArt(7, 4, true);
 		
-		System.out.println(liaison.copyGrid());, 1);
+		
+		liaison.updateLasers();
+		System.out.println(liaison.copyGrid());
+		
+		Solver solver = new Solver(liaison, 16);
 		
 		long start = System.currentTimeMillis();
 		int[] solution = solver.solve(0);
@@ -226,6 +255,5 @@ public class Main //extends PApplet
 		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
 		System.out.println(solver.sizes());
 		System.out.println(Solver.solution(solution));/* */
-		System.out.println(solver.first().getGameBoard());
 	}
 }
