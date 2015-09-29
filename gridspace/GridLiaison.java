@@ -112,7 +112,7 @@ public final class GridLiaison
 		
 		public GridSpaceLiaison setDirection(Directions dir)
 		{
-			if (this.isOpen(this.row, this.col) && dir)
+			if (this.isOpen(this.row, this.col))
 			{
 				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				

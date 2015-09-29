@@ -1,6 +1,6 @@
 package utility;
 
-public final class Directions
+public enum Directions
 {
 	NONE      (0b1010),
 	UP        (0b0110),
@@ -36,13 +36,13 @@ public final class Directions
 	private static final int VERT  = 0b1100;
 	private static final int HORIZ = 0b0011;
 	
-	public static int verticalChange  (Directions dir) { return (dir.hash ? ((dir.hash & VERT) >> 2) - 2 : 0); }
-	public static int horizontalChange(Directions dir) { return (dir.hash ? (dir.hash & HORIZ) - 2 : 0); }
+	public static int verticalChange  (Directions dir) { return ((dir.hash & VERT) >> 2) - 2; }
+	public static int horizontalChange(Directions dir) { return (dir.hash & HORIZ) - 2; }
 	
-	public static boolean isVertical  (Directions dir) { return verticalChange(dir.hash) != 0; }
-	public static boolean isHorizontal(Directions dir) { return horizontalChange(dir.hash) != 0; }
-	public static boolean isDiagonal  (Directions dir) { return isVertical(dir.hash) && isHorizontal(dir.hash); }
-	public static boolean isCardinal  (Directions dir) { return isVertical(dir.hash) != isHorizontal(dir.hash); }
+	public static boolean isVertical  (Directions dir) { return verticalChange(dir) != 0; }
+	public static boolean isHorizontal(Directions dir) { return horizontalChange(dir) != 0; }
+	public static boolean isDiagonal  (Directions dir) { return isVertical(dir) && isHorizontal(dir); }
+	public static boolean isCardinal  (Directions dir) { return isVertical(dir) != isHorizontal(dir); }
 	
 	public static int verticalComponent  (Directions dir) { return (dir.hash & VERT) | 0b0010; }
 	public static int horizontalComponent(Directions dir) { return (dir.hash & HORIZ) | 0b1000; }
