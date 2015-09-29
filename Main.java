@@ -216,7 +216,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 95 "Swerve"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(8, 6, 3, 2);
 		liaison.setCell(0, 0, GridSpace.WALL);
 		liaison.setCell(1, 0, GridSpace.WALL);
@@ -240,10 +240,10 @@ public class Main //extends PApplet
 		liaison.setArt(1, 5, true);
 		liaison.setArt(6, 1, true);
 		liaison.setArt(7, 2, true);
-		liaison.setArt(7, 4, true);
+		liaison.setArt(7, 4, true);/* */
 		
 		
-		liaison.updateLasers();
+		/*liaison.updateLasers();
 		System.out.println(liaison.copyGrid());
 		
 		Solver solver = new Solver(liaison, 16);
@@ -255,5 +255,7 @@ public class Main //extends PApplet
 		System.out.println(new StringBuilder("Solved in ").append((double)(stop - start) / 1000.0D).append(" seconds"));
 		System.out.println(solver.sizes());
 		System.out.println(Solver.solution(solution));/* */
+		
+		System.out.println(Directions.UP_LEFT.opposite());
 	}
 }

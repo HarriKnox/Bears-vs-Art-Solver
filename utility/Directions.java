@@ -19,34 +19,33 @@ public enum Directions
 	}
 	
 	public static final Directions[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
-	public static final String[] NAMES = new String[16];
+	private static final Directions[] MAP = new Directions[16];
 	static
 	{
-		NAMES[NONE.hash]       = "NONE";
-		NAMES[UP.hash]         = "UP";
-		NAMES[DOWN.hash]       = "DOWN";
-		NAMES[LEFT.hash]       = "LEFT";
-		NAMES[RIGHT.hash]      = "RIGHT";
-		NAMES[UP_LEFT.hash]    = "UP_LEFT";
-		NAMES[UP_RIGHT.hash]   = "UP_RIGHT";
-		NAMES[DOWN_LEFT.hash]  = "DOWN_LEFT";
-		NAMES[DOWN_RIGHT.hash] = "DOWN_RIGHT";
+		MAP[NONE.hash]       = NONE;
+		MAP[UP.hash]         = UP;
+		MAP[DOWN.hash]       = DOWN;
+		MAP[LEFT.hash]       = LEFT;
+		MAP[RIGHT.hash]      = RIGHT;
+		MAP[UP_LEFT.hash]    = UP_LEFT;
+		MAP[UP_RIGHT.hash]   = UP_RIGHT;
+		MAP[DOWN_LEFT.hash]  = DOWN_LEFT;
+		MAP[DOWN_RIGHT.hash] = DOWN_RIGHT;
 	}
 	
 	private static final int VERT  = 0b1100;
 	private static final int HORIZ = 0b0011;
 	
-	public static int verticalChange  (Directions dir) { return ((dir.hash & VERT) >> 2) - 2; }
-	public static int horizontalChange(Directions dir) { return (dir.hash & HORIZ) - 2; }
+	public int verticalChange  () { return ((this.hash & VERT) >> 2) - 2; }
+	public int horizontalChange() { return (this.hash & HORIZ) - 2; }
 	
-	public static boolean isVertical  (Directions dir) { return verticalChange(dir) != 0; }
-	public static boolean isHorizontal(Directions dir) { return horizontalChange(dir) != 0; }
-	public static boolean isDiagonal  (Directions dir) { return isVertical(dir) && isHorizontal(dir); }
-	public static boolean isCardinal  (Directions dir) { return isVertical(dir) != isHorizontal(dir); }
+	public boolean isVertical  () { return this.verticalChange() != 0; }
+	public boolean isHorizontal() { return this.horizontalChange() != 0; }
+	public boolean isDiagonal  () { return this.isVertical() && this.isHorizontal(); }
+	public boolean isCardinal  () { return this.isVertical() != this.isHorizontal(); }
 	
-	public static int verticalComponent  (Directions dir) { return (dir.hash & VERT) | 0b0010; }
-	public static int horizontalComponent(Directions dir) { return (dir.hash & HORIZ) | 0b1000; }
+	public int verticalComponent  () { return (this.hash & VERT) | 0b0010; }
+	public int horizontalComponent() { return (this.hash & HORIZ) | 0b1000; }
 	
-	public static int opposite (Directions dir) { return 0b10100 - dir.hash; }
-	public static boolean isDir(Directions dir) { return dir.hash <= 0b1111 && NAMES[dir.hash] != null; }
+	public Directions opposite() { return MAP[0b10100 - this.hash]; }
 }

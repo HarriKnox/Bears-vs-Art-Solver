@@ -84,6 +84,7 @@ public class Solver
 		return this.openQueue.isEmpty() ? new int[0] : new int[]{ Directions.NONE };
 	}
 	
+	
 	public String sizes()
 	{
 		return (new StringBuilder("Open: ")).append(this.openQueue.size()).append(", Closed: ").append(this.closedSet.size()).toString();
