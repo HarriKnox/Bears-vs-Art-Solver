@@ -7,7 +7,7 @@ final class Booster extends GridSpace
 {
 	Booster() {}
 	
-	Directions direction = Directions.RIGHT;
+	Direction direction = Direction.RIGHT;
 	boolean rotates = false;
 	boolean clockwise = true;
 	
@@ -19,7 +19,7 @@ final class Booster extends GridSpace
 	
 	public String toString()
 	{
-		return (this.rotates ? (this.clockwise ? "\033[1;33m" : "\033[1;34m") : "") + super.toString(this.direction == Directions.UP ? '^' : (this.direction == Directions.DOWN ? 'v' : (this.direction == Directions.LEFT ? '<' : '>'))) + "\033[0m";
+		return (this.rotates ? (this.clockwise ? "\033[1;33m" : "\033[1;34m") : "") + super.toString(this.direction == Direction.UP ? '^' : (this.direction == Direction.DOWN ? 'v' : (this.direction == Direction.LEFT ? '<' : '>'))) + "\033[0m";
 	}
 
 	public void passThrough(GameState state)
@@ -40,14 +40,14 @@ final class Booster extends GridSpace
 		return b;
 	}
 	
-	private Directions getDirection()
+	private Direction getDirection()
 	{
 		if (this.rotates)
 		{
-			if (this.direction == (this.clockwise ? Directions.RIGHT : Directions.LEFT))  return Directions.DOWN;
-			if (this.direction == (this.clockwise ? Directions.LEFT  : Directions.RIGHT)) return Directions.UP;
-			if (this.direction == (this.clockwise ? Directions.UP    : Directions.DOWN))  return Directions.RIGHT;
-			if (this.direction == (this.clockwise ? Directions.DOWN  : Directions.UP))    return Directions.LEFT;
+			if (this.direction == (this.clockwise ? Direction.RIGHT : Direction.LEFT))  return Direction.DOWN;
+			if (this.direction == (this.clockwise ? Direction.LEFT  : Direction.RIGHT)) return Direction.UP;
+			if (this.direction == (this.clockwise ? Direction.UP    : Direction.DOWN))  return Direction.RIGHT;
+			if (this.direction == (this.clockwise ? Direction.DOWN  : Direction.UP))    return Direction.LEFT;
 		}
 		return this.direction;
 	}

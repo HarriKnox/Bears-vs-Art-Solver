@@ -12,8 +12,8 @@ public class GameState
 	private int roryRow;
 	private int roryCol;
 	
-	private Directions[] directions;
-	private Directions direction;
+	private Direction[] directions;
+	private Direction direction;
 	private int artCount;
 	
 	private boolean alive = true;
@@ -24,8 +24,8 @@ public class GameState
 	{
 		this.setDefaults(gb, row, col);
 		
-		this.directions = new Directions[0];
-		this.direction = Directions.NONE;
+		this.directions = new Direction[0];
+		this.direction = Direction.NONE;
 		
 		this.artCount = GridLiaison.countArt(this.gameBoard);
 		this.hasLasers = GridLiaison.hasLasers(this.gameBoard);
@@ -34,7 +34,7 @@ public class GameState
 		this.checkHazards();
 	}
 	
-	private GameState(Grid<GridSpace> gb, int row, int col, Directions[] dirs, Directions dir, int art)
+	private GameState(Grid<GridSpace> gb, int row, int col, Direction[] dirs, Direction dir, int art)
 	{
 		this.setDefaults(gb, row, col);
 		
@@ -78,8 +78,8 @@ public class GameState
 			
 			while (GridTraveler.canGo(this.gameBoard, this.roryRow, this.roryCol, this.direction))
 			{
-				this.roryRow += Directions.verticalChange(this.direction);
-				this.roryCol += Directions.horizontalChange(this.direction);
+				this.roryRow += Direction.verticalChange(this.direction);
+				this.roryCol += Direction.horizontalChange(this.direction);
 				
 				this.checkHazards();
 				this.passThrough();
@@ -114,7 +114,7 @@ public class GameState
 	}
 	
 	public void decrementArt() { this.artCount--; }
-	public void changeDirection(Directions dir) { this.direction = dir; }
+	public void changeDirection(Direction dir) { this.direction = dir; }
 	public void teleportRory(int x, int y) { this.roryRow = x; this.roryCol = y; }
 	public void kill() { this.alive = false; }
 	
@@ -125,7 +125,7 @@ public class GameState
 	boolean success() { return this.artCount == 0; }
 	boolean stillAlive(int maxMoves) { return this.alive && this.directions.length <= (maxMoves - this.artCount); }
 	int countArt() { return this.artCount; }
-	Directions[] getDirections() { return this.directions; }
+	Direction[] getDirections() { return this.directions; }
 	
 	public int hashCode() { return (this.gameBoard.hashCode() << 12) + (this.roryRow << 6) + this.roryCol; }
 	public boolean equals(Object o)
@@ -139,9 +139,9 @@ public class GameState
 	
 	
 	
-	public static String dirsToString(Directions[] dirs)
+	public static String dirsToString(Direction[] dirs)
 	{
-		return Arrays.toString(Arrays.stream(dirs).mapToObj((Directions i) -> Directions.NAMES[i.hash]).toArray());
+		return Arrays.toString(Arrays.stream(dirs).mapToObj((Direction i) -> Direction.NAMES[i.hash]).toArray());
 	}
 	
 	public String getBoard()

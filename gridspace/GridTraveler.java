@@ -7,35 +7,35 @@ public class GridTraveler
 {
 	public static int[] getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
 	{
-		LinkedList<Directions> dirList = new LinkedList<>();
-		for (int d = 0, len = Directions.LIST.length; d < len; d++)
+		LinkedList<Direction> dirList = new LinkedList<>();
+		for (int d = 0, len = Direction.LIST.length; d < len; d++)
 		{
-			Directions dir = Directions.LIST[d];
+			Direction dir = Direction.LIST[d];
 			if (canGo(gameBoard, row, col, dir)) dirList.add(Integer.valueOf(dir));
 		}
 		
 		return dirList.stream().toArray();
 	}
 	
-	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, Directions dir)
+	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, Direction dir)
 	{
-		if (Directions.isVertical(dir))
+		if (Direction.isVertical(dir))
 		{
-			boolean vert = checkDir(gameBoard, row, col, Directions.verticalComponent(dir));
-			if (Directions.isHorizontal(dir)) return vert && checkDir(gameBoard, row, col, Directions.horizontalComponent(dir)) && checkDir(gameBoard, row, col, dir);
+			boolean vert = checkDir(gameBoard, row, col, Direction.verticalComponent(dir));
+			if (Direction.isHorizontal(dir)) return vert && checkDir(gameBoard, row, col, Direction.horizontalComponent(dir)) && checkDir(gameBoard, row, col, dir);
 			return vert;
 		}
-		else if (Directions.isHorizontal(dir))
+		else if (Direction.isHorizontal(dir))
 		{
-			return checkDir(gameBoard, row, col, Directions.horizontalComponent(dir));
+			return checkDir(gameBoard, row, col, Direction.horizontalComponent(dir));
 		}
 		return false;
 	}
 	
-	public static boolean checkDir(Grid<GridSpace> gameBoard, int row, int col, Directions dir)
+	public static boolean checkDir(Grid<GridSpace> gameBoard, int row, int col, Direction dir)
 	{
-		row += Directions.verticalChange(dir);
-		col += Directions.horizontalChange(dir);
+		row += Direction.verticalChange(dir);
+		col += Direction.horizontalChange(dir);
 		return gameBoard.inRange(row, col) && !gameBoard.get(row, col).isSolid();
 	}
 }

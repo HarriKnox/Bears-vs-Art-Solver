@@ -1,6 +1,6 @@
 package utility;
 
-public enum Directions
+public enum Direction
 {
 	NONE      (0b1010),
 	UP        (0b0110),
@@ -13,13 +13,13 @@ public enum Directions
 	DOWN_RIGHT(0b1111);
 	
 	public final int hash;
-	private Directions(int hash)
+	private Direction(int hash)
 	{
 		this.hash = hash;
 	}
 	
-	public static final Directions[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
-	private static final Directions[] MAP = new Directions[16];
+	public static final Direction[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
+	private static final Direction[] MAP = new Direction[16];
 	static
 	{
 		MAP[NONE.hash]       = NONE;
@@ -47,5 +47,5 @@ public enum Directions
 	public int verticalComponent  () { return (this.hash & VERT) | 0b0010; }
 	public int horizontalComponent() { return (this.hash & HORIZ) | 0b1000; }
 	
-	public Directions opposite() { return MAP[0b10100 - this.hash]; }
+	public Direction opposite() { return MAP[0b10100 - this.hash]; }
 }

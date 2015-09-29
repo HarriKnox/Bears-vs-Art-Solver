@@ -1,7 +1,7 @@
 package gridspace;
 
 import solver.GameState;
-import utility.Directions;
+import utility.Direction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +32,10 @@ public abstract class GridSpace
 	
 	boolean art = false;
 	boolean laser = false;
-	Directions laserSourceDirection = Directions.NONE;
+	Direction laserSourceDirection = Direction.NONE;
 	boolean laserSourceBlue = false;
 	boolean laserSourceOn = false;
-	boolean isLaserSource() { return this.laserSourceDirection != Directions.NONE; }
+	boolean isLaserSource() { return this.laserSourceDirection != Direction.NONE; }
 	
 	private final int laserArtHash()
 	{

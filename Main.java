@@ -140,12 +140,12 @@ public class Main //extends PApplet
 		liaison.setArt(6, 6, true);
 		liaison.setArt(6, 7, true);
 		liaison.setArt(8, 0, true);
-		liaison.setLaserSourceDirection(0, 1, Directions.DOWN).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(0, 4, Directions.DOWN).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(2, 7, Directions.LEFT).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(5, 7, Directions.LEFT).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(7, 0, Directions.RIGHT).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(8, 3, Directions.UP).setLaserSourceOn(true);/* */
+		liaison.setLaserSourceDirection(0, 1, Direction.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(0, 4, Direction.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(2, 7, Direction.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(5, 7, Direction.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(7, 0, Direction.RIGHT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(8, 3, Direction.UP).setLaserSourceOn(true);/* */
 		
 		
 		/// Level 65 "In The Way"
@@ -198,20 +198,20 @@ public class Main //extends PApplet
 		/// Level 93 "High Stakes 2"
 		/*
 		GridLiaison liaison = new GridLiaison(7, 5, 0, 2);
-		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Directions.DOWN);
-		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Directions.DOWN);
-		for (int i = 1; i < 4; i++) liaison.setCell(1, i, GridSpace.BOOSTER).setDirection(Directions.DOWN);
-		liaison.setCell(3, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN);
-		liaison.setCell(3, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
-		liaison.setCell(3, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN);
-		liaison.setCell(4, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.DOWN).setClockwise(false);
-		liaison.setCell(4, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
-		liaison.setCell(4, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
-		liaison.setCell(5, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.UP);
-		liaison.setCell(5, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.LEFT).setClockwise(false);
-		liaison.setCell(5, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Directions.RIGHT);
+		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Direction.DOWN);
+		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Direction.DOWN);
+		for (int i = 1; i < 4; i++) liaison.setCell(1, i, GridSpace.BOOSTER).setDirection(Direction.DOWN);
+		liaison.setCell(3, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.DOWN);
+		liaison.setCell(3, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.LEFT).setClockwise(false);
+		liaison.setCell(3, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.DOWN);
+		liaison.setCell(4, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.DOWN).setClockwise(false);
+		liaison.setCell(4, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.LEFT).setClockwise(false);
+		liaison.setCell(4, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.LEFT).setClockwise(false);
+		liaison.setCell(5, 1, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.UP);
+		liaison.setCell(5, 2, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.LEFT).setClockwise(false);
+		liaison.setCell(5, 3, GridSpace.BOOSTER).setRotates(true).setDirection(Direction.RIGHT);
 		liaison.setCell(5, 0, GridSpace.BOOSTER);
-		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Directions.LEFT);
+		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Direction.LEFT);
 		liaison.setArt(6, 2, true);/* */
 		
 		
@@ -225,17 +225,17 @@ public class Main //extends PApplet
 		for (int i = 3; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, GridSpace.WALL);
 		liaison.setCell(2, 0, GridSpace.BOOSTER);
 		liaison.setCell(5, 0, GridSpace.BOOSTER);
-		liaison.setCell(2, 4, GridSpace.BOOSTER).setDirection(Directions.UP);
-		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Directions.DOWN);
+		liaison.setCell(2, 4, GridSpace.BOOSTER).setDirection(Direction.UP);
+		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(Direction.DOWN);
 		liaison.setCell(2, 2, GridSpace.BUTTON).setUp(false);
 		liaison.setCell(5, 2, GridSpace.BUTTON);
 		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setUp(false);
 		liaison.setCell(5, 3, GridSpace.BUTTON_DOOR);
 		liaison.setCell(3, 1, GridSpace.TELEPORTER);
 		liaison.setCell(4, 1, GridSpace.TELEPORTER);
-		liaison.setLaserSourceDirection(0, 3, Directions.DOWN).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(2, 5, Directions.LEFT).setLaserSourceOn(true);
-		liaison.setLaserSourceDirection(5, 5, Directions.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(0, 3, Direction.DOWN).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(2, 5, Direction.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(5, 5, Direction.LEFT).setLaserSourceOn(true);
 		liaison.setArt(0, 2, true);
 		liaison.setArt(1, 5, true);
 		liaison.setArt(6, 1, true);
@@ -256,6 +256,6 @@ public class Main //extends PApplet
 		System.out.println(solver.sizes());
 		System.out.println(Solver.solution(solution));/* */
 		
-		System.out.println(Directions.UP_LEFT.opposite());
+		System.out.println(Direction.UP_LEFT.opposite());
 	}
 }
