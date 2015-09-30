@@ -13,10 +13,7 @@ public enum Direction
 	DOWN_RIGHT(0b1111);
 	
 	public final int hash;
-	private Direction(int hash)
-	{
-		this.hash = hash;
-	}
+	private Direction(int hash) { this.hash = hash; }
 	
 	public static final Direction[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
 	private static final Direction[] MAP = new Direction[16];
