@@ -1,6 +1,6 @@
 package gridspace;
 
-import utility.Colors;
+import utility.Color;
 
 final class ButtonDoor extends GridSpace
 {
