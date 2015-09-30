@@ -19,23 +19,23 @@ public class GridTraveler
 	
 	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, Direction dir)
 	{
-		if (Direction.isVertical(dir))
+		if (dir.isVertical())
 		{
-			boolean vert = checkDir(gameBoard, row, col, Direction.verticalComponent(dir));
-			if (Direction.isHorizontal(dir)) return vert && checkDir(gameBoard, row, col, Direction.horizontalComponent(dir)) && checkDir(gameBoard, row, col, dir);
+			boolean vert = checkDir(gameBoard, row, col, dir.verticalComponent());
+			if (dir.isHorizontal()) return vert && checkDir(gameBoard, row, col, dir.horizontalComponent()) && checkDir(gameBoard, row, col, dir);
 			return vert;
 		}
-		else if (Direction.isHorizontal(dir))
+		else if (dir.isHorizontal())
 		{
-			return checkDir(gameBoard, row, col, Direction.horizontalComponent(dir));
+			return checkDir(gameBoard, row, col, dir.horizontalComponent());
 		}
 		return false;
 	}
 	
 	public static boolean checkDir(Grid<GridSpace> gameBoard, int row, int col, Direction dir)
 	{
-		row += Direction.verticalChange(dir);
-		col += Direction.horizontalChange(dir);
+		row += dir.verticalChange();
+		col += dir.horizontalChange();
 		return gameBoard.inRange(row, col) && !gameBoard.get(row, col).isSolid();
 	}
 }

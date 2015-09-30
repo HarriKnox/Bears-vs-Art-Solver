@@ -15,9 +15,6 @@ import java.util.NoSuchElementException;
 import static java.util.Objects.requireNonNull;
 
 
-import java.util.ArrayList;
-import static java.lang.Integer.valueOf;
-
 public class Grid<T> implements Iterable<T>
 {
 	private T[][] grid;

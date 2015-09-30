@@ -116,7 +116,7 @@ public final class GridLiaison
 			{
 				int ID = GridLiaison.this.getCellID(this.row, this.col);
 				
-				if (ID == GridSpace.BOOSTER) { if (Direction.isCardinal(dir)) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
+				if (ID == GridSpace.BOOSTER) { if (dir.isCardinal()) ((Booster)this.grid.get(this.row, this.col)).direction = dir; }
 			}
 			return this;
 		}
@@ -241,8 +241,8 @@ public final class GridLiaison
 						
 						while (GridTraveler.canGo(gameBoard, row, col, dir))
 						{
-							row += Direction.verticalChange(dir);
-							col += Direction.horizontalChange(dir);
+							row += dir.verticalChange();
+							col += dir.horizontalChange();
 							gameBoard.get(row, col).laser = true;
 						}
 					}

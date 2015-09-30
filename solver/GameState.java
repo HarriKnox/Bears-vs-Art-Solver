@@ -78,8 +78,8 @@ public class GameState
 			
 			while (GridTraveler.canGo(this.gameBoard, this.roryRow, this.roryCol, this.direction))
 			{
-				this.roryRow += Direction.verticalChange(this.direction);
-				this.roryCol += Direction.horizontalChange(this.direction);
+				this.roryRow += this.direction.verticalChange();
+				this.roryCol += this.direction.horizontalChange();
 				
 				this.checkHazards();
 				this.passThrough();
