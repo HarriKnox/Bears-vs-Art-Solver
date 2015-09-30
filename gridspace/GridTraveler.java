@@ -14,11 +14,6 @@ public class GridTraveler
 			if (canGo(gameBoard, row, col, dir)) dirList.add(dir);
 		}
 		
-		/*int len = dirList.size();
-		Direction[] dirs = new Direction[len];
-		for (int i = 0; i < len; i++)
-			dirs[i] = dirList.get(i);*/
-		
 		return dirList.toArray(new Direction[dirList.size()]);
 	}
 	
