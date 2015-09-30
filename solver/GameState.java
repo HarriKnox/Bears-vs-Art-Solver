@@ -1,7 +1,6 @@
 package solver;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.List;
 
 import gridspace.*;
 import utility.*;
@@ -57,12 +56,12 @@ public class GameState
 		int rows = this.gameBoard.rows();
 		int cols = this.gameBoard.cols();
 		
-		int[] dirs = GridTraveler.getPossibleDirections(this.gameBoard, this.roryRow, this.roryCol);
-		int len = dirs.length;
+		List<Direction> dirs = GridTraveler.getPossibleDirections(this.gameBoard, this.roryRow, this.roryCol);
+		int len = dirs.size();
 		GameState[] states = new GameState[len];
 		
 		for (int d = 0; d < len; d++)
-			states[d] = new GameState(GridLiaison.copyGrid(this.gameBoard), this.roryRow, this.roryCol, this.directions, dirs[d], this.artCount);
+			states[d] = new GameState(GridLiaison.copyGrid(this.gameBoard), this.roryRow, this.roryCol, this.directions, dirs.get(d), this.artCount);
 		return states;
 	}
 	
@@ -71,7 +70,7 @@ public class GameState
 		if (GridTraveler.canGo(this.gameBoard, this.roryRow, this.roryCol, this.direction))
 		{
 			int len = this.directions.length;
-			int[] dirs = new int[len + 1];
+			Direction[] dirs = new Direction[len + 1];
 			System.arraycopy(this.directions, 0, dirs, 0, len);
 			dirs[len] = this.direction;
 			this.directions = dirs;
@@ -139,10 +138,6 @@ public class GameState
 	
 	
 	
-	public static String dirsToString(Direction[] dirs)
-	{
-		return Arrays.toString(Arrays.stream(dirs).mapToObj((Direction i) -> Direction.NAMES[i.hash]).toArray());
-	}
 	
 	public String getBoard()
 	{

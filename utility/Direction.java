@@ -44,8 +44,8 @@ public enum Direction
 	public boolean isDiagonal  () { return this.isVertical() && this.isHorizontal(); }
 	public boolean isCardinal  () { return this.isVertical() != this.isHorizontal(); }
 	
-	public int verticalComponent  () { return (this.hash & VERT) | 0b0010; }
-	public int horizontalComponent() { return (this.hash & HORIZ) | 0b1000; }
+	public Direction verticalComponent  () { return MAP[(this.hash & VERT) | 0b0010]; }
+	public Direction horizontalComponent() { return MAP[(this.hash & HORIZ) | 0b1000]; }
 	
 	public Direction opposite() { return MAP[0b10100 - this.hash]; }
 }

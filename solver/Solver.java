@@ -1,5 +1,6 @@
 package solver;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -50,7 +51,7 @@ public class Solver
 		return false;
 	}
 	
-	public int[] solve(int limit)
+	public Direction[] solve(int limit)
 	{
 		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++)
 		{
@@ -81,7 +82,7 @@ public class Solver
 				}
 			}
 		}
-		return this.openQueue.isEmpty() ? new int[0] : new int[]{ Direction.NONE };
+		return this.openQueue.isEmpty() ? new Direction[0] : new Direction[]{ Direction.NONE };
 	}
 	
 	
@@ -90,9 +91,14 @@ public class Solver
 		return (new StringBuilder("Open: ")).append(this.openQueue.size()).append(", Closed: ").append(this.closedSet.size()).toString();
 	}
 	
-	public static String solution(int[] dirs)
+	public static String solution(Direction[] dirs)
 	{
-		return (new StringBuilder(GameState.dirsToString(dirs))).append(' ').append(dirs.length).toString();
+		return (new StringBuilder(dirsToString(dirs))).append(' ').append(dirs.length).toString();
+	}
+	
+	public static String dirsToString(Direction[] dirs)
+	{
+		return Arrays.toString(Arrays.stream(dirs).map(Object::toString).toArray());
 	}
 	
 	public Deque<GameState> getOpenQueue()
