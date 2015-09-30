@@ -1,12 +1,11 @@
 package gridspace;
 
 import utility.*;
-import java.util.List;
 import java.util.LinkedList;
 
 public class GridTraveler
 {
-	public static List<Direction> getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
+	public static Direction[] getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
 	{
 		LinkedList<Direction> dirList = new LinkedList<>();
 		for (int d = 0, len = Direction.LIST.length; d < len; d++)
@@ -15,7 +14,12 @@ public class GridTraveler
 			if (canGo(gameBoard, row, col, dir)) dirList.add(dir);
 		}
 		
-		return dirList;
+		/*int len = dirList.size();
+		Direction[] dirs = new Direction[len];
+		for (int i = 0; i < len; i++)
+			dirs[i] = dirList.get(i);*/
+		
+		return dirList.toArray(new Direction[dirList.size()]);
 	}
 	
 	public static boolean canGo(Grid<GridSpace> gameBoard, int row, int col, Direction dir)

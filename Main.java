@@ -242,7 +242,7 @@ public class Main //extends PApplet
 		liaison.setArt(7, 2, true);
 		liaison.setArt(7, 4, true);/* */
 		
-		
+		//*
 		liaison.updateLasers();
 		System.out.println(liaison.copyGrid());
 		

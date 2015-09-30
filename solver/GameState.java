@@ -56,12 +56,12 @@ public class GameState
 		int rows = this.gameBoard.rows();
 		int cols = this.gameBoard.cols();
 		
-		List<Direction> dirs = GridTraveler.getPossibleDirections(this.gameBoard, this.roryRow, this.roryCol);
-		int len = dirs.size();
+		Direction[] dirs = GridTraveler.getPossibleDirections(this.gameBoard, this.roryRow, this.roryCol);
+		int len = dirs.length;
 		GameState[] states = new GameState[len];
 		
 		for (int d = 0; d < len; d++)
-			states[d] = new GameState(GridLiaison.copyGrid(this.gameBoard), this.roryRow, this.roryCol, this.directions, dirs.get(d), this.artCount);
+			states[d] = new GameState(GridLiaison.copyGrid(this.gameBoard), this.roryRow, this.roryCol, this.directions, dirs[d], this.artCount);
 		return states;
 	}
 	
