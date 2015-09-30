@@ -10,14 +10,9 @@ public final class GridLiaison
 	
 	private static final Wall THE_WALL = new Wall();
 	
-	public GridLiaison(int rows, int cols)
-	{
-		this.grid = new Grid<>(rows, cols, (Integer x, Integer y) -> new Space());
-	}
-	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
 	{
-		this(rows, cols);
+		this.grid = new Grid<>(rows, cols, (Integer x, Integer y) -> new Space());
 		this.setRory(roryRow, roryCol);
 	}
 	
