@@ -143,7 +143,7 @@ public final class GridLiaison
 			return this;
 		}
 		
-		public GridSpaceLiaison setColor(int color)
+		public GridSpaceLiaison setColor(Color color)
 		{
 			if (this.isOpen(this.row, this.col))
 			{
@@ -184,14 +184,14 @@ public final class GridLiaison
 	}
 	
 	public GridSpaceLiaison setArt                 (int row, int col, boolean art)    { return new GridSpaceLiaison(row, col, this.grid).setArt(art); }
-	public GridSpaceLiaison setLaserSourceDirection(int row, int col, Direction dir) { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceDirection(dir); }
+	public GridSpaceLiaison setLaserSourceDirection(int row, int col, Direction dir)  { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceDirection(dir); }
 	public GridSpaceLiaison setLaserSourceBlue     (int row, int col, boolean blue)   { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceBlue(blue); }
 	public GridSpaceLiaison setLaserSourceOn       (int row, int col, boolean on)     { return new GridSpaceLiaison(row, col, this.grid).setLaserSourceOn(on); }
 	public GridSpaceLiaison setUp                  (int row, int col, boolean up)     { return new GridSpaceLiaison(row, col, this.grid).setUp(up); }
-	public GridSpaceLiaison setDirection           (int row, int col, Direction dir) { return new GridSpaceLiaison(row, col, this.grid).setDirection(dir); }
+	public GridSpaceLiaison setDirection           (int row, int col, Direction dir)  { return new GridSpaceLiaison(row, col, this.grid).setDirection(dir); }
 	public GridSpaceLiaison setRotates             (int row, int col, boolean rot)    { return new GridSpaceLiaison(row, col, this.grid).setRotates(rot); }
 	public GridSpaceLiaison setClockwise           (int row, int col, boolean clock)  { return new GridSpaceLiaison(row, col, this.grid).setClockwise(clock); }
-	public GridSpaceLiaison setColor               (int row, int col, int color)      { return new GridSpaceLiaison(row, col, this.grid).setColor(color); }
+	public GridSpaceLiaison setColor               (int row, int col, Color color)    { return new GridSpaceLiaison(row, col, this.grid).setColor(color); }
 	public GridSpaceLiaison setToggle              (int row, int col, boolean toggle) { return new GridSpaceLiaison(row, col, this.grid).setToggle(toggle); }
 	public GridSpaceLiaison setMovesStarted        (int row, int col, int moves)      { return new GridSpaceLiaison(row, col, this.grid).setMovesStarted(moves); }
 	

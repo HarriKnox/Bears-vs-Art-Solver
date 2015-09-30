@@ -1,8 +1,12 @@
 package utility;
 
-public final class Colors
+public enum Color
 {
-	public static final int RED   = 1;
-	public static final int GREEN = 2;
-	public static final int BLUE  = 3;
+	RED  (1),
+	GREEN(2),
+	BLUE (3);
+	
+	public final int hash;
+	
+	private Color(int hash) { this.hash = hash; }
 }

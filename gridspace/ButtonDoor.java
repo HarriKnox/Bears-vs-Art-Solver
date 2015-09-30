@@ -7,11 +7,11 @@ final class ButtonDoor extends GridSpace
 	ButtonDoor() {}
 	
 	boolean up = true;
-	int color = Colors.BLUE;
+	Color color = Color.BLUE;
 	
 	int metadataHash()
 	{
-		return (this.color << 1) + b2i(up);
+		return (this.color.hash << 1) + b2i(up);
 	}
 	
 	public boolean isSolid() { return this.up; }
@@ -24,5 +24,5 @@ final class ButtonDoor extends GridSpace
 		return bd;
 	}
 	
-	public String toString() { return (this.color == Colors.BLUE ? "\033[1;34m" : (this.color == Colors.GREEN ? "\033[1;32m" : "\033[1;31m")) + super.toString(this.up ? 'D' : 'd') + "\033[0m"; }
+	public String toString() { return (this.color == Color.BLUE ? "\033[1;34m" : (this.color == Color.GREEN ? "\033[1;32m" : "\033[1;31m")) + super.toString(this.up ? 'D' : 'd') + "\033[0m"; }
 }

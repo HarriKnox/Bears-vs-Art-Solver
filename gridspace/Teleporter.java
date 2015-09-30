@@ -7,9 +7,9 @@ final class Teleporter extends GridSpace
 {
 	Teleporter() {}
 	
-	int color = Colors.BLUE;
+	Color color = Color.BLUE;
 	
-	int metadataHash() { return this.color; }
+	int metadataHash() { return this.color.hash; }
 	
 	public void passThrough(GameState state)
 	{
@@ -37,5 +37,5 @@ final class Teleporter extends GridSpace
 		return t;
 	}
 	
-	public String toString() { return (this.color == Colors.BLUE ? "\033[1;34m" : (this.color == Colors.GREEN ? "\033[1;32m" : "\033[1;31m")) + "T\033[0m"; }
+	public String toString() { return (this.color == Color.BLUE ? "\033[1;34m" : (this.color == Color.GREEN ? "\033[1;32m" : "\033[1;31m")) + "T\033[0m"; }
 }
