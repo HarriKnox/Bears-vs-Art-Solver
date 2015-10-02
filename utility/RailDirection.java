@@ -17,10 +17,27 @@ public enum RailDirection
 	public final int hash;
 	private RailDirection(Direction first, Direction last) { this.hash = getHash(first, last); }
 	
+	
 	private static final int UP = 0b10;
 	private static final int DOWN = 0b11;
 	private static final int LEFT = 0b00;
 	private static final int RIGHT = 0b01;
+	
+	
+	public static RailDirection get(Direction first, Direction last) { return MAP[add(convert(first), convert(last))]; }
+	
+	
+	private static int convert(Direction dir) { return dir.isVertical() ? (dir.verticalComponent() == Direction.UP ? UP : DOWN) : (dir.horizontalComponent() == Direction.LEFT ? LEFT : RIGHT); }
+	private static int add(int first, int last) { return (first << 2) + last; }
+	private static int getHash(Direction first, Direction last) { return add(convert(first), convert(last)); }
+	
+	
+	public boolean contains(Direction dir)
+	{
+		int converted = convert(dir);
+		return ((this.hash >> 2) == converted) || ((this.hash & 0b11) == converted);
+	}
+	
 	
 	private static final RailDirection[] MAP = new RailDirection[16];
 	static
@@ -42,16 +59,4 @@ public enum RailDirection
 		MAP[add(RIGHT, LEFT)]  = LEFT_RIGHT;
 		MAP[add(RIGHT, RIGHT)] = RIGHT_RIGHT;
 	}
-	
-	public static RailDirection get(Direction first, Direction last) { return MAP[add(convert(first), convert(last))]; }
-	
-	public boolean contains(Direction dir)
-	{
-		int converted = convert(dir);
-		return ((this.hash >> 2) == converted) || ((this.hash && 0b11) == converted);
-	}
-	
-	private static int convert(Direction dir) { return dir.isVertical() ? (dir.verticalComponent() == Direction.UP ? UP : DOWN) : (dir.horizontalComponent() == Direction.LEFT ? LEFT : RIGHT); }
-	private static int add(int first, int last) { return (first << 2) + last; }
-	private static int getHash(Direction first, Direction last) { return add(convert(first), convert(last)); }
 }

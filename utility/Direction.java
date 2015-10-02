@@ -12,8 +12,27 @@ public enum Direction
 	DOWN_LEFT (0b1101),
 	DOWN_RIGHT(0b1111);
 	
+	
 	public final int hash;
 	private Direction(int hash) { this.hash = hash; }
+	
+	
+	private static final int VERT  = 0b1100;
+	private static final int HORIZ = 0b0011;
+	
+	
+	public int verticalChange  () { return ((this.hash & VERT) >> 2) - 2; }
+	public int horizontalChange() { return (this.hash & HORIZ) - 2; }
+	
+	public boolean isVertical  () { return this.verticalChange() != 0; }
+	public boolean isHorizontal() { return this.horizontalChange() != 0; }
+	public boolean isDiagonal  () { return this.isVertical() && this.isHorizontal(); }
+	public boolean isCardinal  () { return this.isVertical() != this.isHorizontal(); }
+	
+	public Direction verticalComponent  () { return MAP[(this.hash & VERT) | 0b0010]; }
+	public Direction horizontalComponent() { return MAP[(this.hash & HORIZ) | 0b1000]; }
+	public Direction opposite() { return MAP[0b10100 - this.hash]; }
+	
 	
 	public static final Direction[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
 	private static final Direction[] MAP = new Direction[16];
@@ -29,20 +48,4 @@ public enum Direction
 		MAP[DOWN_LEFT.hash]  = DOWN_LEFT;
 		MAP[DOWN_RIGHT.hash] = DOWN_RIGHT;
 	}
-	
-	private static final int VERT  = 0b1100;
-	private static final int HORIZ = 0b0011;
-	
-	public int verticalChange  () { return ((this.hash & VERT) >> 2) - 2; }
-	public int horizontalChange() { return (this.hash & HORIZ) - 2; }
-	
-	public boolean isVertical  () { return this.verticalChange() != 0; }
-	public boolean isHorizontal() { return this.horizontalChange() != 0; }
-	public boolean isDiagonal  () { return this.isVertical() && this.isHorizontal(); }
-	public boolean isCardinal  () { return this.isVertical() != this.isHorizontal(); }
-	
-	public Direction verticalComponent  () { return MAP[(this.hash & VERT) | 0b0010]; }
-	public Direction horizontalComponent() { return MAP[(this.hash & HORIZ) | 0b1000]; }
-	
-	public Direction opposite() { return MAP[0b10100 - this.hash]; }
 }
