@@ -25,11 +25,13 @@ final class SlideDoor extends GridSpace
 			
 			Grid<GridSpace> gameboard = state.getGameBoard();
 			
-			for (int x = 0, rows = gameboard.rows(); x < rows; x++)
-			{
-				for (int y = 0, cols = gameboard.cols(); y < cols; y++)
-				{
-					if (gameboard.get(x, y) == this)
-					{
-						
+	
+	GridSpace makeCopy()
+	{
+		SlideDoor sd = new SlideDoor();
+		sd.rail = this.rail;
+		sd.heading = this.heading;
+		sd.up = this.up;
+		return sd;
+	}
 }
