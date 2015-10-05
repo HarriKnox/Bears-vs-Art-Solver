@@ -17,7 +17,7 @@ final class SlideDoor extends GridSpace
 	public boolean isSolid() { return this.up; }
 	
 	
-	public void endOfMove(GameState state)
+	public void endOfMove(GameState state, int row, int col)
 	{
 		if (this.up)
 		{

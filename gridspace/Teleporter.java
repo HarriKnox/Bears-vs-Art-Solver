@@ -11,7 +11,7 @@ final class Teleporter extends GridSpace
 	
 	int metadataHash() { return this.color.hash; }
 	
-	public void passThrough(GameState state)
+	public void passThrough(GameState state, int row, int col)
 	{
 		Grid<GridSpace> gameBoard = state.getGameBoard();
 		
