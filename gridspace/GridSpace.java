@@ -18,6 +18,7 @@ public abstract class GridSpace
 		IDs.put(ButtonDoor.class, 6);
 		IDs.put(MoveDoor.class, 7);
 		IDs.put(Teleporter.class, 8);
+		IDs.put(SlideDoor.class, 9);
 	}
 	
 	public static final int WALL = IDs.get(Wall.class);
@@ -28,6 +29,7 @@ public abstract class GridSpace
 	public static final int BUTTON_DOOR = IDs.get(ButtonDoor.class);
 	public static final int MOVE_DOOR = IDs.get(MoveDoor.class);
 	public static final int TELEPORTER = IDs.get(Teleporter.class);
+	public static final int SLIDE_DOOR = IDs.get(SlideDoor.class);
 	
 	
 	boolean art = false;
