@@ -34,7 +34,6 @@ public enum Direction
 	public Direction opposite() { return MAP[0b10100 - this.hash]; }
 	
 	
-	public static final Direction[] LIST = {UP, DOWN, LEFT, RIGHT, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT};
 	private static final Direction[] MAP = new Direction[16];
 	static
 	{
