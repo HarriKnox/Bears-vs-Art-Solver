@@ -121,14 +121,14 @@ public class Main //extends PApplet
 		liaison.setCell(2, 4, GridSpace.BUTTON).setUp(false);
 		liaison.setCell(5, 4, GridSpace.BUTTON_DOOR);
 		liaison.setCell(5, 7, GridSpace.BUTTON_DOOR).setUp(false);
-		liaison.setCell(1, 7, GridSpace.BUTTON).setColor(Colors.RED);
-		liaison.setCell(3, 2, GridSpace.BUTTON).setColor(Colors.RED).setUp(false);
-		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setColor(Colors.RED);
-		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR).setColor(Colors.RED).setUp(false);
-		liaison.setCell(8, 5, GridSpace.BUTTON).setColor(Colors.GREEN);
-		liaison.setCell(5, 0, GridSpace.BUTTON).setColor(Colors.GREEN).setUp(false);
-		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR).setColor(Colors.GREEN);
-		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR).setColor(Colors.GREEN).setUp(false);
+		liaison.setCell(1, 7, GridSpace.BUTTON).setColor(Color.RED);
+		liaison.setCell(3, 2, GridSpace.BUTTON).setColor(Color.RED).setUp(false);
+		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setColor(Color.RED);
+		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR).setColor(Color.RED).setUp(false);
+		liaison.setCell(8, 5, GridSpace.BUTTON).setColor(Color.GREEN);
+		liaison.setCell(5, 0, GridSpace.BUTTON).setColor(Color.GREEN).setUp(false);
+		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR).setColor(Color.GREEN);
+		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR).setColor(Color.GREEN).setUp(false);
 		liaison.setArt(0, 2, true);
 		liaison.setArt(1, 5, true);
 		liaison.setArt(1, 6, true);
@@ -185,14 +185,14 @@ public class Main //extends PApplet
 		
 		
 		/// Level 91 "Tiny Tim"
-		/*
+		//*
 		GridLiaison liaison = new GridLiaison(3, 2, 2, 0);
 		liaison.setCell(0, 0, GridSpace.BUTTON_DOOR).setArt(true).setUp(false);
-		liaison.setCell(0, 1, GridSpace.BUTTON).setUp(false).setColor(Colors.RED);
+		liaison.setCell(0, 1, GridSpace.BUTTON).setUp(false).setColor(Color.RED);
 		liaison.setCell(1, 0, GridSpace.BUTTON).setArt(true);
-		liaison.setCell(1, 1, GridSpace.BUTTON_DOOR).setArt(true).setColor(Colors.RED);
+		liaison.setCell(1, 1, GridSpace.BUTTON_DOOR).setArt(true).setColor(Color.RED);
 		liaison.setCell(2, 0, GridSpace.BUTTON).setUp(false);
-		liaison.setCell(2, 1, GridSpace.BUTTON).setColor(Colors.RED);/* */
+		liaison.setCell(2, 1, GridSpace.BUTTON).setColor(Color.RED);/* */
 		
 		
 		/// Level 93 "High Stakes 2"
@@ -216,7 +216,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 95 "Swerve"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(8, 6, 3, 2);
 		liaison.setCell(0, 0, GridSpace.WALL);
 		liaison.setCell(1, 0, GridSpace.WALL);
