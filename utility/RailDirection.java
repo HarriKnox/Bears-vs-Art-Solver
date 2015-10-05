@@ -28,6 +28,7 @@ public enum RailDirection
 	
 	
 	private static int convert(Direction dir) { return dir.isVertical() ? (dir.verticalComponent() == Direction.UP ? UP : DOWN) : (dir.horizontalComponent() == Direction.LEFT ? LEFT : RIGHT); }
+	private static Direction unconvert(int d) { return (d == UP ? Direction.UP : (d == DOWN ? Direction.DOWN : (d == LEFT ? Direction.LEFT : Direction.RIGHT)));
 	private static int add(int first, int last) { return (first << 2) + last; }
 	private static int getHash(Direction first, Direction last) { return add(convert(first), convert(last)); }
 	
@@ -37,6 +38,9 @@ public enum RailDirection
 		int converted = convert(dir);
 		return ((this.hash >> 2) == converted) || ((this.hash & 0b11) == converted);
 	}
+	
+	public Direction getFirst() { return unconvert(this.hash >> 2); }
+	public Direction getLast() { return unconvert(this.hash & 0b11; }
 	
 	
 	private static final RailDirection[] MAP = new RailDirection[16];
