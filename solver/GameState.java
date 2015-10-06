@@ -114,6 +114,7 @@ public class GameState
 	
 	public void decrementArt() { this.artCount--; }
 	public void changeDirection(Direction dir) { this.direction = dir; }
+	public boolean isRoryAt(int row, int col) { return this.roryRow == row && this.roryCol == col; }
 	public void teleportRory(int x, int y) { this.roryRow = x; this.roryCol = y; }
 	public void kill() { this.alive = false; }
 	
