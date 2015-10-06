@@ -24,7 +24,18 @@ final class SlideDoor extends GridSpace
 			this.up = false;
 			
 			Grid<GridSpace> gameboard = state.getGameBoard();
+			GridSpace target = gameboard.get(row + this.heading.verticalChange(), col + this.heading.horizontalChange());
 			
+			if (target instanceof SlideDoor)
+			{
+				SlideDoor sd = (SlideDoor)target;
+				sd.up = true;
+				
+				Direction first = sd.rail.getFirst();
+				sd.heading = (first == this.heading.opposite()) ? sd.rail.getSecond() : first;
+			}
+		}
+	}
 	
 	GridSpace makeCopy()
 	{
