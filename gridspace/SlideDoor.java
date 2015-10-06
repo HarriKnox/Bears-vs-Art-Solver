@@ -38,7 +38,7 @@ final class SlideDoor extends GridSpace
 				sd.up = true;
 				
 				Direction first = sd.rail.getFirst();
-				sd.heading = (first == this.heading.opposite()) ? sd.rail.getSecond() : first;
+				sd.heading = (first == this.heading.opposite()) ? sd.rail.getLast() : first;
 				
 				if (state.getRoryRow() == r && state.getRoryCol() == c) state.teleportRory(r + dr, c + dc);
 			}

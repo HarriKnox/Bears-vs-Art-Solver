@@ -68,7 +68,7 @@ public final class GridLiaison
 		
 		public GridSpaceLiaison setArt(boolean art)
 		{
-			if (this.isOpen(this.row, this.col) && (this.grid.getCellID(this.row, this.col) != GridSpace.BOOSTER)) this.grid.get(this.row, this.col).art = art;
+			if (this.isOpen(this.row, this.col) && (GridLiaison.this.getCellID(this.row, this.col) != GridSpace.BOOSTER)) this.grid.get(this.row, this.col).art = art;
 			return this;
 		}
 		
@@ -187,6 +187,7 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.SLIDE_DOOR) ((SlideDoor)this.grid.get(this.row, this.col)).rail = rail;
 			}
+			return this;
 		}
 	}
 	
