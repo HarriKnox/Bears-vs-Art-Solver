@@ -2,34 +2,34 @@ package gridspace;
 
 import solver.GameState;
 import utility.Direction;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GridSpace
 {
-	static final Map<Class, Integer> IDs = new HashMap<>();
+	static final List<Class> IDs = new ArrayList<>(9);
 	static
 	{
-		IDs.put(Wall.class, 1);
-		IDs.put(Space.class, 2);
-		IDs.put(Spike.class, 3);
-		IDs.put(Booster.class, 4);
-		IDs.put(Button.class, 5);
-		IDs.put(ButtonDoor.class, 6);
-		IDs.put(MoveDoor.class, 7);
-		IDs.put(Teleporter.class, 8);
-		IDs.put(SlideDoor.class, 9);
+		IDs.add(Wall.class);
+		IDs.add(Space.class);
+		IDs.add(Spike.class);
+		IDs.add(Booster.class);
+		IDs.add(Button.class);
+		IDs.add(ButtonDoor.class);
+		IDs.add(MoveDoor.class);
+		IDs.add(Teleporter.class);
+		IDs.add(SlideDoor.class);
 	}
 	
-	public static final int WALL = IDs.get(Wall.class);
-	public static final int SPACE = IDs.get(Space.class);
-	public static final int SPIKE = IDs.get(Spike.class);
-	public static final int BOOSTER = IDs.get(Booster.class);
-	public static final int BUTTON = IDs.get(Button.class);
-	public static final int BUTTON_DOOR = IDs.get(ButtonDoor.class);
-	public static final int MOVE_DOOR = IDs.get(MoveDoor.class);
-	public static final int TELEPORTER = IDs.get(Teleporter.class);
-	public static final int SLIDE_DOOR = IDs.get(SlideDoor.class);
+	public static final int WALL        = IDs.indexOf(Wall.class);
+	public static final int SPACE       = IDs.indexOf(Space.class);
+	public static final int SPIKE       = IDs.indexOf(Spike.class);
+	public static final int BOOSTER     = IDs.indexOf(Booster.class);
+	public static final int BUTTON      = IDs.indexOf(Button.class);
+	public static final int BUTTON_DOOR = IDs.indexOf(ButtonDoor.class);
+	public static final int MOVE_DOOR   = IDs.indexOf(MoveDoor.class);
+	public static final int TELEPORTER  = IDs.indexOf(Teleporter.class);
+	public static final int SLIDE_DOOR  = IDs.indexOf(SlideDoor.class);
 	
 	
 	boolean art = false;
@@ -64,7 +64,7 @@ public abstract class GridSpace
 	}
 	
 	
-	final int ID() { return IDs.getOrDefault(this.getClass(), 0); }
+	final int ID() { return IDs.indexOf(this.getClass()); }
 	abstract int metadataHash();
 	
 	abstract GridSpace makeCopy();
