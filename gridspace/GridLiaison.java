@@ -68,7 +68,7 @@ public final class GridLiaison
 		
 		public GridSpaceLiaison setArt(boolean art)
 		{
-			if (this.isOpen(this.row, this.col)) this.grid.get(this.row, this.col).art = art;
+			if (this.isOpen(this.row, this.col) && (this.grid.getCellID(this.row, this.col) != GridSpace.BOOSTER)) this.grid.get(this.row, this.col).art = art;
 			return this;
 		}
 		
