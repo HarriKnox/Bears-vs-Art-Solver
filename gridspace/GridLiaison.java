@@ -36,7 +36,7 @@ public final class GridLiaison
 	public GridSpaceLiaison getCell(int row, int col) { return new GridSpaceLiaison(row, col, this.grid); }
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
-		GridSpace gs = new Wall();
+		GridSpace gs = THE_WALL;
 		
 		if (ID == GridSpace.SPACE)       gs = new Space();
 		if (ID == GridSpace.SPIKE)       gs = new Spike();
@@ -205,7 +205,6 @@ public final class GridLiaison
 	public GridSpaceLiaison setRailDirection       (int row, int col, RailDirection rail) { return new GridSpaceLiaison(row, col, this.grid).setRailDirection(rail); }
 	
 	
-	public int countArt() { return countArt(this.grid); }
 	public static int countArt(Grid<GridSpace> grid)
 	{
 		int count = 0;
@@ -214,8 +213,8 @@ public final class GridLiaison
 				count++;
 		return count;
 	}
+	public int countArt() { return countArt(this.grid); }
 	
-	public boolean hasLasers() { return hasLasers(this.grid); }
 	public static boolean hasLasers(Grid<GridSpace> grid)
 	{
 		for (GridSpace gs : grid)
@@ -223,11 +222,11 @@ public final class GridLiaison
 				return true;
 		return false;
 	}
+	public boolean hasLasers() { return hasLasers(this.grid); }
 	
-	public Grid<GridSpace> copyGrid() { return copyGrid(this.grid); }
 	public static Grid<GridSpace> copyGrid(Grid<GridSpace> grid) { return new Grid<GridSpace>(grid.rows(), grid.cols(), (Integer x, Integer y) -> grid.get(x, y).copy()); }
+	public Grid<GridSpace> copyGrid() { return copyGrid(this.grid); }
 	
-	public void updateLasers() { updateLasers(this.grid); }
 	public static void updateLasers(Grid<GridSpace> gameBoard)
 	{
 		for (GridSpace gs : gameBoard)
@@ -259,6 +258,7 @@ public final class GridLiaison
 			}
 		}
 	}
+	public void updateLasers() { updateLasers(this.grid); }
 	
 	/**
 		This function checks the given grid and will throw an
@@ -268,7 +268,6 @@ public final class GridLiaison
 		- 1 or 3+ teleporters of a color (can have only 0 or 2)
 		- teleporters positioned next to a wall that would teleport Rory into a wall
 	**/
-	public void checkGrid() { checkGrid(this.grid); }
 	public static void checkGrid(Grid<GridSpace> grid)
 	{
 		int colors = Color.values().length;
@@ -279,8 +278,37 @@ public final class GridLiaison
 		{
 			for (int col = 0, cols = grid.cols(); col < cols; col++)
 			{
+				GridSpace cell = grid.get(row, col);
+				int ID = cell.ID();
 				
+				if (ID = GridSpace.SLIDE_DOOR)
+				{
+					SlideDoor sd = (SlideDoor)cell;
+					RailDirection rail = sd.rail;
+					Direction first = rail.getFirst();
+					checkRail(row, col, first);
+					Direction last = rail.getLast();
+					if (!last.equals(first)) checkRail(row, col, last);
+				}
 			}
 		}
 	}
+	public void checkGrid() { checkGrid(this.grid); }
+	
+	private static void checkRail(int row, int col, Direction dir)
+	{
+		int r = row + dir.verticalChange();
+		int c = col + dir.horizontalChange();
+		if (!grid.inRange(r, c)) throw new RuntimeException(railOutOfBounds(row, col));
+		GridSpace oCell = grid.get(r, c);
+		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new RuntimeException(railIntoNonrail(row, col));
+		SlideDoor osd = (SlideDoor)oCell;
+		RailDirection oRail = osd.rail;
+		if (!oRail.contains(dir.opposite())) throw new RuntimeException(railMismatch(row, col));
+	}
+	
+	private static StringBuilder railAt  (int row, int col) { return new StringBuilder("Rail at (").append(row).append(", ").append(col).append(")"); }
+	private static String railOutOfBounds(int row, int col) { return railAt(row, col).append(" points out of bounds").toString()); }
+	private static String railIntoNonrail(int row, int col) { return railAt(row, col).append(" points into a non-rail").toString()); }
+	private static String railMismatch   (int row, int col) { return railAt(row, col).append(" points into rail with incompatible directions").toString(); }
 }
