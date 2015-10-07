@@ -1,37 +1,12 @@
-import gridspace.*;
+import gridspace.GridSpace;
+import gridspace.GridLiaison;
 import solver.*;
 import utility.*;
-import java.util.*;
 
-import processing.core.PApplet;
-
-public class Main //extends PApplet
+public class Main
 {
-	/*private Grid<GridSpace> startingGrid;
-	private int maxMoves = 20;
-	
-	public void setup()
-	{
-		this.size(200, 200);
-		if (frame != null) frame.setResizable(true);
-		this.rectMode(CORNER);
-		this.noLoop();
-	}
-	
-	public void draw()
-	{
-		this.background(255);
-		this.rect(0, 0, 32, 32);
-		this.rect(0, 32, 32, 32);
-		this.rect(32, 0, 32, 32);
-		this.rect(32, 32, 32, 32);
-	}*/
-	
 	public static void main(String[] args)
 	{
-		//PApplet.main("Main");
-		
-		
 		/// Level 33 "All About Buttons"
 		/*
 		GridLiaison liaison = new GridLiaison(5, 4, 0, 1);
@@ -185,7 +160,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 91 "Tiny Tim"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(3, 2, 2, 0);
 		liaison.setCell(0, 0, GridSpace.BUTTON_DOOR).setArt(true).setUp(false);
 		liaison.setCell(0, 1, GridSpace.BUTTON).setUp(false).setColor(Color.RED);
@@ -196,7 +171,7 @@ public class Main //extends PApplet
 		
 		
 		/// Level 93 "High Stakes 2"
-		/*
+		//*
 		GridLiaison liaison = new GridLiaison(7, 5, 0, 2);
 		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Direction.DOWN);
 		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Direction.DOWN);
