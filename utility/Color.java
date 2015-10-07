@@ -2,9 +2,9 @@ package utility;
 
 public enum Color
 {
-	RED  (1),
-	GREEN(2),
-	BLUE (3);
+	RED  (0),
+	GREEN(1),
+	BLUE (2);
 	
 	public final int hash;
 	
