@@ -2,11 +2,11 @@ package utility;
 
 public enum Color
 {
-	RED  (0),
-	GREEN(1),
-	BLUE (2);
+	RED,
+	GREEN,
+	BLUE;
 	
 	public final int hash;
 	
-	private Color(int hash) { this.hash = hash; }
+	private Color() { this.hash = this.ordinal(); }
 }
