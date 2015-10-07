@@ -259,4 +259,28 @@ public final class GridLiaison
 			}
 		}
 	}
+	
+	/**
+		This function checks the given grid and will throw an
+		exception if the grid has an illegal state:
+		- disconnected rails
+		- boosters that point directly into a wall
+		- 1 or 3+ teleporters of a color (can have only 0 or 2)
+		- teleporters positioned next to a wall that would teleport Rory into a wall
+	**/
+	public void checkGrid() { checkGrid(this.grid); }
+	public static void checkGrid(Grid<GridSpace> grid)
+	{
+		int colors = Color.values().length;
+		int[] teleporterColors = new int[colors];
+		Direction[][] teleporterDirections = new Direction[colors][];
+		
+		for (int row = 0, rows = grid.rows(); row < rows; row++)
+		{
+			for (int col = 0, cols = grid.cols(); col < cols; col++)
+			{
+				
+			}
+		}
+	}
 }
