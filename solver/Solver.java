@@ -68,10 +68,8 @@ public class Solver
 				this.count = 0;
 			}
 			
-			GameState[] states = first.createResultingGameStates();
-			for (int s = 0, len = states.length; s < len; s++)
+			for (GameState state : first.createResultingGameStates())
 			{
-				GameState state = states[s];
 				if (state.stillAlive(this.maxMoves))
 				{
 					if (state.success()) return state.getDirections();

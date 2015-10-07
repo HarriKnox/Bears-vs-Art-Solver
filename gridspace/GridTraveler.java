@@ -8,12 +8,9 @@ public class GridTraveler
 	public static Direction[] getPossibleDirections(Grid<GridSpace> gameBoard, int row, int col)
 	{
 		LinkedList<Direction> dirList = new LinkedList<>();
-		Direction[] dirs = Direction.values();
-		for (int d = 0, len = dirs.length; d < len; d++)
-		{
-			Direction dir = dirs[d];
-			if (dir != Direction.NONE && canGo(gameBoard, row, col, dir)) dirList.add(dir);
-		}
+		for (Direction dir : Direction.values())
+			if (dir != Direction.NONE && canGo(gameBoard, row, col, dir))
+				dirList.add(dir);
 		
 		return dirList.toArray(new Direction[dirList.size()]);
 	}
