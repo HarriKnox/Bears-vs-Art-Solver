@@ -294,6 +294,24 @@ public final class GridLiaison
 					Direction last = rail.getLast();
 					if (!last.equals(first)) checkRail(grid, row, col, last);
 				}
+				else if (ID == GridSpace.BOOSTER)
+				{
+					Booster b = (Booster)cell;
+					if (b.rotates)
+					{
+						for (Direction dir : Direction.values())
+						{
+							if (dir.isCardinal())
+							{
+								checkBooster(grid, row, col, dir);
+							}
+						}
+					}
+					else
+					{
+						checkBooster(grid, row, col, b.direction);
+					}
+				}
 			}
 		}
 	}
@@ -319,4 +337,15 @@ public final class GridLiaison
 	private static String railMismatch       (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" into rail that does not point ").append(dir.opposite()).toString(); }
 	private static String railHeadingMismatch(int row, int col, Direction dir, RailDirection rail) { return new StringBuilder("Sliding block at ").append(coords(row, col)).append(' ').append(points(dir)).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString(); }
 	
+	private static void checkBooster(Grid<GridSpace> grid, int row, int col, Direction dir)
+	{
+		int r = row + dir.verticalChange();
+		int c = col + dir.horizontalChange();
+		if (!grid.inRange(r, c)) throw new IllegalStateException("Booster's pointing you out bro");
+		GridSpace oCell = grid.get(r, c);
+		switch (oCell.ID())
+		{
+			case GridSpace.WALL: case GridSpace.BUTTON_DOOR: case GridSpace.MOVE_DOOR: case GridSpace.SLIDE_DOOR: throw new IllegalStateException("Booster's gonna make you crash");
+		}
+	}
 }
