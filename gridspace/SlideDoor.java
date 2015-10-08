@@ -9,7 +9,7 @@ final class SlideDoor extends GridSpace
 	
 	RailDirection rail = RailDirection.LEFT_RIGHT;
 	Direction heading = Direction.RIGHT;
-	boolean up = true;
+	boolean up = false;
 	
 	
 	int metadataHash() { return (this.rail.hash << 5) + (this.heading.hash << 1) + b2i(this.up); }

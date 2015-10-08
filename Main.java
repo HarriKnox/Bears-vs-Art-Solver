@@ -7,6 +7,12 @@ public class Main
 {
 	public static void main(String[] args)
 	{
+		Direction RIGHT = Direction.RIGHT,
+		          LEFT  = Direction.LEFT,
+		          UP    = Direction.UP,
+		          DOWN  = Direction.DOWN;
+		
+		
 		/// Level 33 "All About Buttons"
 		/*
 		GridLiaison liaison = new GridLiaison(5, 4, 0, 1);
@@ -171,7 +177,7 @@ public class Main
 		
 		
 		/// Level 93 "High Stakes 2"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(7, 5, 0, 2);
 		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(Direction.DOWN);
 		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(Direction.DOWN);
@@ -217,7 +223,17 @@ public class Main
 		liaison.setArt(7, 2, true);
 		liaison.setArt(7, 4, true);/* */
 		
+		
 		//*
+		GridLiaison liaison = new GridLiaison(2, 2, 1, 1);
+		liaison.setCell(0, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.RIGHT_RIGHT).setDirection(RIGHT).setUp(true);
+		liaison.setCell(0, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_LEFT);
+		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.RIGHT_RIGHT);
+		liaison.setCell(1, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_LEFT);
+		
+		liaison.checkGrid();
+		
+		/*
 		liaison.updateLasers();
 		System.out.println(liaison.copyGrid());
 		
