@@ -45,6 +45,7 @@ public final class GridLiaison
 		if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
 		if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
 		if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
+		if (ID == GridSpace.SLIDE_DOOR)  gs = new SlideDoor();
 		
 		this.grid.set(row, col, gs);
 		
@@ -268,7 +269,7 @@ public final class GridLiaison
 		- 1 or 3+ teleporters of a color (can have only 0 or 2)
 		- teleporters positioned next to a wall that would teleport Rory into a wall
 	**/
-	public static void checkGrid(Grid<GridSpace> grid)
+	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
 		int colors = Color.values().length;
 		int[] teleporterColors = new int[colors];
@@ -281,34 +282,41 @@ public final class GridLiaison
 				GridSpace cell = grid.get(row, col);
 				int ID = cell.ID();
 				
-				if (ID = GridSpace.SLIDE_DOOR)
+				if (ID == GridSpace.SLIDE_DOOR)
 				{
 					SlideDoor sd = (SlideDoor)cell;
 					RailDirection rail = sd.rail;
+					if (sd.up && !rail.contains(sd.heading)) throw new IllegalStateException(railHeadingMismatch(row, col, sd.heading, rail));
+					
 					Direction first = rail.getFirst();
-					checkRail(row, col, first);
+					checkRail(grid, row, col, first);
+					
 					Direction last = rail.getLast();
-					if (!last.equals(first)) checkRail(row, col, last);
+					if (!last.equals(first)) checkRail(grid, row, col, last);
 				}
 			}
 		}
 	}
-	public void checkGrid() { checkGrid(this.grid); }
+	public void checkGrid() throws IllegalStateException { checkGrid(this.grid); }
 	
-	private static void checkRail(int row, int col, Direction dir)
+	private static String coords(int row, int col) { return new StringBuilder("(").append(row).append(", ").append(col).append(")").toString(); }
+	private static String points(Direction dir)    { return "points ".concat(dir.toString()); }
+	
+	private static void checkRail(Grid<GridSpace> grid, int row, int col, Direction dir)
 	{
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
-		if (!grid.inRange(r, c)) throw new RuntimeException(railOutOfBounds(row, col));
+		if (!grid.inRange(r, c)) throw new IllegalStateException(railOutOfBounds(row, col, dir));
 		GridSpace oCell = grid.get(r, c);
-		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new RuntimeException(railIntoNonrail(row, col));
+		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new IllegalStateException(railIntoNonrail(row, col, dir));
 		SlideDoor osd = (SlideDoor)oCell;
 		RailDirection oRail = osd.rail;
-		if (!oRail.contains(dir.opposite())) throw new RuntimeException(railMismatch(row, col));
+		if (!oRail.contains(dir.opposite())) throw new IllegalStateException(railMismatch(row, col, dir));
 	}
 	
-	private static StringBuilder railAt  (int row, int col) { return new StringBuilder("Rail at (").append(row).append(", ").append(col).append(")"); }
-	private static String railOutOfBounds(int row, int col) { return railAt(row, col).append(" points out of bounds").toString()); }
-	private static String railIntoNonrail(int row, int col) { return railAt(row, col).append(" points into a non-rail").toString()); }
-	private static String railMismatch   (int row, int col) { return railAt(row, col).append(" points into rail with incompatible directions").toString(); }
+	private static String railOutOfBounds    (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" out of bounds").toString(); }
+	private static String railIntoNonrail    (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" into a non-rail").toString(); }
+	private static String railMismatch       (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" into rail that does not point ").append(dir.opposite()).toString(); }
+	private static String railHeadingMismatch(int row, int col, Direction dir, RailDirection rail) { return new StringBuilder("Sliding block at ").append(coords(row, col)).append(' ').append(points(dir)).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString(); }
+	
 }
