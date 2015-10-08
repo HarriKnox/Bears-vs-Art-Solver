@@ -287,8 +287,8 @@ public class Grid<T> implements Iterable<T>
 			this.row = row;
 			this.col = col;
 		}
-		
-		public static String pair(int x, int y) { return "(" + x + "," + y + ")"; }
+		private static final String COMMA = ", ";
+		public static String pair(int x, int y) { return new StringBuilder().append('(').append(x).append(COMMA).append(y).append(')').toString(); }
 		public String toString() { return pair(this.row, this.col); }
 		public boolean equals(Object o) { return o instanceof Pos && (this == o || (((Pos)o).row == this.row && ((Pos)o).col == this.col)); }
 		public int hashCode() { return this.row * 31 + this.col; }
