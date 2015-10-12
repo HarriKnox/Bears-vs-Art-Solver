@@ -308,7 +308,6 @@ public final class GridLiaison
 				{
 					Teleporter tp = (Teleporter)cell;
 					int color = tp.color.hash;
-					if (++teleporterColors[color] >= 3) throw new IllegalStateException(
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
 					if (teleporterDirections[color] == null)
 					{
@@ -317,7 +316,7 @@ public final class GridLiaison
 					}
 					else
 					{
-						Position[] pos = teleporterLocations[color];
+						Grid.Position pos = teleporterLocations[color];
 						checkTeleporters(tp.color, row, col, pos.row, pos.col, posDirs, teleporterDirections[color]);
 					}
 				}
@@ -373,5 +372,5 @@ public final class GridLiaison
 			}
 		}
 	}
-	private static String teleporterMismatch(Color color, int entry, int exit, Direction dir) { return new StringBuilder().append(color).append(" teleporters have mismatch in directions: exit teleporter at ").append(exit).append(" does not allow for entry in teleporter at ").append(entry).append(" going ").append(dir).toString(); }
+	private static String teleporterMismatch(Color color, Grid.Position entry, Grid.Position exit, Direction dir) { return new StringBuilder().append(color).append(" teleporters have mismatch in directions: exit teleporter at ").append(exit).append(" does not allow for entry in teleporter at ").append(entry).append(" going ").append(dir).toString(); }
 }
