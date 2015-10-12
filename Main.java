@@ -225,11 +225,9 @@ public class Main
 		
 		
 		//*
-		GridLiaison liaison = new GridLiaison(2, 2, 1, 1);
-		liaison.setCell(0, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.RIGHT_RIGHT).setDirection(RIGHT).setUp(true);
-		liaison.setCell(0, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_LEFT);
-		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.RIGHT_RIGHT);
-		liaison.setCell(1, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_LEFT);
+		GridLiaison liaison = new GridLiaison(6, 6, 1, 1);
+		liaison.setCell(1, 1, GridSpace.TELEPORTER);
+		liaison.setCell(4, 4, GridSpace.TELEPORTER);
 		
 		liaison.checkGrid();
 		
