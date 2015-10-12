@@ -369,7 +369,7 @@ public final class GridLiaison
 				if (contains(entries, dir.opposite()) && !contains(exits, dir))
 					throw new IllegalStateException(teleporterMismatch(color, new Grid.Position(entryRow, entryCol), new Grid.Position(exitRow, exitCol), dir));
 				else if (contains(exits, dir.opposite()) && !contains(entries, dir))
-					throw new IllegalStateException(teleporterMismatch(color, exitRow, exitCol, entryRow, entryCol, dir));
+					throw new IllegalStateException(teleporterMismatch(color, new Grid.Position(exitRow, exitCol), new Grid.Position(entryRow, entryCol), dir));
 			}
 		}
 	}
