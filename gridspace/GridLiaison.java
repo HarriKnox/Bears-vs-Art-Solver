@@ -285,8 +285,9 @@ public final class GridLiaison
 				if (ID == GridSpace.SLIDE_DOOR)
 				{
 					SlideDoor sd = (SlideDoor)cell;
+					Direction dir = sd.heading;
 					RailDirection rail = sd.rail;
-					if (sd.up && !rail.contains(sd.heading)) throw new IllegalStateException(railHeadingMismatch(row, col, sd.heading, rail));
+					if (sd.up && !rail.contains(dir)) throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
 					
 					Direction first = rail.getFirst();
 					checkRail(grid, row, col, first);
@@ -298,19 +299,20 @@ public final class GridLiaison
 				{
 					Booster b = (Booster)cell;
 					if (b.rotates)
-					{
-						for (Direction dir : Direction.values())
-						{
-							if (dir.isCardinal())
-							{
-								checkBooster(grid, row, col, dir);
-							}
-						}
-					}
+						checkBoosterRotates(grid, row, col);
 					else
-					{
 						checkBooster(grid, row, col, b.direction);
-					}
+				}
+				else if (ID == GridSpace.TELEPORTER)
+				{
+					Teleporter tp = (Teleporter)cell;
+					int color = tp.color.hash;
+					teleporterColors[color]++;
+					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
+					if (teleporterDirections[color] == null)
+						teleporterDirections[color] = posDirs;
+					else
+						checkTeleporterDirections(tp.color, posDirs, teleporterDirections[color]);
 				}
 			}
 		}
@@ -320,32 +322,46 @@ public final class GridLiaison
 	private static String coords(int row, int col) { return new StringBuilder("(").append(row).append(", ").append(col).append(")").toString(); }
 	private static String points(Direction dir)    { return "points ".concat(dir.toString()); }
 	
+	private static StringBuilder thingAt      (String thing, int row, int col)                { return new StringBuilder(thing).append(" at ").append(coords(row, col)).append(' '); }
+	private static StringBuilder thingAtPoints(String thing, int row, int col, Direction dir) { return thingAt(thing, row, col).append(points(dir)); }
+	
+	
 	private static void checkRail(Grid<GridSpace> grid, int row, int col, Direction dir)
 	{
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
-		if (!grid.inRange(r, c)) throw new IllegalStateException(railOutOfBounds(row, col, dir));
+		if (!grid.inRange(r, c)) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" out of bounds").toString());
 		GridSpace oCell = grid.get(r, c);
-		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new IllegalStateException(railIntoNonrail(row, col, dir));
+		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into a non-rail").toString());
 		SlideDoor osd = (SlideDoor)oCell;
 		RailDirection oRail = osd.rail;
-		if (!oRail.contains(dir.opposite())) throw new IllegalStateException(railMismatch(row, col, dir));
+		if (!oRail.contains(dir.opposite())) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into rail that does not point ").append(dir.opposite()).toString());
 	}
 	
-	private static String railOutOfBounds    (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" out of bounds").toString(); }
-	private static String railIntoNonrail    (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" into a non-rail").toString(); }
-	private static String railMismatch       (int row, int col, Direction dir) { return new StringBuilder("Rail at ").append(coords(row, col)).append(' ').append(points(dir)).append(" into rail that does not point ").append(dir.opposite()).toString(); }
-	private static String railHeadingMismatch(int row, int col, Direction dir, RailDirection rail) { return new StringBuilder("Sliding block at ").append(coords(row, col)).append(' ').append(points(dir)).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString(); }
-	
-	private static void checkBooster(Grid<GridSpace> grid, int row, int col, Direction dir)
+	private static void checkBooster         (Grid<GridSpace> grid, int row, int col, Direction dir) { checkBoosterDirection(grid, row, col, dir, false); }
+	private static void checkBoosterRotates  (Grid<GridSpace> grid, int row, int col)                { for (Direction dir : Direction.values()) if (dir.isCardinal()) checkBoosterDirection(grid, row, col, dir, true); }
+	private static void checkBoosterDirection(Grid<GridSpace> grid, int row, int col, Direction dir, boolean rotates)
 	{
+		String name = rotates ? "Rotating booster" : "Booster";
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
-		if (!grid.inRange(r, c)) throw new IllegalStateException("Booster's pointing you out bro");
+		if (!grid.inRange(r, c)) throw new IllegalStateException(thingAt(name, row, col).append(rotates ? "can rotate to point ".concat(dir.toString()) : points(dir)).append(" out of bounds").toString());
 		GridSpace oCell = grid.get(r, c);
-		switch (oCell.ID())
+		int oID = oCell.ID();
+		if (oID == GridSpace.WALL || oID == GridSpace.BUTTON_DOOR || oID == GridSpace.MOVE_DOOR || oID == GridSpace.SLIDE_DOOR)
+			throw new IllegalStateException(thingAt(name, row, col).append(rotates ? "can rotate to point ".concat(dir.toString()) : points(dir)).append(" directly into a block that can be solid").toString());
+	}
+	
+	private static void checkTeleporterDirections(Color color, Direction[] canGo, Direction[] checkAgainst)
+	{
+		Direction[] longer = (canGo.length >= checkAgainst.length) ? canGo : checkAgainst;
+		Direction[] shorter = (longer == canGo) ? checkAgainst : canGo;
+		for (Direction longerDir : longer)
 		{
-			case GridSpace.WALL: case GridSpace.BUTTON_DOOR: case GridSpace.MOVE_DOOR: case GridSpace.SLIDE_DOOR: throw new IllegalStateException("Booster's gonna make you crash");
+			for (Direction shorterDir : shorter)
+			{
+				
+			}
 		}
 	}
 }
