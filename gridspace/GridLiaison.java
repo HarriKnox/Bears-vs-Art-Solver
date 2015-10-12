@@ -274,7 +274,7 @@ public final class GridLiaison
 		int colors = Color.values().length;
 		int[] teleporterColors = new int[colors];
 		Direction[][] teleporterDirections = new Direction[colors][];
-		int[][] teleporterLocations = new int[colors][2];
+		Grid.Position[] teleporterLocations = new Grid.Position[colors];
 		
 		for (int row = 0, rows = grid.rows(); row < rows; row++)
 		{
@@ -308,17 +308,17 @@ public final class GridLiaison
 				{
 					Teleporter tp = (Teleporter)cell;
 					int color = tp.color.hash;
-					teleporterColors[color]++;
+					if (++teleporterColors[color] >= 3) throw new IllegalStateException(
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
 					if (teleporterDirections[color] == null)
 					{
 						teleporterDirections[color] = posDirs;
-						teleporterLocations[color] = new int[]{row, col};
+						teleporterLocations[color] = new Grid.Position(row, col);
 					}
 					else
 					{
-						int[] pos = teleporterLocations[color];
-						checkTeleporters(tp.color, row, col, pos[0], pos[1], posDirs, teleporterDirections[color]);
+						Position[] pos = teleporterLocations[color];
+						checkTeleporters(tp.color, row, col, pos.row, pos.col, posDirs, teleporterDirections[color]);
 					}
 				}
 			}
@@ -326,13 +326,13 @@ public final class GridLiaison
 	}
 	public void checkGrid() throws IllegalStateException { checkGrid(this.grid); }
 	
-	private static String coords(int row, int col) { return new StringBuilder("(").append(row).append(", ").append(col).append(")").toString(); }
+	private static String coords(int row, int col) { return Grid.Position.pair(row, col); }
 	private static String points(Direction dir)    { return "points ".concat(dir.toString()); }
 	
 	private static StringBuilder thingAt      (String thing, int row, int col)                { return new StringBuilder(thing).append(" at ").append(coords(row, col)).append(' '); }
 	private static StringBuilder thingAtPoints(String thing, int row, int col, Direction dir) { return thingAt(thing, row, col).append(points(dir)); }
 	
-	private static <T extends Enum> boolean contains(T[] things, T thing) { for (T t : things) if (t == thing) return true; return false; }
+	private static <T> boolean contains(T[] things, T thing) { for (T t : things) if (t.equals(thing)) return true; return false; }
 	
 	private static void checkRail(Grid<GridSpace> grid, int row, int col, Direction dir)
 	{
@@ -367,11 +367,11 @@ public final class GridLiaison
 			if (dir != Direction.NONE)
 			{
 				if (contains(entries, dir.opposite()) && !contains(exits, dir))
-					throw new IllegalStateException(teleporterMismatch(color, entryRow, entryCol, exitRow, exitCol, dir));
+					throw new IllegalStateException(teleporterMismatch(color, new Grid.Position(entryRow, entryCol), new Grid.Position(exitRow, exitCol), dir));
 				else if (contains(exits, dir.opposite()) && !contains(entries, dir))
 					throw new IllegalStateException(teleporterMismatch(color, exitRow, exitCol, entryRow, entryCol, dir));
 			}
 		}
 	}
-	private static String teleporterMismatch(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction dir) { return new StringBuilder().append(color).append(" teleporters have mismatch in directions: exit teleporter at ").append(coords(exitRow, exitCol)).append(" does not allow for entry in teleporter at ").append(coords(entryRow, entryCol)).append(" going ").append(dir).toString(); }
+	private static String teleporterMismatch(Color color, int entry, int exit, Direction dir) { return new StringBuilder().append(color).append(" teleporters have mismatch in directions: exit teleporter at ").append(exit).append(" does not allow for entry in teleporter at ").append(entry).append(" going ").append(dir).toString(); }
 }
