@@ -308,6 +308,7 @@ public final class GridLiaison
 				{
 					Teleporter tp = (Teleporter)cell;
 					int color = tp.color.hash;
+					if (++teleporterColors[color] >= 3) throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" teleporters").toString());
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
 					if (teleporterDirections[color] == null)
 					{
@@ -322,6 +323,8 @@ public final class GridLiaison
 				}
 			}
 		}
+		
+		for (Color color : Color.values()) if (teleporterColors[color.hash] == 1) throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" teleporter at ").append(teleporterLocations[color.hash]).toString());
 	}
 	public void checkGrid() throws IllegalStateException { checkGrid(this.grid); }
 	
