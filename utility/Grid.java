@@ -90,12 +90,12 @@ public class Grid<T> implements Iterable<T>
 		this.cols = 0;
 	}
 	
-	public Pos positionOf(T o)
+	public Position positionOf(T o)
 	{
 		for (int x = 0; x < this.rows; x++)
 			for (int y = 0; y < this.cols; y++)
 				if (Objects.equals(o, this.grid[x][y]))
-					return new Pos(x, y);
+					return new Position(x, y);
 		return null;
 	}
 	
@@ -245,7 +245,7 @@ public class Grid<T> implements Iterable<T>
 	@SuppressWarnings("unchecked")
 	public void trim(int rows, int cols)
 	{
-		if (rows < 0 || rows > this.rows || cols < 0 || cols > this.cols) throw new IndexOutOfBoundsException("Dimensions: " + Pos.pair(this.rows, this.cols) + ", Given: " + Pos.pair(rows, cols));
+		if (rows < 0 || rows > this.rows || cols < 0 || cols > this.cols) throw new IndexOutOfBoundsException("Dimensions: " + Position.pair(this.rows, this.cols) + ", Given: " + Position.pair(rows, cols));
 		if (rows != this.rows || cols != this.cols)
 		{
 			T[][] replacement = (T[][])new Object[rows][cols];
@@ -274,15 +274,15 @@ public class Grid<T> implements Iterable<T>
 	
 	private void checkRow(int row) { if (row < 0 || row >= this.rows) throw new IndexOutOfBoundsException("Rows: " + this.rows + ", Given: " + row); }
 	private void checkCol(int col) { if (col < 0 || col >= this.cols) throw new IndexOutOfBoundsException("Cols: " + this.cols + ", Given: " + col); }
-	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + Pos.pair(this.rows, this.cols) + ", Given: " + Pos.pair(row, col)); }
+	private void checkPos(int row, int col) { if (!this.inRange(row, col)) throw new IndexOutOfBoundsException("Dimensions: " + Position.pair(this.rows, this.cols) + ", Given: " + Position.pair(row, col)); }
 	private void checkConcurrentModification(int expectedRows, int expectedCols) { if (expectedRows != this.rows || expectedCols != this.cols) throw new ConcurrentModificationException(); }
 	
-	private static class Pos
+	public static class Position
 	{
 		public final int row;
 		public final int col;
 		
-		public Pos(int row, int col)
+		public Position(int row, int col)
 		{
 			this.row = row;
 			this.col = col;
@@ -290,7 +290,7 @@ public class Grid<T> implements Iterable<T>
 		private static final String COMMA = ", ";
 		public static String pair(int x, int y) { return new StringBuilder().append('(').append(x).append(COMMA).append(y).append(')').toString(); }
 		public String toString() { return pair(this.row, this.col); }
-		public boolean equals(Object o) { return o instanceof Pos && (this == o || (((Pos)o).row == this.row && ((Pos)o).col == this.col)); }
+		public boolean equals(Object o) { return o instanceof Position && (this == o || (((Position)o).row == this.row && ((Position)o).col == this.col)); }
 		public int hashCode() { return this.row * 31 + this.col; }
 	}
 	
