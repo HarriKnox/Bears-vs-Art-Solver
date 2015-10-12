@@ -264,10 +264,16 @@ public final class GridLiaison
 	/**
 		This function checks the given grid and will throw an
 		exception if the grid has an illegal state:
-		- disconnected rails
-		- boosters that point directly into a wall
-		- 1 or 3+ teleporters of a color (can have only 0 or 2)
-		- teleporters positioned next to a wall that would teleport Rory into a wall
+		(1) sliding doors heading a direction their rails don't allow
+		(2) rails that point out of bounds
+		(3) rails that point to a non-rail
+		(4) rails that point into rails that don't point back (disconnection)
+		(5) boosters that point directly out of bounds
+		(6) boosters that point directly into a potentially solid block (boosters
+			can't point into solid blocks, and even if it isn't solid yet,
+			it may be solid later)
+		(7) teleporters of the same length having a mismatch in entry-exit directions
+		(8) 1 or 3+ teleporters of a color (can have only 0 or 2)
 	**/
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{

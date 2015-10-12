@@ -226,7 +226,6 @@ public class Main
 		
 		//*
 		GridLiaison liaison = new GridLiaison(6, 6, 1, 1);
-		liaison.setCell(1, 1, GridSpace.TELEPORTER);
 		liaison.setCell(4, 4, GridSpace.TELEPORTER);
 		
 		liaison.checkGrid();
