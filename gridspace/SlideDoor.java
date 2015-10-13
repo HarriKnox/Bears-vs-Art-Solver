@@ -30,18 +30,14 @@ final class SlideDoor extends GridSpace
 			
 			int r = row + dr;
 			int c = col + dc;
-			GridSpace target = gameboard.get(r, c);
+			SlideDoor sd = (SlideDoor)gameboard.get(r, c);
+		
+			sd.up = true;
 			
-			if (target instanceof SlideDoor)
-			{
-				SlideDoor sd = (SlideDoor)target;
-				sd.up = true;
-				
-				Direction first = sd.rail.getFirst();
-				sd.heading = (first == this.heading.opposite()) ? sd.rail.getLast() : first;
-				
-				if (state.getRoryRow() == r && state.getRoryCol() == c) state.teleportRory(r + dr, c + dc);
-			}
+			Direction first = sd.rail.getFirst();
+			sd.heading = (first == this.heading.opposite()) ? sd.rail.getLast() : first;
+			
+			if (state.getRoryRow() == r && state.getRoryCol() == c) state.teleportRory(r + dr, c + dc);
 		}
 	}
 	
@@ -52,5 +48,10 @@ final class SlideDoor extends GridSpace
 		sd.heading = this.heading;
 		sd.up = this.up;
 		return sd;
+	}
+	
+	public String toString()
+	{
+		return "\033[1;35m" + super.toString(this.up ? this.heading == Direction.UP ? '^' : (this.heading == Direction.DOWN ? 'v' : (this.heading == Direction.LEFT ? '<' : '>')) : '|') + "\033[0m";
 	}
 }
