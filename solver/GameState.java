@@ -99,8 +99,8 @@ public class GameState
 	
 	private void updateLasers() { GridLiaison.updateLasers(this.gameBoard); }
 	private void checkHazards() { if (!this.gameBoard.inRange(this.roryRow, this.roryCol)) this.alive = false; else this.gameBoard.get(this.roryRow, this.roryCol).checkHazard(this); }
-	private void passThrough() { this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this); }
-	private void landedOn() { this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this); }
+	private void passThrough() { if (this.alive) this.gameBoard.get(this.roryRow, this.roryCol).passThrough(this); }
+	private void landedOn() { if (this.alive) this.gameBoard.get(this.roryRow, this.roryCol).landedOn(this); }
 	private void endOfMove()
 	{
 		for (int x = 0, rows = this.gameBoard.rows(); x < rows; x++)
