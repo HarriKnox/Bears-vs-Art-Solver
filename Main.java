@@ -224,15 +224,20 @@ public class Main
 		liaison.setArt(7, 4, true);/* */
 		
 		
+		/// Level 102 "On Rails"
 		//*
-		GridLiaison liaison = new GridLiaison(6, 6, 1, 1);
-		liaison.setCell(4, 4, GridSpace.TELEPORTER);
+		GridLiaison liaison = new GridLiaison(3, 3, 0, 0);
+		liaison.setCell(0, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_DOWN);
+		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
+		liaison.setCell(2, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_UP).setDirection(Direction.UP).setUp(true);
+		liaison.setCell(0, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_DOWN).setDirection(Direction.DOWN).setUp(true).setArt(true);
+		liaison.setCell(1, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
+		liaison.setCell(2, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_UP).setArt(true);/* */
 		
-		liaison.checkGrid();
 		
 		/*
 		liaison.updateLasers();
-		System.out.println(liaison.copyGrid());
+		System.out.println(liaison.copyGrid());/* */
 		
 		Solver solver = new Solver(liaison, 16);
 		
