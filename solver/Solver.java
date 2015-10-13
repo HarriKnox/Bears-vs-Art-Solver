@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.HashSet;
+import java.util.Queue;
 import java.util.Set;
 
 import gridspace.*;
@@ -12,7 +13,7 @@ import utility.*;
 
 public class Solver
 {
-	private Deque<GameState> openQueue;
+	private Queue<GameState> openQueue;
 	private Set<GameState> closedSet;
 	
 	private int maxMoves;
@@ -26,12 +27,12 @@ public class Solver
 		GridLiaison.checkGrid(grid);
 		int gridSize = grid.size();
 		this.openQueue = new LinkedList<>();
-		this.closedSet = new LinkedHashSet<>((int)Math.pow(gridSize, 3));
+		this.closedSet = new HashSet<>((int)Math.pow(gridSize, 3));
 		this.addState(new GameState(grid, row, col));
 		this.maxMoves = max;
 		
 		this.lastMoves = 0;
-		this.maxArt = this.openQueue.peekFirst().countArt();
+		this.maxArt = this.openQueue.peek().countArt();
 		this.count = 0;
 	}
 	
@@ -45,7 +46,7 @@ public class Solver
 	{
 		if (!this.closedSet.contains(state))
 		{
-			this.openQueue.addLast(state);
+			this.openQueue.offer(state);
 			this.closedSet.add(state);
 			return true;
 		}
@@ -56,7 +57,7 @@ public class Solver
 	{
 		for (int i = 0; (limit <= 0 || i < limit) && !this.openQueue.isEmpty(); i++)
 		{
-			GameState first = this.openQueue.removeFirst();
+			GameState first = this.openQueue.poll();
 			int moves = first.getDirections().length;
 			if (moves > this.lastMoves)
 			{
@@ -97,17 +98,17 @@ public class Solver
 	
 	public static String dirsToString(Direction[] dirs)
 	{
-		return Arrays.toString(Arrays.stream(dirs).map(Object::toString).toArray());
+		return Arrays.toString(dirs);//Arrays.stream(dirs).map(Object::toString).toArray());
 	}
 	
-	public Deque<GameState> getOpenQueue()
+	public Queue<GameState> getOpenQueue()
 	{
 		return this.openQueue;
 	}
 	
 	public GameState first()
 	{
-		return this.openQueue.peekFirst();
+		return this.openQueue.peek();
 	}
 	
 	public Set<GameState> getClosedSet()
