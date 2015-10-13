@@ -10,7 +10,6 @@ final class SlideDoor extends GridSpace
 	RailDirection rail = RailDirection.LEFT_RIGHT;
 	Direction heading = Direction.RIGHT;
 	boolean up = false;
-	boolean pushedUp = false;
 	
 	
 	int metadataHash() { return (this.rail.hash << 5) + (this.heading.hash << 1) + b2i(this.up); }
@@ -33,7 +32,7 @@ final class SlideDoor extends GridSpace
 			int c = col + dc;
 			SlideDoor sd = (SlideDoor)gameboard.get(r, c);
 		
-			sd.pushedUp = true;
+			sd.up = true;
 			
 			Direction first = sd.rail.getFirst();
 			sd.heading = (first == this.heading.opposite()) ? sd.rail.getLast() : first;
@@ -47,7 +46,7 @@ final class SlideDoor extends GridSpace
 		SlideDoor sd = new SlideDoor();
 		sd.rail = this.rail;
 		sd.heading = this.heading;
-		sd.up = this.pushedUp;
+		sd.up = this.up;
 		return sd;
 	}
 	
