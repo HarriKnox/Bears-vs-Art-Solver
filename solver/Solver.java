@@ -23,6 +23,7 @@ public class Solver
 	
 	public Solver(Grid<GridSpace> grid, int row, int col, int max)
 	{
+		GridLiaison.checkGrid(grid);
 		int gridSize = grid.size();
 		this.openQueue = new LinkedList<>();
 		this.closedSet = new LinkedHashSet<>((int)Math.pow(gridSize, 3));
