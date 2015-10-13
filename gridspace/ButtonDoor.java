@@ -6,7 +6,7 @@ final class ButtonDoor extends GridSpace
 {
 	ButtonDoor() {}
 	
-	boolean up = true;
+	boolean up = false;
 	Color color = Color.BLUE;
 	
 	int metadataHash()

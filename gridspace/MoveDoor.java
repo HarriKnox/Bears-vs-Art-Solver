@@ -6,7 +6,7 @@ final class MoveDoor extends GridSpace
 {
 	MoveDoor() {}
 	
-	boolean up = true;
+	boolean up = false;
 	boolean toggle = false;
 	int movesRemaining;
 	int movesStarted;
