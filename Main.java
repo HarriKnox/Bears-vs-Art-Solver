@@ -225,7 +225,7 @@ public class Main
 		
 		
 		/// Level 102 "On Rails"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(3, 3, 0, 0);
 		liaison.setCell(0, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_DOWN);
 		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
@@ -235,10 +235,39 @@ public class Main
 		liaison.setCell(2, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_UP).setArt(true);/* */
 		
 		
-		/*
+		/// Level 103 "Whirlpool"
+		//*
+		GridLiaison liaison = new GridLiaison(9, 5, 0, 2);
+		for (int i = 0; i < 3; i++)
+		{
+			liaison.setCell(i, 0, GridSpace.WALL);
+			liaison.setCell(i, 4, GridSpace.WALL);
+		}
+		liaison.setCell(8, 0, GridSpace.WALL);
+		liaison.setCell(8, 4, GridSpace.WALL);
+		liaison.setCell(2, 2, GridSpace.WALL);
+		liaison.setCell(3, 2, GridSpace.BUTTON_DOOR).setArt(true);
+		liaison.setCell(5, 3, GridSpace.BUTTON_DOOR);
+		liaison.setCell(5, 0, GridSpace.BUTTON).setUp(true);
+		liaison.setCell(5, 4, GridSpace.BUTTON).setUp(true);
+		liaison.setCell(7, 2, GridSpace.BUTTON);
+		liaison.setCell(4, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_RIGHT).setDirection(Direction.RIGHT).setUp(true);
+		liaison.setCell(4, 2, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.LEFT_RIGHT);
+		liaison.setCell(4, 3, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_LEFT).setDirection(Direction.DOWN).setUp(true);
+		liaison.setCell(5, 3, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
+		liaison.setCell(6, 3, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_LEFT).setDirection(Direction.LEFT).setUp(true);
+		liaison.setCell(6, 2, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.LEFT_RIGHT);
+		liaison.setCell(6, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_RIGHT).setDirection(Direction.UP).setUp(true);
+		liaison.setCell(5, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
+		liaison.setCell(8, 1, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.RIGHT_RIGHT);
+		liaison.setCell(8, 2, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.LEFT_RIGHT).setDirection(Direction.LEFT).setUp(true);
+		liaison.setCell(8, 3, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.LEFT_LEFT);
+		
+		//*
 		liaison.updateLasers();
 		System.out.println(liaison.copyGrid());/* */
 		
+		//*
 		Solver solver = new Solver(liaison, 16);
 		
 		long start = System.currentTimeMillis();
