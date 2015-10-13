@@ -10,6 +10,7 @@ final class SlideDoor extends GridSpace
 	RailDirection rail = RailDirection.LEFT_RIGHT;
 	Direction heading = Direction.RIGHT;
 	boolean up = false;
+	boolean touched = false;
 	
 	
 	int metadataHash() { return (this.rail.hash << 5) + (this.heading.hash << 1) + b2i(this.up); }
@@ -19,7 +20,7 @@ final class SlideDoor extends GridSpace
 	
 	public void endOfMove(GameState state, int row, int col)
 	{
-		if (this.up)
+		if (this.up && !this.touched)
 		{
 			this.up = false;
 			
@@ -33,6 +34,7 @@ final class SlideDoor extends GridSpace
 			SlideDoor sd = (SlideDoor)gameboard.get(r, c);
 		
 			sd.up = true;
+			sd.touched = true;
 			
 			Direction first = sd.rail.getFirst();
 			sd.heading = (first == this.heading.opposite()) ? sd.rail.getLast() : first;
