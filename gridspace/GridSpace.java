@@ -32,6 +32,8 @@ public abstract class GridSpace
 	public static final int SLIDE_DOOR  = IDs.indexOf(SlideDoor.class);
 	
 	
+	int row;
+	int col;
 	boolean art = false;
 	boolean laser = false;
 	Direction laserSourceDirection = Direction.NONE;
@@ -83,6 +85,9 @@ public abstract class GridSpace
 	}
 	
 	
+	public final void setPosition(int row, int col) { this.row = row; this.col = col; }
+	
+	
 	String toString(char l)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -96,7 +101,15 @@ public abstract class GridSpace
 	
 	
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
-	public final boolean equals(Object that) { return (that instanceof GridSpace) && (this.hashCode() == that.hashCode()); }
+	public final boolean equals(Object obj)
+	{
+		if (obj instanceof GridSpace)
+		{
+			GridSpace that = (GridSpace)obj;
+			return (this.row == that.row) && (this.col == that.col) && (this.hashCode() == that.hashCode());
+		}
+		return false;
+	}
 	
 	static final int b2i(boolean thing) { return thing ? 1 : 0; }
 }
