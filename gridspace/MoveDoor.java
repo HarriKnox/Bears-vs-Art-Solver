@@ -41,4 +41,6 @@ final class MoveDoor extends GridSpace
 		m.movesStarted = this.movesStarted;
 		return m;
 	}
+	
+	public String toString() { return (this.toggle ? "\033[1;35m" : "\033[1;33m") + super.toString(this.up ? 'D' : 'd') + "\033[0m"; }
 }
