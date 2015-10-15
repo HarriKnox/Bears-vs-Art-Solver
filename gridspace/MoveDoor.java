@@ -29,6 +29,7 @@ final class MoveDoor extends GridSpace
 				}
 			}
 		}
+		super.endOfMove(state, row, col);
 	}
 	
 	GridSpace makeCopy()

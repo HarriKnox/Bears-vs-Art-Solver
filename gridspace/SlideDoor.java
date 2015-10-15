@@ -41,6 +41,7 @@ final class SlideDoor extends GridSpace
 			
 			if (state.getRoryRow() == r && state.getRoryCol() == c) state.teleportRory(r + dr, c + dc);
 		}
+		super.endOfMove(state, row, col);
 	}
 	
 	GridSpace makeCopy()
