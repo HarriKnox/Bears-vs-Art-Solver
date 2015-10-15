@@ -5,6 +5,7 @@ import utility.*;
 public final class GridLiaison
 {
 	private Grid<GridSpace> grid;
+	private Grid<GridSpaceLiaison> liaisons;
 	private int roryRow = -1;
 	private int roryCol = -1;
 	
@@ -13,6 +14,7 @@ public final class GridLiaison
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
 	{
 		this.grid = new Grid<>(rows, cols, (Integer x, Integer y) -> new Space());
+		this.liaisons = new Grid<>(rows, cols);
 		this.setRory(roryRow, roryCol);
 	}
 	
@@ -29,11 +31,18 @@ public final class GridLiaison
 	public int rows() { return this.grid.rows(); }
 	public int cols() { return this.grid.cols(); }
 	
-	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); }
-	public void trim(int rows, int cols) { this.grid.trim(rows, cols); }
+	public void ensureCapacity(int rows, int cols) { this.grid.ensureCapacity(rows, cols); this.liaisons.ensureCapacity(rows, cols); }
+	public void trim(int rows, int cols) { this.grid.trim(rows, cols); this.liaisons.trim(rows, cols); }
 	
 	public int getCellID(int row, int col) { return this.grid.get(row, col).ID(); }
-	public GridSpaceLiaison getCell(int row, int col) { return new GridSpaceLiaison(row, col, this.grid); }
+	
+	public GridSpaceLiaison getCell(int row, int col)
+	{
+		GridSpaceLiaison cached = this.liaisons.get(row, col);
+		if (cached == null) this.liaisons.set(row, col, cached = new GridSpaceLiaison(row, col, this.grid));
+		return cached;
+	}
+	
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
 		GridSpace gs = THE_WALL;
