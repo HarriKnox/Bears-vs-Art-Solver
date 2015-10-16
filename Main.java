@@ -139,19 +139,19 @@ public class Main
 		
 		
 		/// Level 66 "Right Place, Right Time"
-		/*
+		//*
 		GridLiaison liaison = new GridLiaison(6, 4, 0, 0);
 		for (int i = 0; i < 3; i++) liaison.setCell(i, 2, GridSpace.WALL);
 		for (int i = 2; i < 5; i++) liaison.setCell(i, 1, GridSpace.WALL);
-		liaison.setCell(2, 0, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(4);
-		liaison.setCell(4, 0, GridSpace.MOVE_DOOR).setMovesStarted(4);
-		liaison.setCell(5, 2, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(7);
-		liaison.setCell(5, 3, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(7);
-		liaison.setCell(4, 3, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(8);
-		liaison.setCell(4, 2, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(9);
-		liaison.setCell(3, 2, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(10);
-		liaison.setCell(3, 3, GridSpace.MOVE_DOOR).setUp(false).setMovesStarted(11);
-		liaison.setCell(1, 3, GridSpace.MOVE_DOOR).setMovesStarted(11);
+		liaison.setCell(2, 0, GridSpace.MOVE_DOOR).setMovesStarted(4);
+		liaison.setCell(4, 0, GridSpace.MOVE_DOOR).setUp(true).setMovesStarted(4);
+		liaison.setCell(5, 2, GridSpace.MOVE_DOOR).setMovesStarted(7);
+		liaison.setCell(5, 3, GridSpace.MOVE_DOOR).setMovesStarted(7);
+		liaison.setCell(4, 3, GridSpace.MOVE_DOOR).setMovesStarted(8);
+		liaison.setCell(4, 2, GridSpace.MOVE_DOOR).setMovesStarted(9);
+		liaison.setCell(3, 2, GridSpace.MOVE_DOOR).setMovesStarted(10);
+		liaison.setCell(3, 3, GridSpace.MOVE_DOOR).setMovesStarted(11);
+		liaison.setCell(1, 3, GridSpace.MOVE_DOOR).setUp(true).setMovesStarted(11);
 		liaison.setArt(5, 0, true);
 		liaison.setArt(0, 3, true);/* */
 		
@@ -311,7 +311,7 @@ public class Main
 		
 		
 		/// Level 115 "Three Times"
-		//*
+		/*
 		GridLiaison liaison = new GridLiaison(9, 6, 0, 0);
 		for (int i = 4; i <= 8; i++) liaison.setCell(i, 0, GridSpace.WALL);
 		for (int i = 1; i <= 3; i++) liaison.setCell(4, i, GridSpace.WALL);
@@ -326,12 +326,46 @@ public class Main
 		liaison.setArt(6, 5, true);
 		liaison.setArt(7, 5, true);/* */
 		
+		
+		/// Level 122 "Art Factory"
+		/*
+		GridLiaison liaison = new GridLiaison(10, 5, 0, 2);
+		liaison.setCell(2, 1, GridSpace.WALL);
+		for (int i = 2; i <= 4; i++) liaison.setCell(i, 3, GridSpace.WALL);
+		for (int i = 4; i <= 6; i++) liaison.setCell(i, 1, GridSpace.WALL);
+		for (int i = 6; i <= 7; i++) liaison.setCell(i, 2, GridSpace.WALL);
+		for (int i = 2; i <= 7; i++) for (int j = 0; j < 5; j += 4) liaison.setCell(i, j, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_DOWN);
+		for (int i = 1; i <= 3; i++) for (int j = 1; j < 9; j += 7) liaison.setCell(j, i, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.LEFT_RIGHT);
+		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_RIGHT);
+		liaison.setCell(1, 4, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.DOWN_LEFT);
+		liaison.setCell(8, 0, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_RIGHT);
+		liaison.setCell(8, 4, GridSpace.SLIDE_DOOR).setRailDirection(RailDirection.UP_LEFT);
+		liaison.setDirection(1, 0, Direction.DOWN).setUp(true);
+		liaison.setDirection(1, 3, Direction.LEFT).setUp(true);
+		liaison.setDirection(4, 0, Direction.DOWN).setUp(true);
+		liaison.setDirection(5, 4, Direction.UP).setUp(true);
+		liaison.setDirection(8, 1, Direction.RIGHT).setUp(true);
+		liaison.setDirection(8, 4, Direction.UP).setUp(true);
+		liaison.setLaserSourceDirection(2, 4, Direction.LEFT);
+		liaison.setLaserSourceDirection(3, 0, Direction.RIGHT);
+		liaison.setLaserSourceDirection(5, 4, Direction.LEFT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(6, 0, Direction.RIGHT).setLaserSourceOn(true);
+		liaison.setLaserSourceDirection(9, 4, Direction.LEFT).setLaserSourceBlue(true).setLaserSourceOn(true);
+		liaison.setArt(0, 1, true);
+		liaison.setArt(0, 3, true);
+		liaison.setArt(2, 2, true);
+		liaison.setArt(3, 4, true);
+		liaison.setArt(5, 0, true);
+		liaison.setArt(5, 2, true);
+		liaison.setArt(5, 3, true);
+		liaison.setArt(8, 0, true);/* */
+		
 		//*
 		liaison.updateLasers();
 		System.out.println(liaison.copyGrid());/* */
 		
 		//*
-		Solver solver = new Solver(liaison, 19);
+		Solver solver = new Solver(liaison, 12);
 		
 		long start = System.currentTimeMillis();
 		Direction[] solution = solver.solve(0);
