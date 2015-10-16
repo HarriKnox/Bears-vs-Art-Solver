@@ -6,8 +6,8 @@ public final class GridLiaison
 {
 	private Grid<GridSpace> grid;
 	private Grid<GridSpaceLiaison> liaisons;
-	private int roryRow = -1;
-	private int roryCol = -1;
+	private int roryRow;
+	private int roryCol;
 	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
 	{
@@ -45,7 +45,7 @@ public final class GridLiaison
 	{
 		GridSpace gs;
 		
-		if (ID == GridSpace.SPACE)       gs = new Space();
+		if      (ID == GridSpace.SPACE)       gs = new Space();
 		else if (ID == GridSpace.SPIKE)       gs = new Spike();
 		else if (ID == GridSpace.BOOSTER)     gs = new Booster();
 		else if (ID == GridSpace.BUTTON)      gs = new Button();
@@ -53,7 +53,7 @@ public final class GridLiaison
 		else if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
 		else if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
 		else if (ID == GridSpace.SLIDE_DOOR)  gs = new SlideDoor();
-		else gs = new Wall();
+		else                                  gs = new Wall();
 		
 		this.grid.set(row, col, gs);
 		
