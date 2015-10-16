@@ -43,10 +43,7 @@ public final class GridLiaison
 	
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
-		GridSpace gs = GridSpace.createInstance(ID, row, col);
-		
-		this.grid.set(row, col, gs);
-		
+		this.grid.set(row, col, GridSpace.createInstance(ID, row, col));
 		return this.getCell(row, col);
 	}
 	
