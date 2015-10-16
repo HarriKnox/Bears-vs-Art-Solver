@@ -9,8 +9,6 @@ public final class GridLiaison
 	private int roryRow = -1;
 	private int roryCol = -1;
 	
-	private static final Wall THE_WALL = new Wall();
-	
 	public GridLiaison(int rows, int cols, int roryRow, int roryCol)
 	{
 		this.grid = new Grid<>(rows, cols, (Integer x, Integer y) -> new Space());
@@ -45,16 +43,17 @@ public final class GridLiaison
 	
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
-		GridSpace gs = THE_WALL;
+		GridSpace gs;
 		
 		if (ID == GridSpace.SPACE)       gs = new Space();
-		if (ID == GridSpace.SPIKE)       gs = new Spike();
-		if (ID == GridSpace.BOOSTER)     gs = new Booster();
-		if (ID == GridSpace.BUTTON)      gs = new Button();
-		if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
-		if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
-		if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
-		if (ID == GridSpace.SLIDE_DOOR)  gs = new SlideDoor();
+		else if (ID == GridSpace.SPIKE)       gs = new Spike();
+		else if (ID == GridSpace.BOOSTER)     gs = new Booster();
+		else if (ID == GridSpace.BUTTON)      gs = new Button();
+		else if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
+		else if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
+		else if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
+		else if (ID == GridSpace.SLIDE_DOOR)  gs = new SlideDoor();
+		else gs = new Wall();
 		
 		this.grid.set(row, col, gs);
 		
