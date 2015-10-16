@@ -11,9 +11,22 @@ final class MoveDoor extends GridSpace
 	int movesRemaining;
 	int movesStarted;
 	
+	
 	int metadataHash() { return (this.movesStarted << 11) + (this.movesRemaining << 2) + (b2i(toggle) << 1) + b2i(up); }
 	
+	GridSpace makeCopy()
+	{
+		MoveDoor m = new MoveDoor();
+		m.up = this.up;
+		m.toggle = this.toggle;
+		m.movesRemaining = this.movesRemaining;
+		m.movesStarted = this.movesStarted;
+		return m;
+	}
+	
+	
 	public boolean isSolid() { return this.up; }
+	
 	
 	public void endOfMove(GameState state)
 	{
@@ -32,15 +45,6 @@ final class MoveDoor extends GridSpace
 		super.endOfMove(state);
 	}
 	
-	GridSpace makeCopy()
-	{
-		MoveDoor m = new MoveDoor();
-		m.up = this.up;
-		m.toggle = this.toggle;
-		m.movesRemaining = this.movesRemaining;
-		m.movesStarted = this.movesStarted;
-		return m;
-	}
 	
 	public String toString() { return (this.toggle ? "\033[1;35m" : "\033[1;33m") + super.toString(this.up ? 'D' : 'd') + "\033[0m"; }
 }

@@ -15,6 +15,16 @@ final class SlideDoor extends GridSpace
 	
 	int metadataHash() { return (this.rail.hash << 5) + (this.heading.hash << 1) + b2i(this.up); }
 	
+	GridSpace makeCopy()
+	{
+		SlideDoor sd = new SlideDoor();
+		sd.rail = this.rail;
+		sd.heading = this.heading;
+		sd.up = this.up;
+		return sd;
+	}
+	
+	
 	public boolean isSolid() { return this.up; }
 	
 	
@@ -44,17 +54,6 @@ final class SlideDoor extends GridSpace
 		super.endOfMove(state);
 	}
 	
-	GridSpace makeCopy()
-	{
-		SlideDoor sd = new SlideDoor();
-		sd.rail = this.rail;
-		sd.heading = this.heading;
-		sd.up = this.up;
-		return sd;
-	}
 	
-	public String toString()
-	{
-		return "\033[1;35m" + super.toString(this.up ? this.heading == Direction.UP ? '^' : (this.heading == Direction.DOWN ? 'v' : (this.heading == Direction.LEFT ? '<' : '>')) : '|') + "\033[0m";
-	}
+	public String toString() { return "\033[1;35m" + super.toString(this.up ? this.heading == Direction.UP ? '^' : (this.heading == Direction.DOWN ? 'v' : (this.heading == Direction.LEFT ? '<' : '>')) : '|') + "\033[0m"; }
 }

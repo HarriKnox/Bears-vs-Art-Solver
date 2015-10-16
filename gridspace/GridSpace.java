@@ -50,22 +50,6 @@ public abstract class GridSpace
 	}
 	
 	
-	public boolean isSolid() { return false; }
-	
-	
-	public void passThrough(GameState state) { ; }
-	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
-	public void endOfMove(GameState state) { this.laserSourceOn = (this.isLaserSource() && (this.laserSourceBlue || !this.laserSourceOn)); }
-	public void landedOn(GameState state)
-	{
-		if (this.art)
-		{
-			this.art = false;
-			state.decrementArt();
-		}
-	}
-	
-	
 	final int ID() { return IDs.indexOf(this.getClass()); }
 	abstract int metadataHash();
 	
@@ -82,6 +66,22 @@ public abstract class GridSpace
 			gs.laserSourceDirection = this.laserSourceDirection;
 		}
 		return gs;
+	}
+	
+	
+	public boolean isSolid() { return false; }
+	
+	
+	public void passThrough(GameState state) { ; }
+	public void checkHazard(GameState state) { if (this.laser || this.isSolid()) state.kill(); }
+	public void endOfMove(GameState state) { this.laserSourceOn = (this.isLaserSource() && (this.laserSourceBlue || !this.laserSourceOn)); }
+	public void landedOn(GameState state)
+	{
+		if (this.art)
+		{
+			this.art = false;
+			state.decrementArt();
+		}
 	}
 	
 	

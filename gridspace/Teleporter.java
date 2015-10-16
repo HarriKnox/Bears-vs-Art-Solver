@@ -9,7 +9,16 @@ final class Teleporter extends GridSpace
 	
 	Color color = Color.BLUE;
 	
+	
 	int metadataHash() { return this.color.hash; }
+	
+	GridSpace makeCopy()
+	{
+		Teleporter t = new Teleporter();
+		t.color = this.color;
+		return t;
+	}
+	
 	
 	public void passThrough(GameState state)
 	{
@@ -36,12 +45,6 @@ final class Teleporter extends GridSpace
 		}
 	}
 	
-	GridSpace makeCopy()
-	{
-		Teleporter t = new Teleporter();
-		t.color = this.color;
-		return t;
-	}
 	
 	public String toString() { return (this.color == Color.BLUE ? "\033[1;34m" : (this.color == Color.GREEN ? "\033[1;32m" : "\033[1;31m")) + "T\033[0m"; }
 }

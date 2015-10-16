@@ -10,10 +10,17 @@ final class Button extends GridSpace
 	boolean up = false;
 	Color color = Color.BLUE;
 	
-	int metadataHash()
+	
+	int metadataHash() { return (this.color.hash << 1) + b2i(up); }
+	
+	GridSpace makeCopy()
 	{
-		return (this.color.hash << 1) + b2i(up);
+		Button b = new Button();
+		b.up = this.up;
+		b.color = this.color;
+		return b;
 	}
+	
 	
 	public void passThrough(GameState state)
 	{
@@ -35,13 +42,6 @@ final class Button extends GridSpace
 		}
 	}
 	
-	GridSpace makeCopy()
-	{
-		Button b = new Button();
-		b.up = this.up;
-		b.color = this.color;
-		return b;
-	}
 	
 	public String toString() { return (this.color == Color.BLUE ? "\033[1;34m" : (this.color == Color.GREEN ? "\033[1;32m" : "\033[1;31m")) + super.toString(this.up ? 'B' : 'b') + "\033[0m"; }
 }
