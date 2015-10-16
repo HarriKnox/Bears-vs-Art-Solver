@@ -120,6 +120,7 @@ public abstract class GridSpace
 	public final int hashCode() { return (this.metadataHash() << 12) + (this.laserArtHash() << 4) + this.ID(); }
 	public final boolean equals(Object obj)
 	{
+		if (obj == this) return true;
 		if (obj instanceof GridSpace)
 		{
 			GridSpace that = (GridSpace)obj;
