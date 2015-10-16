@@ -1,6 +1,6 @@
 package gridspace;
 
-public final class Space extends GridSpace
+final class Space extends GridSpace
 {
 	Space() {}
 	

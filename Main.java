@@ -1,7 +1,11 @@
 import gridspace.GridSpace;
 import gridspace.GridLiaison;
-import solver.*;
-import utility.*;
+
+import solver.Solver;
+
+import utility.Color;
+import utility.Direction;
+import utility.RailDirection;
 
 public class Main
 {

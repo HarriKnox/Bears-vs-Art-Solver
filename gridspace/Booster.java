@@ -1,7 +1,8 @@
 package gridspace;
 
 import solver.GameState;
-import utility.*;
+
+import utility.Direction;
 
 final class Booster extends GridSpace
 {

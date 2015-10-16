@@ -1,9 +1,11 @@
 package gridspace;
 
-import solver.GameState;
-import utility.Direction;
 import java.util.ArrayList;
 import java.util.List;
+
+import solver.GameState;
+
+import utility.Direction;
 
 public abstract class GridSpace
 {
@@ -85,18 +87,18 @@ public abstract class GridSpace
 	}
 	
 	
-	final GridSpace createInstance(int ID, int row, int col);
+	static final GridSpace createInstance(int id, int row, int col)
 	{
 		GridSpace gs;
 		
-		if      (ID == SPACE)       gs = new Space();
-		else if (ID == SPIKE)       gs = new Spike();
-		else if (ID == BOOSTER)     gs = new Booster();
-		else if (ID == BUTTON)      gs = new Button();
-		else if (ID == BUTTON_DOOR) gs = new ButtonDoor();
-		else if (ID == MOVE_DOOR)   gs = new MoveDoor();
-		else if (ID == TELEPORTER)  gs = new Teleporter();
-		else if (ID == SLIDE_DOOR)  gs = new SlideDoor();
+		if      (id == SPACE)       gs = new Space();
+		else if (id == SPIKE)       gs = new Spike();
+		else if (id == BOOSTER)     gs = new Booster();
+		else if (id == BUTTON)      gs = new Button();
+		else if (id == BUTTON_DOOR) gs = new ButtonDoor();
+		else if (id == MOVE_DOOR)   gs = new MoveDoor();
+		else if (id == TELEPORTER)  gs = new Teleporter();
+		else if (id == SLIDE_DOOR)  gs = new SlideDoor();
 		else                        gs = new Wall();
 		
 		gs.row = row;

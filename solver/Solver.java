@@ -1,15 +1,16 @@
 package solver;
 
 import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import gridspace.*;
-import utility.*;
+import gridspace.GridLiaison;
+import gridspace.GridSpace;
+
+import utility.Direction;
+import utility.Grid;
 
 public class Solver
 {

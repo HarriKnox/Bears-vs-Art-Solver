@@ -1,7 +1,10 @@
 package gridspace;
 
 import solver.GameState;
-import utility.*;
+
+import utility.Direction;
+import utility.Grid;
+import utility.RailDirection;
 
 final class SlideDoor extends GridSpace
 {

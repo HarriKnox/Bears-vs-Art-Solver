@@ -1,7 +1,8 @@
 package gridspace;
 
 import solver.GameState;
-import utility.*;
+
+import utility.Color;
 
 final class Button extends GridSpace
 {

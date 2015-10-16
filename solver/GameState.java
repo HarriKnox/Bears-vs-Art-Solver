@@ -1,9 +1,11 @@
 package solver;
 
-import java.util.List;
+import gridspace.GridLiaison;
+import gridspace.GridSpace;
+import gridspace.GridTraveler;
 
-import gridspace.*;
-import utility.*;
+import utility.Direction;
+import utility.Grid;
 
 public class GameState
 {

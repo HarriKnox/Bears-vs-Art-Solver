@@ -1,7 +1,9 @@
 package gridspace;
 
-import utility.*;
 import java.util.LinkedList;
+
+import utility.Direction;
+import utility.Grid;
 
 public class GridTraveler
 {
