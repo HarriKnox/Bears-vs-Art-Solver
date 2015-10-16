@@ -15,7 +15,7 @@ final class MoveDoor extends GridSpace
 	
 	public boolean isSolid() { return this.up; }
 	
-	public void endOfMove(GameState state, int row, int col)
+	public void endOfMove(GameState state)
 	{
 		if (this.movesRemaining > 0)
 		{
@@ -29,7 +29,7 @@ final class MoveDoor extends GridSpace
 				}
 			}
 		}
-		super.endOfMove(state, row, col);
+		super.endOfMove(state);
 	}
 	
 	GridSpace makeCopy()

@@ -18,7 +18,7 @@ final class SlideDoor extends GridSpace
 	public boolean isSolid() { return this.up; }
 	
 	
-	public void endOfMove(GameState state, int row, int col)
+	public void endOfMove(GameState state)
 	{
 		if (this.up && !this.touched)
 		{
@@ -29,8 +29,8 @@ final class SlideDoor extends GridSpace
 			int dr = this.heading.verticalChange();
 			int dc = this.heading.horizontalChange();
 			
-			int r = row + dr;
-			int c = col + dc;
+			int r = this.row + dr;
+			int c = this.col + dc;
 			SlideDoor sd = (SlideDoor)gameboard.get(r, c);
 		
 			sd.up = true;
@@ -41,7 +41,7 @@ final class SlideDoor extends GridSpace
 			
 			if (state.getRoryRow() == r && state.getRoryCol() == c) state.teleportRory(r + dr, c + dc);
 		}
-		super.endOfMove(state, row, col);
+		super.endOfMove(state);
 	}
 	
 	GridSpace makeCopy()

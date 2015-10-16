@@ -93,6 +93,8 @@ public class GameState
 			this.updateLasers();
 			this.checkHazards();
 			
+			if (!this.alive) return;
+			
 			this.landedOn();
 		}
 	}
@@ -107,7 +109,7 @@ public class GameState
 		{
 			for (int y = 0, cols = this.gameBoard.cols(); y < cols; y++)
 			{
-				this.gameBoard.get(x, y).endOfMove(this, x, y);
+				this.gameBoard.get(x, y).endOfMove(this);
 			}
 		}
 	}
