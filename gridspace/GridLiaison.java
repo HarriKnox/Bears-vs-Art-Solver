@@ -43,17 +43,7 @@ public final class GridLiaison
 	
 	public GridSpaceLiaison setCell(int row, int col, int ID)
 	{
-		GridSpace gs;
-		
-		if      (ID == GridSpace.SPACE)       gs = new Space();
-		else if (ID == GridSpace.SPIKE)       gs = new Spike();
-		else if (ID == GridSpace.BOOSTER)     gs = new Booster();
-		else if (ID == GridSpace.BUTTON)      gs = new Button();
-		else if (ID == GridSpace.BUTTON_DOOR) gs = new ButtonDoor();
-		else if (ID == GridSpace.MOVE_DOOR)   gs = new MoveDoor();
-		else if (ID == GridSpace.TELEPORTER)  gs = new Teleporter();
-		else if (ID == GridSpace.SLIDE_DOOR)  gs = new SlideDoor();
-		else                                  gs = new Wall();
+		GridSpace gs = GridSpace.createInstance(ID, row, col);
 		
 		this.grid.set(row, col, gs);
 		

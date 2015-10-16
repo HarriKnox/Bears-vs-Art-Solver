@@ -85,7 +85,24 @@ public abstract class GridSpace
 	}
 	
 	
-	public final void setPosition(int row, int col) { this.row = row; this.col = col; }
+	GridSpace createInstance(int ID, int row, int col);
+	{
+		GridSpace gs;
+		
+		if      (ID == SPACE)       gs = new Space();
+		else if (ID == SPIKE)       gs = new Spike();
+		else if (ID == BOOSTER)     gs = new Booster();
+		else if (ID == BUTTON)      gs = new Button();
+		else if (ID == BUTTON_DOOR) gs = new ButtonDoor();
+		else if (ID == MOVE_DOOR)   gs = new MoveDoor();
+		else if (ID == TELEPORTER)  gs = new Teleporter();
+		else if (ID == SLIDE_DOOR)  gs = new SlideDoor();
+		else                        gs = new Wall();
+		
+		gs.row = row;
+		gs.col = col;
+		return gs;
+	}
 	
 	
 	String toString(char l)
