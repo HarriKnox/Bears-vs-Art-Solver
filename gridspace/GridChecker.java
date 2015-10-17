@@ -37,7 +37,7 @@ public final class GridChecker
 		Direction[][] portalDirections = new Direction[colors][];
 		Grid.Position[] portalLocations = new Grid.Position[colors];
 		
-		
+		List<SlideDoor> slideDoors = new LinkedList<>();
 		
 		for (int row = 0, rows = grid.rows(); row < rows; row++)
 		{
@@ -60,6 +60,8 @@ public final class GridChecker
 					
 					Direction last = rail.getLast();
 					if (!last.equals(first)) checkRail(grid, row, col, last);
+					
+					slideDoors.add(sd);
 				}
 				else if (ID == GridSpace.BOOSTER)
 				{
@@ -74,7 +76,7 @@ public final class GridChecker
 					
 					if (++portalColors[color] >= 3)
 						throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" portals").toString());
-						
+					
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
 					if (portalDirections[color] == null)
 					{
@@ -135,8 +137,8 @@ public final class GridChecker
 		if (oID == GridSpace.WALL || oID == GridSpace.BUTTON_DOOR || oID == GridSpace.MOVE_DOOR || oID == GridSpace.SLIDE_DOOR)
 			throw new IllegalStateException(thingAtPoints(name, row, col, dir, rotates).append(" directly into a block that can be solid").toString());
 	}
-	private static String rotatingBoosterName = "Rotating booster";
-	private static String boosterName = "Booster";
+	private static final String rotatingBoosterName = "Rotating booster";
+	private static final String boosterName = "Booster";
 	
 	private static void checkPortals(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction[] entries, Direction[] exits)
 	{
