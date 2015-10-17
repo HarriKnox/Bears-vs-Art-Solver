@@ -11,6 +11,16 @@ public class Main
 {
 	public static void main(String[] args)
 	{
+		int WALL        = WALL,
+		    SPACE       = SPACE,
+		    SPIKE       = SPIKE,
+		    BOOSTER     = BOOSTER,
+		    BUTTON      = BUTTON,
+		    BUTTON_DOOR = BUTTON_DOOR,
+		    MOVE_DOOR   = MOVE_DOOR,
+		    TELEPORTER  = TELEPORTER,
+		    SLIDE_DOOR  = SLIDE_DOOR;
+		
 		Direction RIGHT = Direction.RIGHT,
 		          LEFT  = Direction.LEFT,
 		          UP    = Direction.UP,
@@ -38,11 +48,11 @@ public class Main
 		/// Level 33 "All About Buttons"
 		/*
 		liaison = new GridLiaison(5, 4, 0, 1);
-		liaison.setCell(0, 0, GridSpace.BUTTON_DOOR);
-		for (int i = 0; i < 3; i++) liaison.setCell(1, i, GridSpace.BUTTON_DOOR);
-		for (int i = 2; i < 4; i++) liaison.setCell(3, i, GridSpace.BUTTON_DOOR);
-		liaison.setCell(4, 3, GridSpace.BUTTON_DOOR);
-		liaison.setCell(4, 0, GridSpace.BUTTON);
+		liaison.setCell(0, 0, BUTTON_DOOR);
+		for (int i = 0; i < 3; i++) liaison.setCell(1, i, BUTTON_DOOR);
+		for (int i = 2; i < 4; i++) liaison.setCell(3, i, BUTTON_DOOR);
+		liaison.setCell(4, 3, BUTTON_DOOR);
+		liaison.setCell(4, 0, BUTTON);
 		liaison.setArt(1, 0, true);
 		liaison.setArt(0, 2, true);
 		liaison.setArt(3, 3, true);/* */
@@ -51,34 +61,34 @@ public class Main
 		/// Level 34 "Up And Down"
 		/*
 		liaison = new GridLiaison(5, 5, 2, 2);
-		liaison.setCell(1, 2, GridSpace.BUTTON_DOOR);
-		liaison.setCell(2, 1, GridSpace.BUTTON_DOOR);
-		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR);
-		liaison.setCell(3, 2, GridSpace.BUTTON_DOOR);
+		liaison.setCell(1, 2, BUTTON_DOOR);
+		liaison.setCell(2, 1, BUTTON_DOOR);
+		liaison.setCell(2, 3, BUTTON_DOOR);
+		liaison.setCell(3, 2, BUTTON_DOOR);
 		liaison.setUp(1, 2, false);
 		liaison.setUp(2, 1, false);
 		liaison.setUp(2, 3, false);
 		liaison.setUp(3, 2, false);
-		liaison.setCell(0, 1, GridSpace.BUTTON);
+		liaison.setCell(0, 1, BUTTON);
 		liaison.setArt(0, 1, true);
 		liaison.setUp(0, 1, false);
-		liaison.setCell(1, 4, GridSpace.BUTTON);
+		liaison.setCell(1, 4, BUTTON);
 		liaison.setArt(1, 4, true);
-		liaison.setCell(4, 3, GridSpace.BUTTON);
+		liaison.setCell(4, 3, BUTTON);
 		liaison.setArt(4, 3, true);
 		liaison.setUp(4, 3, false);
-		liaison.setCell(3, 0, GridSpace.BUTTON);
+		liaison.setCell(3, 0, BUTTON);
 		liaison.setArt(3, 0, true);/* */
 		
 		
 		/// Level 35 "Stop Gap Solution"
 		/*
 		liaison = new GridLiaison(7, 5, 6, 0);
-		liaison.setCell(2, 1, GridSpace.WALL);
-		liaison.setCell(4, 3, GridSpace.WALL);
-		for (int i = 1; i < 4; i++) liaison.setCell(3, i, GridSpace.WALL);
-		liaison.setCell(4, 4, GridSpace.BUTTON_DOOR);
-		liaison.setCell(6, 4, GridSpace.BUTTON);
+		liaison.setCell(2, 1, WALL);
+		liaison.setCell(4, 3, WALL);
+		for (int i = 1; i < 4; i++) liaison.setCell(3, i, WALL);
+		liaison.setCell(4, 4, BUTTON_DOOR);
+		liaison.setCell(6, 4, BUTTON);
 		liaison.setUp(4, 4, false);
 		liaison.setArt(2, 2, true);
 		liaison.setArt(4, 2, true);
@@ -88,10 +98,10 @@ public class Main
 		/// Level 37 "Toggle"
 		/*
 		liaison = new GridLiaison(5, 5, 0, 0);
-		liaison.setCell(0, 2, GridSpace.BUTTON);
-		liaison.setCell(2, 0, GridSpace.WALL);
-		liaison.setCell(2, 1, GridSpace.BUTTON_DOOR);
-		liaison.setCell(4, 2, GridSpace.BUTTON);
+		liaison.setCell(0, 2, BUTTON);
+		liaison.setCell(2, 0, WALL);
+		liaison.setCell(2, 1, BUTTON_DOOR);
+		liaison.setCell(4, 2, BUTTON);
 		liaison.setUp(2, 1, false);
 		liaison.setUp(4, 2, false);
 		liaison.setArt(0, 4, true);
@@ -102,8 +112,8 @@ public class Main
 		/// Level 39 "Two Pillars"
 		/*
 		liaison = new GridLiaison(8, 5, 0, 2);
-		liaison.setCell(2, 2, GridSpace.WALL);
-		liaison.setCell(5, 2, GridSpace.WALL);
+		liaison.setCell(2, 2, WALL);
+		liaison.setCell(5, 2, WALL);
 		liaison.setArt(1, 2, true);
 		liaison.setArt(2, 1, true);
 		liaison.setArt(3, 2, true);
@@ -117,21 +127,21 @@ public class Main
 		/// Level 117 "Masterplan"
 		/*
 		liaison = new GridLiaison(9, 8, 6, 4);
-		liaison.setCell(0, 0, GridSpace.WALL);
-		for (int i = 5; i < 8; i++) liaison.setCell(0, i, GridSpace.WALL);
-		for (int r = 7; r < 9; r++) for (int c = 6; c < 8; c++) liaison.setCell(r, c, GridSpace.WALL);
-		liaison.setCell(1, 0, GridSpace.BUTTON);
-		liaison.setCell(2, 4, GridSpace.BUTTON).setUp(false);
-		liaison.setCell(5, 4, GridSpace.BUTTON_DOOR);
-		liaison.setCell(5, 7, GridSpace.BUTTON_DOOR).setUp(false);
-		liaison.setCell(1, 7, GridSpace.BUTTON).setColor(RED);
-		liaison.setCell(3, 2, GridSpace.BUTTON).setColor(RED).setUp(false);
-		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setColor(RED);
-		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR).setColor(RED).setUp(false);
-		liaison.setCell(8, 5, GridSpace.BUTTON).setColor(GREEN);
-		liaison.setCell(5, 0, GridSpace.BUTTON).setColor(GREEN).setUp(false);
-		liaison.setCell(7, 1, GridSpace.BUTTON_DOOR).setColor(GREEN);
-		liaison.setCell(3, 1, GridSpace.BUTTON_DOOR).setColor(GREEN).setUp(false);
+		liaison.setCell(0, 0, WALL);
+		for (int i = 5; i < 8; i++) liaison.setCell(0, i, WALL);
+		for (int r = 7; r < 9; r++) for (int c = 6; c < 8; c++) liaison.setCell(r, c, WALL);
+		liaison.setCell(1, 0, BUTTON);
+		liaison.setCell(2, 4, BUTTON).setUp(false);
+		liaison.setCell(5, 4, BUTTON_DOOR);
+		liaison.setCell(5, 7, BUTTON_DOOR).setUp(false);
+		liaison.setCell(1, 7, BUTTON).setColor(RED);
+		liaison.setCell(3, 2, BUTTON).setColor(RED).setUp(false);
+		liaison.setCell(2, 3, BUTTON_DOOR).setColor(RED);
+		liaison.setCell(7, 3, BUTTON_DOOR).setColor(RED).setUp(false);
+		liaison.setCell(8, 5, BUTTON).setColor(GREEN);
+		liaison.setCell(5, 0, BUTTON).setColor(GREEN).setUp(false);
+		liaison.setCell(7, 1, BUTTON_DOOR).setColor(GREEN);
+		liaison.setCell(3, 1, BUTTON_DOOR).setColor(GREEN).setUp(false);
 		liaison.setArt(0, 2, true);
 		liaison.setArt(1, 5, true);
 		liaison.setArt(1, 6, true);
@@ -154,26 +164,26 @@ public class Main
 		/// Level 65 "In The Way"
 		/*
 		liaison = new GridLiaison(3, 4, 0, 0);
-		liaison.setCell(1, 3, GridSpace.WALL);
-		liaison.setCell(2, 3, GridSpace.WALL);
+		liaison.setCell(1, 3, WALL);
+		liaison.setCell(2, 3, WALL);
 		liaison.setArt(2, 2, true);
-		liaison.setCell(1, 0, GridSpace.MOVE_DOOR).setMovesStarted(4);/* */
+		liaison.setCell(1, 0, MOVE_DOOR).setMovesStarted(4);/* */
 		
 		
 		/// Level 66 "Right Place, Right Time"
 		//*
 		liaison = new GridLiaison(6, 4, 0, 0);
-		for (int i = 0; i < 3; i++) liaison.setCell(i, 2, GridSpace.WALL);
-		for (int i = 2; i < 5; i++) liaison.setCell(i, 1, GridSpace.WALL);
-		liaison.setCell(2, 0, GridSpace.MOVE_DOOR).setMovesStarted(4);
-		liaison.setCell(4, 0, GridSpace.MOVE_DOOR).setUp(true).setMovesStarted(4);
-		liaison.setCell(5, 2, GridSpace.MOVE_DOOR).setMovesStarted(7);
-		liaison.setCell(5, 3, GridSpace.MOVE_DOOR).setMovesStarted(7);
-		liaison.setCell(4, 3, GridSpace.MOVE_DOOR).setMovesStarted(8);
-		liaison.setCell(4, 2, GridSpace.MOVE_DOOR).setMovesStarted(9);
-		liaison.setCell(3, 2, GridSpace.MOVE_DOOR).setMovesStarted(10);
-		liaison.setCell(3, 3, GridSpace.MOVE_DOOR).setMovesStarted(11);
-		liaison.setCell(1, 3, GridSpace.MOVE_DOOR).setUp(true).setMovesStarted(11);
+		for (int i = 0; i < 3; i++) liaison.setCell(i, 2, WALL);
+		for (int i = 2; i < 5; i++) liaison.setCell(i, 1, WALL);
+		liaison.setCell(2, 0, MOVE_DOOR).setMovesStarted(4);
+		liaison.setCell(4, 0, MOVE_DOOR).setUp(true).setMovesStarted(4);
+		liaison.setCell(5, 2, MOVE_DOOR).setMovesStarted(7);
+		liaison.setCell(5, 3, MOVE_DOOR).setMovesStarted(7);
+		liaison.setCell(4, 3, MOVE_DOOR).setMovesStarted(8);
+		liaison.setCell(4, 2, MOVE_DOOR).setMovesStarted(9);
+		liaison.setCell(3, 2, MOVE_DOOR).setMovesStarted(10);
+		liaison.setCell(3, 3, MOVE_DOOR).setMovesStarted(11);
+		liaison.setCell(1, 3, MOVE_DOOR).setUp(true).setMovesStarted(11);
 		liaison.setArt(5, 0, true);
 		liaison.setArt(0, 3, true);/* */
 		
@@ -181,61 +191,61 @@ public class Main
 		/// Level 70 "Through Space And Time"
 		/*
 		liaison = new GridLiaison(6, 3, 0, 0);
-		liaison.setCell(2, 1, GridSpace.TELEPORTER);
-		liaison.setCell(4, 1, GridSpace.TELEPORTER);
-		for (int i = 0; i < 3; i++) liaison.setCell(3, i, GridSpace.WALL);
+		liaison.setCell(2, 1, TELEPORTER);
+		liaison.setCell(4, 1, TELEPORTER);
+		for (int i = 0; i < 3; i++) liaison.setCell(3, i, WALL);
 		liaison.setArt(0, 1, true);/* */
 		
 		
 		/// Level 91 "Tiny Tim"
 		/*
 		liaison = new GridLiaison(3, 2, 2, 0);
-		liaison.setCell(0, 0, GridSpace.BUTTON_DOOR).setArt(true).setUp(false);
-		liaison.setCell(0, 1, GridSpace.BUTTON).setUp(false).setColor(RED);
-		liaison.setCell(1, 0, GridSpace.BUTTON).setArt(true);
-		liaison.setCell(1, 1, GridSpace.BUTTON_DOOR).setArt(true).setColor(RED);
-		liaison.setCell(2, 0, GridSpace.BUTTON).setUp(false);
-		liaison.setCell(2, 1, GridSpace.BUTTON).setColor(RED);/* */
+		liaison.setCell(0, 0, BUTTON_DOOR).setArt(true).setUp(false);
+		liaison.setCell(0, 1, BUTTON).setUp(false).setColor(RED);
+		liaison.setCell(1, 0, BUTTON).setArt(true);
+		liaison.setCell(1, 1, BUTTON_DOOR).setArt(true).setColor(RED);
+		liaison.setCell(2, 0, BUTTON).setUp(false);
+		liaison.setCell(2, 1, BUTTON).setColor(RED);/* */
 		
 		
 		/// Level 93 "High Stakes 2"
 		/*
 		liaison = new GridLiaison(7, 5, 0, 2);
-		liaison.setCell(0, 0, GridSpace.BOOSTER).setDirection(DOWN);
-		liaison.setCell(0, 4, GridSpace.BOOSTER).setDirection(DOWN);
-		for (int i = 1; i < 4; i++) liaison.setCell(1, i, GridSpace.BOOSTER).setDirection(DOWN);
-		liaison.setCell(3, 1, GridSpace.BOOSTER).setRotates(true).setDirection(DOWN);
-		liaison.setCell(3, 2, GridSpace.BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
-		liaison.setCell(3, 3, GridSpace.BOOSTER).setRotates(true).setDirection(DOWN);
-		liaison.setCell(4, 1, GridSpace.BOOSTER).setRotates(true).setDirection(DOWN).setClockwise(false);
-		liaison.setCell(4, 2, GridSpace.BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
-		liaison.setCell(4, 3, GridSpace.BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
-		liaison.setCell(5, 1, GridSpace.BOOSTER).setRotates(true).setDirection(UP);
-		liaison.setCell(5, 2, GridSpace.BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
-		liaison.setCell(5, 3, GridSpace.BOOSTER).setRotates(true).setDirection(RIGHT);
-		liaison.setCell(5, 0, GridSpace.BOOSTER);
-		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(LEFT);
+		liaison.setCell(0, 0, BOOSTER).setDirection(DOWN);
+		liaison.setCell(0, 4, BOOSTER).setDirection(DOWN);
+		for (int i = 1; i < 4; i++) liaison.setCell(1, i, BOOSTER).setDirection(DOWN);
+		liaison.setCell(3, 1, BOOSTER).setRotates(true).setDirection(DOWN);
+		liaison.setCell(3, 2, BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
+		liaison.setCell(3, 3, BOOSTER).setRotates(true).setDirection(DOWN);
+		liaison.setCell(4, 1, BOOSTER).setRotates(true).setDirection(DOWN).setClockwise(false);
+		liaison.setCell(4, 2, BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
+		liaison.setCell(4, 3, BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
+		liaison.setCell(5, 1, BOOSTER).setRotates(true).setDirection(UP);
+		liaison.setCell(5, 2, BOOSTER).setRotates(true).setDirection(LEFT).setClockwise(false);
+		liaison.setCell(5, 3, BOOSTER).setRotates(true).setDirection(RIGHT);
+		liaison.setCell(5, 0, BOOSTER);
+		liaison.setCell(5, 4, BOOSTER).setDirection(LEFT);
 		liaison.setArt(6, 2, true);/* */
 		
 		
 		/// Level 95 "Swerve"
 		/*
 		liaison = new GridLiaison(8, 6, 3, 2);
-		liaison.setCell(0, 0, GridSpace.WALL);
-		liaison.setCell(1, 0, GridSpace.WALL);
-		liaison.setCell(6, 0, GridSpace.WALL);
-		liaison.setCell(7, 0, GridSpace.WALL);
-		for (int i = 3; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, GridSpace.WALL);
-		liaison.setCell(2, 0, GridSpace.BOOSTER);
-		liaison.setCell(5, 0, GridSpace.BOOSTER);
-		liaison.setCell(2, 4, GridSpace.BOOSTER).setDirection(UP);
-		liaison.setCell(5, 4, GridSpace.BOOSTER).setDirection(DOWN);
-		liaison.setCell(2, 2, GridSpace.BUTTON).setUp(false);
-		liaison.setCell(5, 2, GridSpace.BUTTON);
-		liaison.setCell(2, 3, GridSpace.BUTTON_DOOR).setUp(false);
-		liaison.setCell(5, 3, GridSpace.BUTTON_DOOR);
-		liaison.setCell(3, 1, GridSpace.TELEPORTER);
-		liaison.setCell(4, 1, GridSpace.TELEPORTER);
+		liaison.setCell(0, 0, WALL);
+		liaison.setCell(1, 0, WALL);
+		liaison.setCell(6, 0, WALL);
+		liaison.setCell(7, 0, WALL);
+		for (int i = 3; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, WALL);
+		liaison.setCell(2, 0, BOOSTER);
+		liaison.setCell(5, 0, BOOSTER);
+		liaison.setCell(2, 4, BOOSTER).setDirection(UP);
+		liaison.setCell(5, 4, BOOSTER).setDirection(DOWN);
+		liaison.setCell(2, 2, BUTTON).setUp(false);
+		liaison.setCell(5, 2, BUTTON);
+		liaison.setCell(2, 3, BUTTON_DOOR).setUp(false);
+		liaison.setCell(5, 3, BUTTON_DOOR);
+		liaison.setCell(3, 1, TELEPORTER);
+		liaison.setCell(4, 1, TELEPORTER);
 		liaison.setLaserSourceDirection(0, 3, DOWN).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(2, 5, LEFT).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(5, 5, LEFT).setLaserSourceOn(true);
@@ -249,12 +259,12 @@ public class Main
 		/// Level 102 "On Rails"
 		/*
 		liaison = new GridLiaison(3, 3, 0, 0);
-		liaison.setCell(0, 0, GridSpace.SLIDE_DOOR).setRailDOWN_DOWN);
-		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(2, 0, GridSpace.SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
-		liaison.setCell(0, 1, GridSpace.SLIDE_DOOR).setRailDOWN_DOWN).setDirection(DOWN).setUp(true).setArt(true);
-		liaison.setCell(1, 1, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(2, 1, GridSpace.SLIDE_DOOR).setRailUP_UP).setArt(true);/* */
+		liaison.setCell(0, 0, SLIDE_DOOR).setRailDOWN_DOWN);
+		liaison.setCell(1, 0, SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(2, 0, SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
+		liaison.setCell(0, 1, SLIDE_DOOR).setRailDOWN_DOWN).setDirection(DOWN).setUp(true).setArt(true);
+		liaison.setCell(1, 1, SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(2, 1, SLIDE_DOOR).setRailUP_UP).setArt(true);/* */
 		
 		
 		/// Level 103 "Whirlpool"
@@ -262,60 +272,60 @@ public class Main
 		liaison = new GridLiaison(9, 5, 0, 2);
 		for (int i = 0; i < 3; i++)
 		{
-			liaison.setCell(i, 0, GridSpace.WALL);
-			liaison.setCell(i, 4, GridSpace.WALL);
+			liaison.setCell(i, 0, WALL);
+			liaison.setCell(i, 4, WALL);
 		}
-		liaison.setCell(8, 0, GridSpace.WALL);
-		liaison.setCell(8, 4, GridSpace.WALL);
-		liaison.setCell(2, 2, GridSpace.WALL);
-		liaison.setCell(3, 2, GridSpace.BUTTON_DOOR).setArt(true);
-		liaison.setCell(5, 3, GridSpace.BUTTON_DOOR);
-		liaison.setCell(5, 0, GridSpace.BUTTON).setUp(true);
-		liaison.setCell(5, 4, GridSpace.BUTTON).setUp(true);
-		liaison.setCell(7, 2, GridSpace.BUTTON);
-		liaison.setCell(4, 1, GridSpace.SLIDE_DOOR).setRailDOWN_RIGHT).setDirection(RIGHT).setUp(true);
-		liaison.setCell(4, 2, GridSpace.SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(4, 3, GridSpace.SLIDE_DOOR).setRailDOWN_LEFT).setDirection(DOWN).setUp(true);
-		liaison.setCell(5, 3, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(6, 3, GridSpace.SLIDE_DOOR).setRailUP_LEFT).setDirection(LEFT).setUp(true);
-		liaison.setCell(6, 2, GridSpace.SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(6, 1, GridSpace.SLIDE_DOOR).setRailUP_RIGHT).setDirection(UP).setUp(true);
-		liaison.setCell(5, 1, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(8, 1, GridSpace.SLIDE_DOOR).setRailRIGHT_RIGHT);
-		liaison.setCell(8, 2, GridSpace.SLIDE_DOOR).setRailLEFT_RIGHT).setDirection(LEFT).setUp(true);
-		liaison.setCell(8, 3, GridSpace.SLIDE_DOOR).setRailLEFT_LEFT);/* */
+		liaison.setCell(8, 0, WALL);
+		liaison.setCell(8, 4, WALL);
+		liaison.setCell(2, 2, WALL);
+		liaison.setCell(3, 2, BUTTON_DOOR).setArt(true);
+		liaison.setCell(5, 3, BUTTON_DOOR);
+		liaison.setCell(5, 0, BUTTON).setUp(true);
+		liaison.setCell(5, 4, BUTTON).setUp(true);
+		liaison.setCell(7, 2, BUTTON);
+		liaison.setCell(4, 1, SLIDE_DOOR).setRailDOWN_RIGHT).setDirection(RIGHT).setUp(true);
+		liaison.setCell(4, 2, SLIDE_DOOR).setRailLEFT_RIGHT);
+		liaison.setCell(4, 3, SLIDE_DOOR).setRailDOWN_LEFT).setDirection(DOWN).setUp(true);
+		liaison.setCell(5, 3, SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(6, 3, SLIDE_DOOR).setRailUP_LEFT).setDirection(LEFT).setUp(true);
+		liaison.setCell(6, 2, SLIDE_DOOR).setRailLEFT_RIGHT);
+		liaison.setCell(6, 1, SLIDE_DOOR).setRailUP_RIGHT).setDirection(UP).setUp(true);
+		liaison.setCell(5, 1, SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(8, 1, SLIDE_DOOR).setRailRIGHT_RIGHT);
+		liaison.setCell(8, 2, SLIDE_DOOR).setRailLEFT_RIGHT).setDirection(LEFT).setUp(true);
+		liaison.setCell(8, 3, SLIDE_DOOR).setRailLEFT_LEFT);/* */
 		
 		
 		/// Level 105 "Bear Trap"
 		/*
 		liaison = new GridLiaison(9, 7, 7, 0);
-		liaison.setCell(0, 0, GridSpace.WALL);
-		liaison.setCell(4, 0, GridSpace.WALL);
-		liaison.setCell(5, 0, GridSpace.WALL);
-		liaison.setCell(4, 1, GridSpace.WALL);
-		liaison.setCell(0, 4, GridSpace.WALL);
-		liaison.setCell(0, 5, GridSpace.WALL);
-		liaison.setCell(0, 6, GridSpace.WALL);
-		liaison.setCell(1, 6, GridSpace.WALL);
-		liaison.setCell(3, 3, GridSpace.WALL);
-		liaison.setCell(4, 3, GridSpace.WALL);
-		liaison.setCell(4, 5, GridSpace.WALL);
-		liaison.setCell(8, 0, GridSpace.WALL);
-		liaison.setCell(8, 1, GridSpace.WALL);
-		liaison.setCell(8, 2, GridSpace.WALL);
-		liaison.setCell(7, 2, GridSpace.WALL);
-		liaison.setCell(8, 6, GridSpace.WALL);
-		liaison.setCell(2, 0, GridSpace.BUTTON).setArt(true);
-		liaison.setCell(3, 5, GridSpace.BUTTON).setUp(true);
-		liaison.setCell(5, 5, GridSpace.BUTTON).setArt(true);
-		liaison.setCell(6, 3, GridSpace.BUTTON).setUp(true);
-		liaison.setCell(1, 2, GridSpace.BUTTON_DOOR);
-		liaison.setCell(4, 2, GridSpace.BUTTON_DOOR).setUp(true);
-		liaison.setCell(4, 4, GridSpace.BUTTON_DOOR);
-		liaison.setCell(4, 6, GridSpace.BUTTON_DOOR).setUp(true);
-		liaison.setCell(7, 3, GridSpace.BUTTON_DOOR).setUp(true);
-		liaison.setCell(7, 4, GridSpace.BUTTON_DOOR);
-		liaison.setCell(7, 5, GridSpace.BUTTON_DOOR).setUp(true);
+		liaison.setCell(0, 0, WALL);
+		liaison.setCell(4, 0, WALL);
+		liaison.setCell(5, 0, WALL);
+		liaison.setCell(4, 1, WALL);
+		liaison.setCell(0, 4, WALL);
+		liaison.setCell(0, 5, WALL);
+		liaison.setCell(0, 6, WALL);
+		liaison.setCell(1, 6, WALL);
+		liaison.setCell(3, 3, WALL);
+		liaison.setCell(4, 3, WALL);
+		liaison.setCell(4, 5, WALL);
+		liaison.setCell(8, 0, WALL);
+		liaison.setCell(8, 1, WALL);
+		liaison.setCell(8, 2, WALL);
+		liaison.setCell(7, 2, WALL);
+		liaison.setCell(8, 6, WALL);
+		liaison.setCell(2, 0, BUTTON).setArt(true);
+		liaison.setCell(3, 5, BUTTON).setUp(true);
+		liaison.setCell(5, 5, BUTTON).setArt(true);
+		liaison.setCell(6, 3, BUTTON).setUp(true);
+		liaison.setCell(1, 2, BUTTON_DOOR);
+		liaison.setCell(4, 2, BUTTON_DOOR).setUp(true);
+		liaison.setCell(4, 4, BUTTON_DOOR);
+		liaison.setCell(4, 6, BUTTON_DOOR).setUp(true);
+		liaison.setCell(7, 3, BUTTON_DOOR).setUp(true);
+		liaison.setCell(7, 4, BUTTON_DOOR);
+		liaison.setCell(7, 5, BUTTON_DOOR).setUp(true);
 		liaison.setArt(2, 6, true);
 		liaison.setArt(8, 3, true);
 		liaison.setLaserSourceDirection(6, 2, UP).setLaserSourceOn(true);
@@ -325,9 +335,9 @@ public class Main
 		/// Level 108 "Break Out"
 		/*
 		liaison = new GridLiaison(6, 5, 5, 3);
-		liaison.setCell(0, 1, GridSpace.SLIDE_DOOR).setRailDOWN_DOWN);
-		liaison.setCell(5, 1, GridSpace.SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
-		for (int i = 1; i < 5; i++) liaison.setCell(i, 1, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(0, 1, SLIDE_DOOR).setRailDOWN_DOWN);
+		liaison.setCell(5, 1, SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
+		for (int i = 1; i < 5; i++) liaison.setCell(i, 1, SLIDE_DOOR).setRailUP_DOWN);
 		for (int i = 0; i < 6; i++) liaison.setArt(i, 4, true);
 		liaison.setLaserSourceDirection(5, 0, UP).setLaserSourceOn(true).setLaserSourceBlue(true);/* */
 		
@@ -335,15 +345,15 @@ public class Main
 		/// Level 115 "Three Times"
 		/*
 		liaison = new GridLiaison(9, 6, 0, 0);
-		for (int i = 4; i <= 8; i++) liaison.setCell(i, 0, GridSpace.WALL);
-		for (int i = 1; i <= 3; i++) liaison.setCell(4, i, GridSpace.WALL);
-		for (int i = 0; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, GridSpace.WALL);
-		liaison.setCell(0, 1, GridSpace.TELEPORTER).setColor(GREEN);
-		liaison.setCell(0, 2, GridSpace.TELEPORTER).setColor(RED);
-		liaison.setCell(1, 2, GridSpace.TELEPORTER);
-		liaison.setCell(8, 2, GridSpace.TELEPORTER).setColor(RED);
-		liaison.setCell(8, 3, GridSpace.TELEPORTER).setColor(GREEN);
-		liaison.setCell(7, 2, GridSpace.TELEPORTER);
+		for (int i = 4; i <= 8; i++) liaison.setCell(i, 0, WALL);
+		for (int i = 1; i <= 3; i++) liaison.setCell(4, i, WALL);
+		for (int i = 0; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, WALL);
+		liaison.setCell(0, 1, TELEPORTER).setColor(GREEN);
+		liaison.setCell(0, 2, TELEPORTER).setColor(RED);
+		liaison.setCell(1, 2, TELEPORTER);
+		liaison.setCell(8, 2, TELEPORTER).setColor(RED);
+		liaison.setCell(8, 3, TELEPORTER).setColor(GREEN);
+		liaison.setCell(7, 2, TELEPORTER);
 		liaison.setLaserSourceDirection(5, 4, DOWN).setLaserSourceOn(true);
 		liaison.setArt(6, 5, true);
 		liaison.setArt(7, 5, true);/* */
@@ -352,16 +362,16 @@ public class Main
 		/// Level 122 "Art Factory"
 		/*
 		liaison = new GridLiaison(10, 5, 0, 2);
-		liaison.setCell(2, 1, GridSpace.WALL);
-		for (int i = 2; i <= 4; i++) liaison.setCell(i, 3, GridSpace.WALL);
-		for (int i = 4; i <= 6; i++) liaison.setCell(i, 1, GridSpace.WALL);
-		for (int i = 6; i <= 7; i++) liaison.setCell(i, 2, GridSpace.WALL);
-		for (int i = 2; i <= 7; i++) for (int j = 0; j < 5; j += 4) liaison.setCell(i, j, GridSpace.SLIDE_DOOR).setRailUP_DOWN);
-		for (int i = 1; i <= 3; i++) for (int j = 1; j < 9; j += 7) liaison.setCell(j, i, GridSpace.SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(1, 0, GridSpace.SLIDE_DOOR).setRailDOWN_RIGHT);
-		liaison.setCell(1, 4, GridSpace.SLIDE_DOOR).setRailDOWN_LEFT);
-		liaison.setCell(8, 0, GridSpace.SLIDE_DOOR).setRailUP_RIGHT);
-		liaison.setCell(8, 4, GridSpace.SLIDE_DOOR).setRailUP_LEFT);
+		liaison.setCell(2, 1, WALL);
+		for (int i = 2; i <= 4; i++) liaison.setCell(i, 3, WALL);
+		for (int i = 4; i <= 6; i++) liaison.setCell(i, 1, WALL);
+		for (int i = 6; i <= 7; i++) liaison.setCell(i, 2, WALL);
+		for (int i = 2; i <= 7; i++) for (int j = 0; j < 5; j += 4) liaison.setCell(i, j, SLIDE_DOOR).setRailUP_DOWN);
+		for (int i = 1; i <= 3; i++) for (int j = 1; j < 9; j += 7) liaison.setCell(j, i, SLIDE_DOOR).setRailLEFT_RIGHT);
+		liaison.setCell(1, 0, SLIDE_DOOR).setRailDOWN_RIGHT);
+		liaison.setCell(1, 4, SLIDE_DOOR).setRailDOWN_LEFT);
+		liaison.setCell(8, 0, SLIDE_DOOR).setRailUP_RIGHT);
+		liaison.setCell(8, 4, SLIDE_DOOR).setRailUP_LEFT);
 		liaison.setDirection(1, 0, DOWN).setUp(true);
 		liaison.setDirection(1, 3, LEFT).setUp(true);
 		liaison.setDirection(4, 0, DOWN).setUp(true);
