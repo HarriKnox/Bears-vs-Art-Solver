@@ -42,6 +42,10 @@ public enum RailDirection
 	public Direction getFirst() { return unconvert(this.hash >> 2); }
 	public Direction getLast() { return unconvert(this.hash & 0b11); }
 	
+	public boolean isStraight() { return (this.hash >> 2) == ((this.hash & 0b11) ^ 0b01); }
+	public boolean isMono() { return (this.hash >> 2) == (this.hash & 0b11); }
+	public boolean isBent() { return !this.isStraight() && !this.isMono(); }
+	
 	
 	private static final RailDirection[] MAP = new RailDirection[16];
 	static
