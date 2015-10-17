@@ -46,23 +46,7 @@ public final class GridChecker
 				GridSpace cell = grid.get(row, col);
 				int ID = cell.ID();
 				
-				if (ID == GridSpace.SLIDE_DOOR)
-				{
-					SlideDoor sd = (SlideDoor)cell;
-					Direction dir = sd.heading;
-					RailDirection rail = sd.rail;
-					
-					if (sd.up && !rail.contains(dir))
-						throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
-					
-					Direction first = rail.getFirst();
-					checkRail(grid, row, col, first);
-					
-					Direction last = rail.getLast();
-					if (!last.equals(first)) checkRail(grid, row, col, last);
-					
-					slideDoors.add(sd);
-				}
+				if (ID == GridSpace.SLIDE_DOOR) checkRail(grid, row, col, (SlideDoor)cell);
 				else if (ID == GridSpace.BOOSTER)
 				{
 					Booster b = (Booster)cell;
@@ -97,6 +81,7 @@ public final class GridChecker
 				throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" portal at ").append(portalLocations[color.hash]).toString());
 	}
 	
+	
 	private static String coords(int row, int col) { return Grid.Position.pair(row, col); }
 	private static String points(Direction dir, boolean rotates)    { return (rotates ? "rotates to point " : "points ").concat(dir.toString()); }
 	
@@ -105,7 +90,25 @@ public final class GridChecker
 	
 	private static <T> boolean contains(T[] things, T thing) { for (T t : things) if (t.equals(thing)) return true; return false; }
 	
-	private static void checkRail(Grid<GridSpace> grid, int row, int col, Direction dir)
+	
+	private static void checkRail(Grid<GridSpace> grid, int row, int col, SlideDoor sd)
+	{
+		Direction dir = sd.heading;
+		RailDirection rail = sd.rail;
+		
+		if (sd.up && !rail.contains(dir))
+			throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
+		
+		Direction first = rail.getFirst();
+		checkRailDirection(grid, row, col, first);
+		
+		Direction last = rail.getLast();
+		if (!last.equals(first)) checkRailDirection(grid, row, col, last);
+		
+		slideDoors.add(sd);
+	}
+	
+	private static void checkRailDirection(Grid<GridSpace> grid, int row, int col, Direction dir)
 	{
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
@@ -121,6 +124,7 @@ public final class GridChecker
 		if (!oRail.contains(dir.opposite()))
 			throw new IllegalStateException(thingAtPoints("Rail", row, col, dir, false).append(" into rail that does not point ").append(dir.opposite()).toString());
 	}
+	
 	
 	private static void checkBooster         (Grid<GridSpace> grid, int row, int col, Direction dir) { checkBoosterDirection(grid, row, col, dir, false); }
 	private static void checkBoosterRotates  (Grid<GridSpace> grid, int row, int col)                { for (Direction dir : Direction.values()) if (dir.isCardinal()) checkBoosterDirection(grid, row, col, dir, true); }
@@ -139,6 +143,7 @@ public final class GridChecker
 	}
 	private static final String rotatingBoosterName = "Rotating booster";
 	private static final String boosterName = "Booster";
+	
 	
 	private static void checkPortals(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction[] entries, Direction[] exits)
 	{
