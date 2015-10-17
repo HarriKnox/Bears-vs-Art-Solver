@@ -1,5 +1,10 @@
 package gridspace;
 
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.List;
+import java.util.HashSet;
+
 import utility.Color;
 import utility.Direction;
 import utility.Grid;
@@ -23,7 +28,7 @@ public final class GridChecker
 		
 		@todo Add the following
 		(9) rails that are cycles have all sliding blocks going the same direction
-		(A) rails that are unidirectional (eg, UP_UP) have no more than one sliding block on it
+		(A) rails that are unidirectional (only go back and forth) have no more than one sliding block on it
 	**/
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
@@ -31,6 +36,8 @@ public final class GridChecker
 		int[] portalColors = new int[colors];
 		Direction[][] portalDirections = new Direction[colors][];
 		Grid.Position[] portalLocations = new Grid.Position[colors];
+		
+		
 		
 		for (int row = 0, rows = grid.rows(); row < rows; row++)
 		{
@@ -44,7 +51,9 @@ public final class GridChecker
 					SlideDoor sd = (SlideDoor)cell;
 					Direction dir = sd.heading;
 					RailDirection rail = sd.rail;
-					if (sd.up && !rail.contains(dir)) throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
+					
+					if (sd.up && !rail.contains(dir))
+						throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
 					
 					Direction first = rail.getFirst();
 					checkRail(grid, row, col, first);
@@ -55,16 +64,17 @@ public final class GridChecker
 				else if (ID == GridSpace.BOOSTER)
 				{
 					Booster b = (Booster)cell;
-					if (b.rotates)
-						checkBoosterRotates(grid, row, col);
-					else
-						checkBooster(grid, row, col, b.direction);
+					if (b.rotates) checkBoosterRotates(grid, row, col);
+					else checkBooster(grid, row, col, b.direction);
 				}
 				else if (ID == GridSpace.PORTAl)
 				{
 					Portal tp = (Portal)cell;
 					int color = tp.color.hash;
-					if (++portalColors[color] >= 3) throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" portals").toString());
+					
+					if (++portalColors[color] >= 3)
+						throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" portals").toString());
+						
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
 					if (portalDirections[color] == null)
 					{
@@ -80,7 +90,9 @@ public final class GridChecker
 			}
 		}
 		
-		for (Color color : Color.values()) if (portalColors[color.hash] == 1) throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" portal at ").append(portalLocations[color.hash]).toString());
+		for (Color color : Color.values())
+			if (portalColors[color.hash] == 1)
+				throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" portal at ").append(portalLocations[color.hash]).toString());
 	}
 	
 	private static String coords(int row, int col) { return Grid.Position.pair(row, col); }
@@ -95,12 +107,17 @@ public final class GridChecker
 	{
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
-		if (!grid.inRange(r, c)) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" out of bounds").toString());
+		if (!grid.inRange(r, c))
+			throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" out of bounds").toString());
+			
 		GridSpace oCell = grid.get(r, c);
-		if (oCell.ID() != GridSpace.SLIDE_DOOR) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into a non-rail").toString());
+		if (oCell.ID() != GridSpace.SLIDE_DOOR)
+			throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into a non-rail").toString());
+			
 		SlideDoor osd = (SlideDoor)oCell;
 		RailDirection oRail = osd.rail;
-		if (!oRail.contains(dir.opposite())) throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into rail that does not point ").append(dir.opposite()).toString());
+		if (!oRail.contains(dir.opposite()))
+			throw new IllegalStateException(thingAtPoints("Rail", row, col, dir).append(" into rail that does not point ").append(dir.opposite()).toString());
 	}
 	
 	private static void checkBooster         (Grid<GridSpace> grid, int row, int col, Direction dir) { checkBoosterDirection(grid, row, col, dir, false); }
@@ -110,7 +127,9 @@ public final class GridChecker
 		String name = rotates ? "Rotating booster" : "Booster";
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
-		if (!grid.inRange(r, c)) throw new IllegalStateException(thingAt(name, row, col).append(rotates ? "can rotate to point ".concat(dir.toString()) : points(dir)).append(" out of bounds").toString());
+		if (!grid.inRange(r, c))
+			throw new IllegalStateException(thingAt(name, row, col).append(rotates ? "can rotate to point ".concat(dir.toString()) : points(dir)).append(" out of bounds").toString());
+			
 		GridSpace oCell = grid.get(r, c);
 		int oID = oCell.ID();
 		if (oID == GridSpace.WALL || oID == GridSpace.BUTTON_DOOR || oID == GridSpace.MOVE_DOOR || oID == GridSpace.SLIDE_DOOR)
