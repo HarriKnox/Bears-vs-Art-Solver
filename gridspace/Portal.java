@@ -5,9 +5,9 @@ import solver.GameState;
 import utility.Color;
 import utility.Grid;
 
-final class Teleporter extends GridSpace
+final class Portal extends GridSpace
 {
-	Teleporter() {}
+	Portal() {}
 	
 	Color color = Color.BLUE;
 	
@@ -16,7 +16,7 @@ final class Teleporter extends GridSpace
 	
 	GridSpace makeCopy()
 	{
-		Teleporter t = new Teleporter();
+		Portal t = new Portal();
 		t.color = this.color;
 		return t;
 	}
@@ -36,8 +36,8 @@ final class Teleporter extends GridSpace
 				if (x != row || y != col)
 				{
 					GridSpace t = gameBoard.get(x, y);
-					// If the space in question is a teleporter and its color is the same as this color and Rory is not in it, then it's probably the teleporter we're teleporting him to
-					if (t.ID() == this.ID() && ((Teleporter)t).color == this.color)
+					// If the space in question is a portal and its color is the same as this color and Rory is not in it, then it's probably the portal we're teleporting him to
+					if (t.ID() == this.ID() && ((Portal)t).color == this.color)
 					{
 						state.teleportRory(x, y);
 						return;

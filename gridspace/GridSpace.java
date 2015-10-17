@@ -19,7 +19,7 @@ public abstract class GridSpace
 		IDs.add(Button.class);
 		IDs.add(ButtonDoor.class);
 		IDs.add(MoveDoor.class);
-		IDs.add(Teleporter.class);
+		IDs.add(Portal.class);
 		IDs.add(SlideDoor.class);
 	}
 	
@@ -30,7 +30,7 @@ public abstract class GridSpace
 	public static final int BUTTON      = IDs.indexOf(Button.class);
 	public static final int BUTTON_DOOR = IDs.indexOf(ButtonDoor.class);
 	public static final int MOVE_DOOR   = IDs.indexOf(MoveDoor.class);
-	public static final int TELEPORTER  = IDs.indexOf(Teleporter.class);
+	public static final int PORTAL      = IDs.indexOf(Portal.class);
 	public static final int SLIDE_DOOR  = IDs.indexOf(SlideDoor.class);
 	
 	
@@ -97,7 +97,7 @@ public abstract class GridSpace
 		else if (id == BUTTON)      gs = new Button();
 		else if (id == BUTTON_DOOR) gs = new ButtonDoor();
 		else if (id == MOVE_DOOR)   gs = new MoveDoor();
-		else if (id == TELEPORTER)  gs = new Teleporter();
+		else if (id == PORTAL    )  gs = new Portal();
 		else if (id == SLIDE_DOOR)  gs = new SlideDoor();
 		else                        gs = new Wall();
 		

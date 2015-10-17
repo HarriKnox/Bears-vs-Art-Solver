@@ -18,7 +18,7 @@ public class Main
 		    BUTTON      = GridSpace.BUTTON,
 		    BUTTON_DOOR = GridSpace.BUTTON_DOOR,
 		    MOVE_DOOR   = GridSpace.MOVE_DOOR,
-		    TELEPORTER  = GridSpace.TELEPORTER,
+		    PORTAL  = GridSpace.PORTAL,
 		    SLIDE_DOOR  = GridSpace.SLIDE_DOOR;
 		
 		Direction RIGHT = Direction.RIGHT,
@@ -191,8 +191,8 @@ public class Main
 		/// Level 70 "Through Space And Time"
 		/*
 		liaison = new GridLiaison(6, 3, 0, 0);
-		liaison.setCell(2, 1, TELEPORTER);
-		liaison.setCell(4, 1, TELEPORTER);
+		liaison.setCell(2, 1, PORTAL);
+		liaison.setCell(4, 1, PORTAL);
 		for (int i = 0; i < 3; i++) liaison.setCell(3, i, WALL);
 		liaison.setArt(0, 1, true);/* */
 		
@@ -244,8 +244,8 @@ public class Main
 		liaison.setCell(5, 2, BUTTON);
 		liaison.setCell(2, 3, BUTTON_DOOR).setUp(false);
 		liaison.setCell(5, 3, BUTTON_DOOR);
-		liaison.setCell(3, 1, TELEPORTER);
-		liaison.setCell(4, 1, TELEPORTER);
+		liaison.setCell(3, 1, PORTAL);
+		liaison.setCell(4, 1, PORTAL);
 		liaison.setLaserSourceDirection(0, 3, DOWN).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(2, 5, LEFT).setLaserSourceOn(true);
 		liaison.setLaserSourceDirection(5, 5, LEFT).setLaserSourceOn(true);
@@ -348,12 +348,12 @@ public class Main
 		for (int i = 4; i <= 8; i++) liaison.setCell(i, 0, WALL);
 		for (int i = 1; i <= 3; i++) liaison.setCell(4, i, WALL);
 		for (int i = 0; i <= 4; i++) for (int j = 4; j <= 5; j++) liaison.setCell(i, j, WALL);
-		liaison.setCell(0, 1, TELEPORTER).setColor(GREEN);
-		liaison.setCell(0, 2, TELEPORTER).setColor(RED);
-		liaison.setCell(1, 2, TELEPORTER);
-		liaison.setCell(8, 2, TELEPORTER).setColor(RED);
-		liaison.setCell(8, 3, TELEPORTER).setColor(GREEN);
-		liaison.setCell(7, 2, TELEPORTER);
+		liaison.setCell(0, 1, PORTAL).setColor(GREEN);
+		liaison.setCell(0, 2, PORTAL).setColor(RED);
+		liaison.setCell(1, 2, PORTAL);
+		liaison.setCell(8, 2, PORTAL).setColor(RED);
+		liaison.setCell(8, 3, PORTAL).setColor(GREEN);
+		liaison.setCell(7, 2, PORTAL);
 		liaison.setLaserSourceDirection(5, 4, DOWN).setLaserSourceOn(true);
 		liaison.setArt(6, 5, true);
 		liaison.setArt(7, 5, true);/* */

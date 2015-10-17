@@ -147,7 +147,7 @@ public final class GridLiaison
 				
 				if (ID == GridSpace.BUTTON) ((Button)this.grid.get(this.row, this.col)).color = color;
 				if (ID == GridSpace.BUTTON_DOOR) ((ButtonDoor)this.grid.get(this.row, this.col)).color = color;
-				if (ID == GridSpace.TELEPORTER) ((Teleporter)this.grid.get(this.row, this.col)).color = color;
+				if (ID == GridSpace.PORTAL) ((Portal)this.grid.get(this.row, this.col)).color = color;
 			}
 			return this;
 		}

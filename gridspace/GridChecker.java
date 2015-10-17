@@ -18,8 +18,8 @@ public final class GridChecker
 		(6) boosters that point directly into a potentially solid block (boosters
 			can't point into solid blocks, and even if it isn't solid yet,
 			it may be solid later)
-		(7) teleporters of the same length having a mismatch in entry-exit directions
-		(8) 1 or 3+ teleporters of a color (can have only 0 or 2)
+		(7) portals of the same length having a mismatch in entry-exit directions
+		(8) 1 or 3+ portals of a color (can have only 0 or 2)
 		
 		@todo Add the following
 		(9) rails that are cycles have all sliding blocks going the same direction
@@ -28,9 +28,9 @@ public final class GridChecker
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
 		int colors = Color.values().length;
-		int[] teleporterColors = new int[colors];
-		Direction[][] teleporterDirections = new Direction[colors][];
-		Grid.Position[] teleporterLocations = new Grid.Position[colors];
+		int[] portalColors = new int[colors];
+		Direction[][] portalDirections = new Direction[colors][];
+		Grid.Position[] portalLocations = new Grid.Position[colors];
 		
 		for (int row = 0, rows = grid.rows(); row < rows; row++)
 		{
@@ -60,27 +60,27 @@ public final class GridChecker
 					else
 						checkBooster(grid, row, col, b.direction);
 				}
-				else if (ID == GridSpace.TELEPORTER)
+				else if (ID == GridSpace.PORTAl)
 				{
-					Teleporter tp = (Teleporter)cell;
+					Portal tp = (Portal)cell;
 					int color = tp.color.hash;
-					if (++teleporterColors[color] >= 3) throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" teleporters").toString());
+					if (++portalColors[color] >= 3) throw new IllegalStateException(new StringBuilder("More than two ").append(tp.color).append(" portals").toString());
 					Direction[] posDirs = GridTraveler.getPossibleDirections(grid, row, col);
-					if (teleporterDirections[color] == null)
+					if (portalDirections[color] == null)
 					{
-						teleporterDirections[color] = posDirs;
-						teleporterLocations[color] = new Grid.Position(row, col);
+						portalDirections[color] = posDirs;
+						portalLocations[color] = new Grid.Position(row, col);
 					}
 					else
 					{
-						Grid.Position pos = teleporterLocations[color];
-						checkTeleporters(tp.color, row, col, pos.row, pos.col, posDirs, teleporterDirections[color]);
+						Grid.Position pos = portalLocations[color];
+						checkPortals(tp.color, row, col, pos.row, pos.col, posDirs, portalDirections[color]);
 					}
 				}
 			}
 		}
 		
-		for (Color color : Color.values()) if (teleporterColors[color.hash] == 1) throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" teleporter at ").append(teleporterLocations[color.hash]).toString());
+		for (Color color : Color.values()) if (portalColors[color.hash] == 1) throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" portal at ").append(portalLocations[color.hash]).toString());
 	}
 	
 	private static String coords(int row, int col) { return Grid.Position.pair(row, col); }
@@ -117,18 +117,18 @@ public final class GridChecker
 			throw new IllegalStateException(thingAt(name, row, col).append(rotates ? "can rotate to point ".concat(dir.toString()) : points(dir)).append(" directly into a block that can be solid").toString());
 	}
 	
-	private static void checkTeleporters(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction[] entries, Direction[] exits)
+	private static void checkPortals(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction[] entries, Direction[] exits)
 	{
 		for (Direction dir : Direction.values())
 		{
 			if (dir != Direction.NONE)
 			{
 				if (contains(entries, dir.opposite()) && !contains(exits, dir))
-					throw new IllegalStateException(teleporterMismatch(color, new Grid.Position(entryRow, entryCol), new Grid.Position(exitRow, exitCol), dir));
+					throw new IllegalStateException(portalMismatch(color, new Grid.Position(entryRow, entryCol), new Grid.Position(exitRow, exitCol), dir));
 				else if (contains(exits, dir.opposite()) && !contains(entries, dir))
-					throw new IllegalStateException(teleporterMismatch(color, new Grid.Position(exitRow, exitCol), new Grid.Position(entryRow, entryCol), dir));
+					throw new IllegalStateException(portalMismatch(color, new Grid.Position(exitRow, exitCol), new Grid.Position(entryRow, entryCol), dir));
 			}
 		}
 	}
-	private static String teleporterMismatch(Color color, Grid.Position entry, Grid.Position exit, Direction dir) { return new StringBuilder().append(color).append(" teleporters have mismatch in directions: exit teleporter at ").append(exit).append(" does not allow for entry in teleporter at ").append(entry).append(" going ").append(dir).toString(); }
+	private static String portalMismatch(Color color, Grid.Position entry, Grid.Position exit, Direction dir) { return new StringBuilder().append(color).append(" portals have mismatch in directions: exit portal at ").append(exit).append(" does not allow for entry in portal at ").append(entry).append(" going ").append(dir).toString(); }
 }
