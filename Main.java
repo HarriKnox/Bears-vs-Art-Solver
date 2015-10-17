@@ -11,15 +11,15 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		int WALL        = WALL,
-		    SPACE       = SPACE,
-		    SPIKE       = SPIKE,
-		    BOOSTER     = BOOSTER,
-		    BUTTON      = BUTTON,
-		    BUTTON_DOOR = BUTTON_DOOR,
-		    MOVE_DOOR   = MOVE_DOOR,
-		    TELEPORTER  = TELEPORTER,
-		    SLIDE_DOOR  = SLIDE_DOOR;
+		int WALL        = GridSpace.WALL,
+		    SPACE       = GridSpace.SPACE,
+		    SPIKE       = GridSpace.SPIKE,
+		    BOOSTER     = GridSpace.BOOSTER,
+		    BUTTON      = GridSpace.BUTTON,
+		    BUTTON_DOOR = GridSpace.BUTTON_DOOR,
+		    MOVE_DOOR   = GridSpace.MOVE_DOOR,
+		    TELEPORTER  = GridSpace.TELEPORTER,
+		    SLIDE_DOOR  = GridSpace.SLIDE_DOOR;
 		
 		Direction RIGHT = Direction.RIGHT,
 		          LEFT  = Direction.LEFT,
