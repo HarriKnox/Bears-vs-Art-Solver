@@ -272,6 +272,10 @@ public final class GridLiaison
 			it may be solid later)
 		(7) teleporters of the same length having a mismatch in entry-exit directions
 		(8) 1 or 3+ teleporters of a color (can have only 0 or 2)
+		
+		@todo Add the following
+		(9) rails that are cycles have all sliding blocks going the same direction
+		(A) rails that are unidirectional (eg, UP_UP) have no more than one sliding block on it
 	**/
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
