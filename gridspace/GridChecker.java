@@ -124,7 +124,7 @@ public final class GridChecker
 	private static void checkBoosterRotates  (Grid<GridSpace> grid, int row, int col)                { for (Direction dir : Direction.values()) if (dir.isCardinal()) checkBoosterDirection(grid, row, col, dir, true); }
 	private static void checkBoosterDirection(Grid<GridSpace> grid, int row, int col, Direction dir, boolean rotates)
 	{
-		String name = rotates ? "Rotating booster" : "Booster";
+		String name = rotates ? rotatingBoosterName : boosterName;
 		int r = row + dir.verticalChange();
 		int c = col + dir.horizontalChange();
 		if (!grid.inRange(r, c))
@@ -135,6 +135,8 @@ public final class GridChecker
 		if (oID == GridSpace.WALL || oID == GridSpace.BUTTON_DOOR || oID == GridSpace.MOVE_DOOR || oID == GridSpace.SLIDE_DOOR)
 			throw new IllegalStateException(thingAtPoints(name, row, col, dir, rotates).append(" directly into a block that can be solid").toString());
 	}
+	private static String rotatingBoosterName = "Rotating booster";
+	private static String boosterName = "Booster";
 	
 	private static void checkPortals(Color color, int entryRow, int entryCol, int exitRow, int exitCol, Direction[] entries, Direction[] exits)
 	{
