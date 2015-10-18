@@ -28,7 +28,7 @@ public final class GridChecker
 		
 		@todo Add the following
 		(9) rails that are cycles have all sliding blocks going the same direction
-		(A) rails that are unidirectional (only go back and forth) have no more than one sliding block on it
+		(A) rails that are bidirectional (only go back and forth) have no more than one sliding block on it
 	**/
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
@@ -77,19 +77,19 @@ public final class GridChecker
 		Direction dir = sd.heading;
 		RailDirection rail = sd.rail;
 		
-		if (sd.up && !rail.contains(dir))
-			throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir, false).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
-		
-		Direction first = rail.getFirst();
-		checkRailDirection(row, col, first);
-		
-		Direction last = rail.getLast();
-		if (!last.equals(first)) checkRailDirection(row, col, last);
-		
-		if (first == last)
-			this.monoSlideDoors.add(sd);
 		if (sd.up)
+		{
+			if(!rail.contains(dir))
+				throw new IllegalStateException(thingAtPoints("Sliding block", row, col, dir, false).append(" on a rail that goes ").append(rail.getFirst()).append(" and ").append(rail.getLast()).toString());
 			this.upSlideDoors.add(sd);
+		}
+		
+		checkRailDirection(row, col, rail.getFirst());
+		
+		if (!rail.isMono())
+			checkRailDirection(row, col, rail.getLast());
+		else // rail is mono, rail.first == rail.last
+			this.monoSlideDoors.add(sd);
 	}
 	
 	private void checkRailDirection(int row, int col, Direction dir)
@@ -111,8 +111,53 @@ public final class GridChecker
 	
 	private void checkRailTracks()
 	{
+		HashSet<SlideDoor> checked = new HashSet<>(this.monoSlideDoors.size() + this.upSlideDoors.size(), 1.0F);
 		
+		for (SlideDoor sd : this.monoSlideDoors)
+		{
+			if (!checked.contains(sd))
+			{
+				checked.add(sd);
+				
+				Grid.Position upDoorPos = null;
+				
+				SlideDoor door = sd;
+				Direction heading = sd.rail.getFirst();
+				
+				do
+				{
+					int row = door.row;
+					int col = door.col;
+					
+					if (door.up)
+					{
+						Grid.Position doorPos = new Grid.Position(row, col);
+						if (upDoorPos != null)
+							throw new IllegalStateException(twoDoorsOnBidirectional(upDoorPos, doorPos));
+						
+						upDoorPos = doorPos;
+						checked.add(door);
+					}
+					
+					int r = row + heading.verticalChange();
+					int c = col + heading.horizontalChange();
+					
+					door = (SlideDoor)this.grid.get(r, c);
+					
+					Direction first = door.rail.getFirst();
+					heading = (first == heading.opposite()) ? door.rail.getLast() : first;
+				}
+				while (!door.rail.isMono());
+				
+				checked.add(door);
+				
+				if (door.up && (upDoorPos != null))
+					throw new IllegalStateException(twoDoorsOnBidirectional(upDoorPos, new Grid.Position(door.row, door.col)));
+			}
+		}
 	}
+	
+	private static String twoDoorsOnBidirectional(Grid.Position first, Grid.Position second) { return new StringBuilder("Two doors at ").append(first).append(" and ").append(second).append(" are on the same bidirectional rail: a collision will eventually occur").toString(); }
 	
 	
 	private void checkBooster(Booster b)
