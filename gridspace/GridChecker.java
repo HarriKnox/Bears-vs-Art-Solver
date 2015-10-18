@@ -112,7 +112,12 @@ public final class GridChecker
 	private void checkRailTracks()
 	{
 		HashSet<SlideDoor> checked = new HashSet<>(this.monoSlideDoors.size() + this.upSlideDoors.size(), 1.0F);
-		
+		checkBiTracks(checked);
+		checkCycleTracks(checked);
+	}
+	
+	private void checkBiTracks(HashSet<SlideDoor> checked)
+	{
 		for (SlideDoor sd : this.monoSlideDoors)
 		{
 			if (!checked.contains(sd))
@@ -158,6 +163,40 @@ public final class GridChecker
 	}
 	
 	private static String twoDoorsOnBidirectional(Grid.Position first, Grid.Position second) { return new StringBuilder("Two doors at ").append(first).append(" and ").append(second).append(" are on the same bidirectional rail: a collision will eventually occur").toString(); }
+	
+	private void checkCycleTracks(HashSet<SlideDoor> checked)
+	{
+		for (SlideDoor sd : this.upSlideDoors)
+		{
+			if (!checked.contains(sd))
+			{
+				checked.add(sd);
+				
+				SlideDoor door = sd;
+				Direction heading = sd.heading;
+				
+				do
+				{
+					int row = door.row;
+					int col = door.col;
+					
+					int r = row + heading.verticalChange();
+					int c = col + heading.horizontalChange();
+					
+					door = (SlideDoor)this.grid.get(r, c);
+					
+					Direction first = door.rail.getFirst();
+					heading = (first == heading.opposite()) ? door.rail.getLast() : first;
+					
+					if (door.up && (door.heading != heading))
+						throw new IllegalStateException(doorGoingWrongWay(door.row, door.col, heading, door.heading));
+				}
+				while (door != sd);
+			}
+		}
+	}
+	
+	private static String doorGoingWrongWay(int row, int col, Direction expected, Direction actual) { return thingAt("Door", row, col).append("points the wrong way on a cyclic track: expected ").append(expected).append(", points ").append(actual).toString(); }
 	
 	
 	private void checkBooster(Booster b)
@@ -244,7 +283,7 @@ public final class GridChecker
 	private static String coords(int row, int col) { return Grid.Position.pair(row, col); }
 	private static String points(Direction dir, boolean rotates) { return (rotates ? "rotates to point " : "points ").concat(dir.toString()); }
 	
-	private static StringBuilder thingAt (String thing, int row, int col) { return new StringBuilder(thing).append(" at ").append(coords(row, col)).append(' '); }
+	private static StringBuilder thingAt(String thing, int row, int col) { return new StringBuilder(thing).append(" at ").append(coords(row, col)).append(' '); }
 	private static StringBuilder thingAtPoints(String thing, int row, int col, Direction dir, boolean rotates) { return thingAt(thing, row, col).append(points(dir, rotates)); }
 	
 	private static <T> boolean contains(T[] things, T thing) { for (T t : things) if (t.equals(thing)) return true; return false; }

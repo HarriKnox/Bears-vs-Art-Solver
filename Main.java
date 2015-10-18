@@ -345,7 +345,7 @@ public class Main
 		
 		
 		/// Level 112 "The Vault"
-		//*
+		/*
 		liaison = new GridLiaison(7, 5, 4, 2);
 		liaison.setCell(3, 0, SLIDE_DOOR).setRailDirection(DOWN_RIGHT).setLaserSourceDirection(RIGHT).setLaserSourceOn(true);
 		liaison.setCell(3, 1, SLIDE_DOOR);
@@ -396,7 +396,7 @@ public class Main
 		
 		
 		/// Level 122 "Art Factory"
-		/*
+		//*
 		liaison = new GridLiaison(10, 5, 0, 2);
 		liaison.setCell(2, 1, WALL);
 		for (int i = 2; i <= 4; i++) liaison.setCell(i, 3, WALL);
@@ -433,7 +433,7 @@ public class Main
 		System.out.println(liaison.copyGrid());/* */
 		
 		//*
-		Solver solver = new Solver(liaison, 30);
+		Solver solver = new Solver(liaison, 50);
 		
 		long start = System.currentTimeMillis();
 		Direction[] solution = solver.solve(0);
