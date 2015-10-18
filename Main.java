@@ -1,6 +1,8 @@
 import gridspace.GridSpace;
 import gridspace.GridLiaison;
 
+import java.util.HashSet;
+
 import solver.Solver;
 
 import utility.Color;
@@ -171,7 +173,7 @@ public class Main
 		
 		
 		/// Level 66 "Right Place, Right Time"
-		//*
+		/*
 		liaison = new GridLiaison(6, 4, 0, 0);
 		for (int i = 0; i < 3; i++) liaison.setCell(i, 2, WALL);
 		for (int i = 2; i < 5; i++) liaison.setCell(i, 1, WALL);
@@ -259,12 +261,12 @@ public class Main
 		/// Level 102 "On Rails"
 		/*
 		liaison = new GridLiaison(3, 3, 0, 0);
-		liaison.setCell(0, 0, SLIDE_DOOR).setRailDOWN_DOWN);
-		liaison.setCell(1, 0, SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(2, 0, SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
-		liaison.setCell(0, 1, SLIDE_DOOR).setRailDOWN_DOWN).setDirection(DOWN).setUp(true).setArt(true);
-		liaison.setCell(1, 1, SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(2, 1, SLIDE_DOOR).setRailUP_UP).setArt(true);/* */
+		liaison.setCell(0, 0, SLIDE_DOOR).setRailDirection(DOWN_DOWN);
+		liaison.setCell(1, 0, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(2, 0, SLIDE_DOOR).setRailDirection(UP_UP).setDirection(UP).setUp(true);
+		liaison.setCell(0, 1, SLIDE_DOOR).setRailDirection(DOWN_DOWN).setDirection(DOWN).setUp(true).setArt(true);
+		liaison.setCell(1, 1, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(2, 1, SLIDE_DOOR).setRailDirection(UP_UP).setArt(true);/* */
 		
 		
 		/// Level 103 "Whirlpool"
@@ -283,17 +285,17 @@ public class Main
 		liaison.setCell(5, 0, BUTTON).setUp(true);
 		liaison.setCell(5, 4, BUTTON).setUp(true);
 		liaison.setCell(7, 2, BUTTON);
-		liaison.setCell(4, 1, SLIDE_DOOR).setRailDOWN_RIGHT).setDirection(RIGHT).setUp(true);
-		liaison.setCell(4, 2, SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(4, 3, SLIDE_DOOR).setRailDOWN_LEFT).setDirection(DOWN).setUp(true);
-		liaison.setCell(5, 3, SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(6, 3, SLIDE_DOOR).setRailUP_LEFT).setDirection(LEFT).setUp(true);
-		liaison.setCell(6, 2, SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(6, 1, SLIDE_DOOR).setRailUP_RIGHT).setDirection(UP).setUp(true);
-		liaison.setCell(5, 1, SLIDE_DOOR).setRailUP_DOWN);
-		liaison.setCell(8, 1, SLIDE_DOOR).setRailRIGHT_RIGHT);
-		liaison.setCell(8, 2, SLIDE_DOOR).setRailLEFT_RIGHT).setDirection(LEFT).setUp(true);
-		liaison.setCell(8, 3, SLIDE_DOOR).setRailLEFT_LEFT);/* */
+		liaison.setCell(4, 1, SLIDE_DOOR).setRailDirection(DOWN_RIGHT).setDirection(RIGHT).setUp(true);
+		liaison.setCell(4, 2, SLIDE_DOOR).setRailDirection(LEFT_RIGHT);
+		liaison.setCell(4, 3, SLIDE_DOOR).setRailDirection(DOWN_LEFT).setDirection(DOWN).setUp(true);
+		liaison.setCell(5, 3, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(6, 3, SLIDE_DOOR).setRailDirection(UP_LEFT).setDirection(LEFT).setUp(true);
+		liaison.setCell(6, 2, SLIDE_DOOR).setRailDirection(LEFT_RIGHT);
+		liaison.setCell(6, 1, SLIDE_DOOR).setRailDirection(UP_RIGHT).setDirection(UP).setUp(true);
+		liaison.setCell(5, 1, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(8, 1, SLIDE_DOOR).setRailDirection(RIGHT_RIGHT);
+		liaison.setCell(8, 2, SLIDE_DOOR).setRailDirection(LEFT_RIGHT).setDirection(LEFT).setUp(true);
+		liaison.setCell(8, 3, SLIDE_DOOR).setRailDirection(LEFT_LEFT);/* */
 		
 		
 		/// Level 105 "Bear Trap"
@@ -335,11 +337,45 @@ public class Main
 		/// Level 108 "Break Out"
 		/*
 		liaison = new GridLiaison(6, 5, 5, 3);
-		liaison.setCell(0, 1, SLIDE_DOOR).setRailDOWN_DOWN);
-		liaison.setCell(5, 1, SLIDE_DOOR).setRailUP_UP).setDirection(UP).setUp(true);
-		for (int i = 1; i < 5; i++) liaison.setCell(i, 1, SLIDE_DOOR).setRailUP_DOWN);
+		liaison.setCell(0, 1, SLIDE_DOOR).setRailDirection(DOWN_DOWN);
+		liaison.setCell(5, 1, SLIDE_DOOR).setRailDirection(UP_UP).setDirection(UP).setUp(true);
+		for (int i = 1; i < 5; i++) liaison.setCell(i, 1, SLIDE_DOOR).setRailDirection(UP_DOWN);
 		for (int i = 0; i < 6; i++) liaison.setArt(i, 4, true);
 		liaison.setLaserSourceDirection(5, 0, UP).setLaserSourceOn(true).setLaserSourceBlue(true);/* */
+		
+		
+		/// Level 112 "The Vault"
+		//*
+		liaison = new GridLiaison(7, 5, 4, 2);
+		liaison.setCell(3, 0, SLIDE_DOOR).setRailDirection(DOWN_RIGHT).setLaserSourceDirection(RIGHT).setLaserSourceOn(true);
+		liaison.setCell(3, 1, SLIDE_DOOR);
+		liaison.setCell(3, 2, SLIDE_DOOR).setRailDirection(DOWN_LEFT);
+		liaison.setCell(3, 3, SLIDE_DOOR).setRailDirection(DOWN_DOWN).setUp(true).setDirection(DOWN);
+		liaison.setCell(3, 4, SLIDE_DOOR).setRailDirection(DOWN_DOWN);
+		liaison.setCell(4, 0, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(4, 1, SLIDE_DOOR).setRailDirection(RIGHT_RIGHT).setUp(true);
+		liaison.setCell(4, 2, SLIDE_DOOR).setRailDirection(UP_LEFT);
+		liaison.setCell(4, 3, SLIDE_DOOR).setRailDirection(UP_UP);
+		liaison.setCell(4, 4, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(5, 0, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		liaison.setCell(5, 1, SLIDE_DOOR).setRailDirection(DOWN_DOWN);
+		liaison.setCell(5, 2, SLIDE_DOOR).setRailDirection(DOWN_RIGHT);
+		liaison.setCell(5, 3, SLIDE_DOOR).setRailDirection(LEFT_LEFT).setUp(true).setDirection(LEFT);
+		liaison.setCell(5, 4, SLIDE_DOOR).setRailDirection(UP_DOWN).setLaserSourceDirection(LEFT);
+		liaison.setCell(6, 0, SLIDE_DOOR).setRailDirection(UP_UP);
+		liaison.setCell(6, 1, SLIDE_DOOR).setRailDirection(UP_UP).setUp(true).setDirection(UP);
+		liaison.setCell(6, 2, SLIDE_DOOR).setRailDirection(UP_RIGHT);
+		liaison.setCell(6, 3, SLIDE_DOOR);
+		liaison.setCell(6, 4, SLIDE_DOOR).setRailDirection(UP_LEFT);
+		for (int i = 0; i <= 2; i++)
+		{
+			liaison.setCell(i, 0, WALL);
+			liaison.setCell(i, 4, WALL);
+		}
+		liaison.setCell(2, 1, WALL);
+		liaison.setCell(2, 3, WALL);
+		liaison.setCell(2, 2, MOVE_DOOR).setMovesStarted(19).setUp(true);
+		liaison.setArt(0, 2, true);/* */
 		
 		
 		/// Level 115 "Three Times"
@@ -366,12 +402,12 @@ public class Main
 		for (int i = 2; i <= 4; i++) liaison.setCell(i, 3, WALL);
 		for (int i = 4; i <= 6; i++) liaison.setCell(i, 1, WALL);
 		for (int i = 6; i <= 7; i++) liaison.setCell(i, 2, WALL);
-		for (int i = 2; i <= 7; i++) for (int j = 0; j < 5; j += 4) liaison.setCell(i, j, SLIDE_DOOR).setRailUP_DOWN);
-		for (int i = 1; i <= 3; i++) for (int j = 1; j < 9; j += 7) liaison.setCell(j, i, SLIDE_DOOR).setRailLEFT_RIGHT);
-		liaison.setCell(1, 0, SLIDE_DOOR).setRailDOWN_RIGHT);
-		liaison.setCell(1, 4, SLIDE_DOOR).setRailDOWN_LEFT);
-		liaison.setCell(8, 0, SLIDE_DOOR).setRailUP_RIGHT);
-		liaison.setCell(8, 4, SLIDE_DOOR).setRailUP_LEFT);
+		for (int i = 2; i <= 7; i++) for (int j = 0; j < 5; j += 4) liaison.setCell(i, j, SLIDE_DOOR).setRailDirection(UP_DOWN);
+		for (int i = 1; i <= 3; i++) for (int j = 1; j < 9; j += 7) liaison.setCell(j, i, SLIDE_DOOR).setRailDirection(LEFT_RIGHT);
+		liaison.setCell(1, 0, SLIDE_DOOR).setRailDirection(DOWN_RIGHT);
+		liaison.setCell(1, 4, SLIDE_DOOR).setRailDirection(DOWN_LEFT);
+		liaison.setCell(8, 0, SLIDE_DOOR).setRailDirection(UP_RIGHT);
+		liaison.setCell(8, 4, SLIDE_DOOR).setRailDirection(UP_LEFT);
 		liaison.setDirection(1, 0, DOWN).setUp(true);
 		liaison.setDirection(1, 3, LEFT).setUp(true);
 		liaison.setDirection(4, 0, DOWN).setUp(true);
@@ -397,7 +433,7 @@ public class Main
 		System.out.println(liaison.copyGrid());/* */
 		
 		//*
-		Solver solver = new Solver(liaison, 12);
+		Solver solver = new Solver(liaison, 30);
 		
 		long start = System.currentTimeMillis();
 		Direction[] solution = solver.solve(0);
