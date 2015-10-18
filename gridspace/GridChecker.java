@@ -13,22 +13,23 @@ import utility.RailDirection;
 public final class GridChecker
 {
 	/**
-		This function checks the given grid and will throw an
-		exception if the grid has an illegal state:
+		Possible illegal states:
 		(1) sliding doors heading a direction their rails don't allow
 		(2) rails that point out of bounds
 		(3) rails that point to a non-rail
 		(4) rails that point into rails that don't point back (disconnection)
-		(5) boosters that point directly out of bounds
-		(6) boosters that point directly into a potentially solid block (boosters
+		(5) rails that are cycles have all sliding blocks going the same direction
+		(6) rails that are bidirectional (only go back and forth) have no more than one sliding block on it
+		(7) boosters that point directly out of bounds
+		(8) boosters that point directly into a potentially solid block (boosters
 			can't point into solid blocks, and even if it isn't solid yet,
 			it may be solid later)
-		(7) this.portals of the same length having a mismatch in entry-exit directions
-		(8) 1 or 3+ this.portals of a color (can have only 0 or 2)
+		(9) this.portals of the same length having a mismatch in entry-exit directions
+		(A) 1 or 3+ this.portals of a color (can have only 0 or 2)
 		
-		@todo Add the following
-		(9) rails that are cycles have all sliding blocks going the same direction
-		(A) rails that are bidirectional (only go back and forth) have no more than one sliding block on it
+		@param Grid<GridSpace> grid to be checked
+		@return void
+		@throws java.lang.IllegalStateException if any illegal state is met
 	**/
 	public static void checkGrid(Grid<GridSpace> grid) throws IllegalStateException
 	{
@@ -162,8 +163,6 @@ public final class GridChecker
 		}
 	}
 	
-	private static String twoDoorsOnBidirectional(Grid.Position first, Grid.Position second) { return new StringBuilder("Two doors at ").append(first).append(" and ").append(second).append(" are on the same bidirectional rail: a collision will eventually occur").toString(); }
-	
 	private void checkCycleTracks(HashSet<SlideDoor> checked)
 	{
 		for (SlideDoor sd : this.upSlideDoors)
@@ -196,8 +195,6 @@ public final class GridChecker
 		}
 	}
 	
-	private static String doorGoingWrongWay(int row, int col, Direction expected, Direction actual) { return thingAt("Door", row, col).append("points the wrong way on a cyclic track: expected ").append(expected).append(", points ").append(actual).toString(); }
-	
 	
 	private void checkBooster(Booster b)
 	{
@@ -229,9 +226,6 @@ public final class GridChecker
 		if (oID == GridSpace.WALL || oID == GridSpace.BUTTON_DOOR || oID == GridSpace.MOVE_DOOR || oID == GridSpace.SLIDE_DOOR)
 			throw new IllegalStateException(thingAtPoints(name, row, col, dir, rotates).append(" directly into a block that can be solid").toString());
 	}
-	
-	private static final String rotatingBoosterName = "Rotating booster";
-	private static final String boosterName = "Booster";
 	
 	
 	private void checkPortal(Portal tp)
@@ -276,6 +270,13 @@ public final class GridChecker
 			if (this.portalColors[color.hash] == 1)
 				throw new IllegalStateException(new StringBuilder("Found only 1 ").append(color).append(" portal at ").append(this.portalLocations[color.hash]).toString());
 	}
+	
+	
+	private static String twoDoorsOnBidirectional(Grid.Position first, Grid.Position second) { return new StringBuilder("Two doors at ").append(first).append(" and ").append(second).append(" are on the same bidirectional rail: a collision will eventually occur").toString(); }
+	private static String doorGoingWrongWay(int row, int col, Direction expected, Direction actual) { return thingAt("Door", row, col).append("points the wrong way on a cyclic track: expected ").append(expected).append(", points ").append(actual).append("; a collision will eventually occur").toString(); }
+	
+	private static final String rotatingBoosterName = "Rotating booster";
+	private static final String boosterName = "Booster";
 	
 	private static String portalMismatch(Color color, Grid.Position entry, Grid.Position exit, Direction dir) { return new StringBuilder().append(color).append(" this.portals have mismatch in directions: exit portal at ").append(exit).append(" does not allow for entry in portal at ").append(entry).append(" going ").append(dir).toString(); }
 	
